@@ -1,0 +1,32 @@
+<div class="col-md-6">
+ 
+<div *ngFor="let employee of quizes">
+  <div>{{employee.description}}</div>
+  <div  *ngIf="employee.type=='image'">
+  <img src="{{employee.url}}" alt="HTML5 Icon"width="128" height="128" >
+</div>
+
+  <button class="btn btn-danger" (click)="playSound()"> Play Music</button>
+
+  <INPUT TYPE="RADIO" VALUE="1" name="{{employee.id}}" (click)="onSelectAnswer(employee.id,1)">
+A.{{quizes[0].option1}}<BR>
+
+<INPUT TYPE="RADIO" VALUE="2" name="{{employee.id}}" (click)="onSelectAnswer(employee.id,2)">
+B. {{employee.option2}}<BR>
+
+<INPUT TYPE="RADIO" VALUE="3" name="{{employee.id}}" (click)="onSelectAnswer(employee.id,3)">
+C. {{employee.option3}}<BR>
+
+  <INPUT TYPE="RADIO" VALUE="4" name="{{employee.id}}" (click)="onSelectAnswer(employee.id,4)">
+    D. {{employee.option4}}<BR>
+      <BR><BR>
+</div>
+
+
+  
+<button class="btn btn-danger" (click)="playSound()"> Play Music</button>
+<button class="btn btn-danger" (click)="submitAnswer()"> Submit Answer</button>
+
+  <div>{{result}} Answer is correct</div>
+
+  </div>

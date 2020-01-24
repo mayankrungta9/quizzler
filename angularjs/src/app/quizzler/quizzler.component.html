@@ -1,0 +1,34 @@
+
+ <p>
+  Total coins:{{coins}}
+</p>
+<progress value = {{timeLeft}} max = "15" style="float:right"></progress>
+
+<p>{{timeLeft}} Seconds Left....</p> 
+<p (click)="oberserableTimer()">Start Observable timer</p> {{subscribeTimer}}
+
+
+  <div  *ngIf="!gameOver; else gameOver1">
+    
+  <div>you have {{remainingLives}} remaining life</div>
+  <div>{{quizes[index].description}}</div>
+  <div  *ngIf="quizes[index].type=='image'">
+  <img src="{{quizes[index].url}}" alt="HTML5 Icon"width="128" height="128" >
+</div>
+
+<button [disabled]="buttonCss[0]=='2'" [ngClass]="{'btn btn-primary': buttonCss[0]=='0','btn btn-success': buttonCss[0]=='1','btn btn-danger': buttonCss[0]=='2' }" (click)="onSelectAnswer(1)"> {{quizes[index].option1}}</button>
+<button [disabled]="buttonCss[1]=='2'" [ngClass]="{'btn btn-primary': buttonCss[1]=='0','btn btn-success': buttonCss[1]=='1','btn btn-danger': buttonCss[1]=='2' }" (click)="onSelectAnswer(2)"> {{quizes[index].option2}}</button>
+<button [disabled]="buttonCss[2]=='2'" [ngClass]="{'btn btn-primary': buttonCss[2]=='0','btn btn-success': buttonCss[2]=='1','btn btn-danger': buttonCss[2]=='2' }" (click)="onSelectAnswer(3)"> {{quizes[index].option3}}</button>
+<button [disabled]="buttonCss[3]=='2'" [ngClass]="{'btn btn-primary': buttonCss[3]=='0','btn btn-success': buttonCss[3]=='1','btn btn-danger': buttonCss[3]=='2' }" (click)="onSelectAnswer(4)"> {{quizes[index].option4}}</button>
+  
+      <BR><BR>
+</div>
+<ng-template #gameOver1>
+  <p>
+    Game Over Well Played
+  </p>
+
+  <p>
+    you have correctly answered {{correctAnswer}} question
+  </p>
+</ng-template>
