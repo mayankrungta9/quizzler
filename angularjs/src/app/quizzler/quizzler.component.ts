@@ -3,7 +3,7 @@ import { HttpClientService, Quizes } from '../service/httpclient.service';
 import { timer } from 'rxjs';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
 @Component({
-  selector: 'app-employee',
+  selector: 'sdasdapp-employeefdfdsf',
   templateUrl: './quizzler.component.html',
   styleUrls: ['./quizzler.component.css']
 })

@@ -1,34 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Login V3</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="icon" type="image/png" href="/assets/images/icons/favicon.ico"/>
+	<!--===============================================================================================-->
+	<script src="/assets/vendor/jquery/jquery-3.2.1.min.js"></script>
+<!--===============================================================================================-->
+	<script src="/assets/vendor/animsition/js/animsition.min.js"></script>
+<!--===============================================================================================-->
+	<script src="/assets/vendor/bootstrap/js/popper.js"></script>
+	<script src="/assets/vendor/bootstrap/js/bootstrap.min.js"></script>
+<!--===============================================================================================-->
+	<script src="/assets/vendor/select2/select2.min.js"></script>
+<!--===============================================================================================-->
+	<script src="/assets/vendor/daterangepicker/moment.min.js"></script>
+	<script src="/assets/vendor/daterangepicker/daterangepicker.js"></script>
+<!--===============================================================================================-->
+	<script src="/assets/vendor/countdowntime/countdowntime.js"></script>
+<!--===============================================================================================-->
+	<script src="/assets/js/main.js"></script>
+	<link rel="stylesheet" type="text/css" href="/assets/css/util.css">
+	<link rel="stylesheet" type="text/css" href="/assets/css/main.css">
+<!--===============================================================================================-->
+</head>
+<body>
+	
+	<div class="limiter">
+		
+		<div class="container-login100" style="background-image: url('/assets/images/bg-01.jpg');">
+		
+			<div class="wrap-login100">
+				<p (click)="oberserableTimer()"></p> {{subscribeTimer}}
+				<progress value = "6" max = "15" class="timer"></progress>
 
- <p>
-  Total coins:{{coins}}
-</p>
-<progress value = {{timeLeft}} max = "15" style="float:right"></progress>
-
-<p>{{timeLeft}} Seconds Left....</p> 
-<p (click)="oberserableTimer()">Start Observable timer</p> {{subscribeTimer}}
 
 
-  <div  *ngIf="!gameOver; else gameOver1">
-    
-  <div>you have {{remainingLives}} remaining life</div>
-  <div>{{quizes[index].description}}</div>
-  <div  *ngIf="quizes[index].type=='image'">
-  <img src="{{quizes[index].url}}" alt="HTML5 Icon"width="128" height="128" >
+				<div class="coin-img"style="display:inline-block"></div>
+				<div style="padding-top:13px;display:inline-block;margin-right:-8px;float:right;">
+					{{coins}}
+				</div>
+				<form class="login100-form validate-form">
+					
+					<span  >
+						<i class="zmdi zmdi-landscape"></i>
+					</span>
+
+					<span class="login100-form-title p-b-34 p-t-27">
+						{{quizes[index].description}} 
+					</span>
+					<div  *ngIf="quizes[index].type=='image'">
+						<img src="{{quizes[index].url}}" alt="HTML5 Icon" class="ques-img" >
+					  </div>
+					<div id="question" class="text-center">
+<div>
+<button class="button-size" [disabled]="buttonCss[0]=='2'" [ngClass]="{'button-color': buttonCss[0]=='0','btn btn-success': buttonCss[0]=='1','btn btn-danger': buttonCss[0]=='2' }" (click)="onSelectAnswer(1)"> {{quizes[index].option1}}</button>
+</div>
+<div>
+<button class="button-size" [disabled]="buttonCss[1]=='2'" [ngClass]="{'button-color': buttonCss[1]=='0','btn btn-success': buttonCss[1]=='1','btn btn-danger': buttonCss[1]=='2' }" (click)="onSelectAnswer(2)"> {{quizes[index].option2}}</button>
+</div>
+<div>
+<button class="button-size" [disabled]="buttonCss[2]=='2'" [ngClass]="{'button-color': buttonCss[2]=='0','btn btn-success': buttonCss[2]=='1','btn btn-danger': buttonCss[2]=='2' }" (click)="onSelectAnswer(3)"> {{quizes[index].option3}}</button>
+</div>
+<div>
+<button class="button-size" [disabled]="buttonCss[3]=='2'" [ngClass]="{'button-color': buttonCss[3]=='0','btn btn-success': buttonCss[3]=='1','btn btn-danger': buttonCss[3]=='2' }" (click)="onSelectAnswer(4)"> {{quizes[index].option4}}</button>
 </div>
 
-<button [disabled]="buttonCss[0]=='2'" [ngClass]="{'btn btn-primary': buttonCss[0]=='0','btn btn-success': buttonCss[0]=='1','btn btn-danger': buttonCss[0]=='2' }" (click)="onSelectAnswer(1)"> {{quizes[index].option1}}</button>
-<button [disabled]="buttonCss[1]=='2'" [ngClass]="{'btn btn-primary': buttonCss[1]=='0','btn btn-success': buttonCss[1]=='1','btn btn-danger': buttonCss[1]=='2' }" (click)="onSelectAnswer(2)"> {{quizes[index].option2}}</button>
-<button [disabled]="buttonCss[2]=='2'" [ngClass]="{'btn btn-primary': buttonCss[2]=='0','btn btn-success': buttonCss[2]=='1','btn btn-danger': buttonCss[2]=='2' }" (click)="onSelectAnswer(3)"> {{quizes[index].option3}}</button>
-<button [disabled]="buttonCss[3]=='2'" [ngClass]="{'btn btn-primary': buttonCss[3]=='0','btn btn-success': buttonCss[3]=='1','btn btn-danger': buttonCss[3]=='2' }" (click)="onSelectAnswer(4)"> {{quizes[index].option4}}</button>
-  
-      <BR><BR>
 </div>
-<ng-template #gameOver1>
-  <p>
-    Game Over Well Played
-  </p>
+					
+					
 
-  <p>
-    you have correctly answered {{correctAnswer}} question
-  </p>
-</ng-template>
+					
+				</form>
+			</div>
+		</div>
+	</div>
+	
+
+	<div id="dropDownSelect1"></div>
+	
+
+</body>
+</html>

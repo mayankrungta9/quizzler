@@ -4,6 +4,7 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { QuizComponent } from './quizzler/quizzler.component';
+import { UserComponent } from './quizzler/login.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { HeaderComponent } from './header/header.component';
@@ -14,7 +15,7 @@ import { FooterComponent } from './footer/footer.component';
     AppComponent,
     QuizComponent,
         HeaderComponent,
-    FooterComponent
+    FooterComponent,UserComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,6 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-
+export class User{
+  username:string;
+  password:string;
+  phonenumber:string; 
+  email:string;
+}
 export class Quizes{
   constructor(
     public id:Number,
@@ -35,6 +40,12 @@ export class HttpClientService {
   {
     console.log("test call");
     return this.httpClient.get<Quizes[]>('http://localhost:8080/quiz/all');
+  }
+  loadUser()
+  {
+    console.log("test call");
+   
+    return new User();
   }
 
   public onSelectAnswer(id:Number,option:Number) {
