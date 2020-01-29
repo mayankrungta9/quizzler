@@ -8,6 +8,9 @@ import {MatProgressBarModule} from '@angular/material/progress-bar';
   styleUrls: ['./quizzler.component.css']
 })
 export class QuizComponent implements OnInit {
+   audio = new Audio();
+    
+   
   timeLeft: number = 15;
   interval;
   gameOver:boolean=false;
@@ -20,7 +23,8 @@ export class QuizComponent implements OnInit {
    result:String;
    buttonCss:Number[]=[0,0,0,0];
   constructor(
-    private httpClientService:HttpClientService
+    private httpClientService:HttpClientService,
+    
   ) { }
 
   ngOnInit() {
@@ -49,6 +53,9 @@ onSelectAnswer(answer): void {
       this.next();
     }
     else{
+      this.audio.src = "../assets/audio/error.mp3";
+    this.audio.load();
+    this.audio.play();
       this.coins-=50;
       this.remainingLives--;
       if(this.remainingLives<=0){

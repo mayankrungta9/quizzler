@@ -9,12 +9,12 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
-
+import { ShowCategory } from './quizzler/showCategory';
 @NgModule({
   declarations: [
     AppComponent,
     QuizComponent,
-        HeaderComponent,
+        HeaderComponent,ShowCategory,
     FooterComponent,UserComponent,
   ],
   imports: [

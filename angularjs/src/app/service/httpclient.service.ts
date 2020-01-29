@@ -6,6 +6,13 @@ export class User{
   phonenumber:string; 
   email:string;
 }
+
+export class Category{
+  categoryId:string;
+  categoryName:string;
+  url:string; 
+  
+}
 export class Quizes{
   constructor(
     public id:Number,
@@ -40,6 +47,12 @@ export class HttpClientService {
   {
     console.log("test call");
     return this.httpClient.get<Quizes[]>('http://localhost:8080/quiz/all');
+  }
+
+  loadCategory()
+  {
+    console.log("test call");
+    return this.httpClient.get<Category[]>('http://localhost:8080/quiz/getCategory');
   }
   loadUser()
   {
