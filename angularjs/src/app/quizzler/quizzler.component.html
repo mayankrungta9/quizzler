@@ -27,33 +27,60 @@
 </head>
 <body>
 	
-	<div class="limiter">
+	
 		
-		<div class="container-login100" style="background-image: url('/assets/images/bg-01.jpg');">
-		
-			<div class="wrap-login100">
-				<p (click)="oberserableTimer()"></p> {{subscribeTimer}}
-				<progress value = "6" max = "15" class="timer"></progress>
+			<div class="wrap-login100" style=" height:100%;">
+			<div id="upper-part" style="height: 60%;background-image:  url('/assets/images/guitar2.png');background-repeat: no-repeat ;
+			width: 100%;
+			
+			border-style: solid;
+			border-radius: 21px;
+			border-color: #1b1919;
+			margin-bottom: 5px;
+		">
 
-
-
+		<div id="coinAndTimerandScore" style="height:30%;">
+			<div id='heart-img' class="heart-img-div" style="display:inline-block;width:40%">
+				<div class="heart-img-filled"style="display:inline-block"></div>
+				<div class="heart-img-filled"style="display:inline-block"></div>
+				<div class="heart-img-blank"style="display:inline-block"></div>
+				</div>
+				<div id="timer" style="width:45%;display:inline-block;margin-top:-7px;text-align: center;" > 
+				<circle-progress
+    [percent]="65"
+    [radius]="20"
+    [outerStrokeWidth]="5"
+	[innerStrokeWidth]="2" 
+	[outerStrokeColor]="'#dc3545'"   
+    [innerStrokeColor]="'#ffffff'"
+    [animation]="true"
+    [animationDuration]="300"
+    [space]="5"
+    [showSubtitle]= "false"
+    [showUnits]= "false"
+	[titleColor]="'#ff0000'"
+    [titleFontSize]= "15"
+    [clockwise]= "true">
+</circle-progress>
+</div>
+			<div style="width:15%;display:inline-block;" >
 				<div class="coin-img"style="display:inline-block"></div>
-				<div style="padding-top:13px;display:inline-block;margin-right:-8px;float:right;">
+				<div style="display:inline-block;margin-right:-8px;float:right;color:white">
 					{{coins}}
 				</div>
-				<form class="login100-form validate-form">
-					
-					<span  >
-						<i class="zmdi zmdi-landscape"></i>
-					</span>
+				</div>
+
+				</div>
+				<div id="middle-section" style="height:50%;" > </div>
 
 					<span class="login100-form-title p-b-34 p-t-27">
-						{{quizes[index].description}} 
+						<! --{{quizes[index].description}} -->
 					</span>
 					<div  *ngIf="quizes[index].type=='image'">
-						<img src="{{quizes[index].url}}" alt="HTML5 Icon" class="ques-img" >
+						<! -- <img src="{{quizes[index].url}}" alt="HTML5 Icon" class="ques-img" >-->
 					  </div>
-					<div id="question" class="text-center">
+					</div>
+<div id="question" class="text-center" style="height:40%">
 <div>
 <button class="button-size" [disabled]="buttonCss[0]=='2'" [ngClass]="{'button-color': buttonCss[0]=='0','btn btn-success': buttonCss[0]=='1','btn btn-danger': buttonCss[0]=='2' }" (click)="onSelectAnswer(1)"> {{quizes[index].option1}}</button>
 </div>
@@ -72,13 +99,12 @@
 					
 
 					
-				</form>
+				
 			</div>
-		</div>
-	</div>
+		
 	
 
-	<div id="dropDownSelect1"></div>
+	
 	
 
 </body>

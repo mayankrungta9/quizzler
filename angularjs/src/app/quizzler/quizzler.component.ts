@@ -2,15 +2,31 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClientService, Quizes } from '../service/httpclient.service';
 import { timer } from 'rxjs';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
+
+import { BrowserModule } from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
+ 
+import { AppComponent } from '../app.component';
+ 
+// Import ng-circle-progress
+import { NgCircleProgressModule } from 'ng-circle-progress';
+ 
+
+
+
+
 @Component({
   selector: 'sdasdapp-employeefdfdsf',
   templateUrl: './quizzler.component.html',
   styleUrls: ['./quizzler.component.css']
 })
 export class QuizComponent implements OnInit {
+  
+ 
    audio = new Audio();
     
    
+
   timeLeft: number = 15;
   interval;
   gameOver:boolean=false;

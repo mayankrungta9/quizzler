@@ -10,6 +10,7 @@ import { FormsModule } from '@angular/forms';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { ShowCategory } from './quizzler/showCategory';
+import { NgCircleProgressModule } from 'ng-circle-progress';
 @NgModule({
   declarations: [
     AppComponent,
@@ -21,7 +22,16 @@ import { ShowCategory } from './quizzler/showCategory';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,NgCircleProgressModule.forRoot({
+      // set defaults here
+      radius: 100,
+      outerStrokeWidth: 16,
+      innerStrokeWidth: 8,
+      outerStrokeColor: "#78C000",
+      innerStrokeColor: "#C7E596",
+      animationDuration: 300,
+      
+    })
   ],
   providers: [],
   bootstrap: [AppComponent]
