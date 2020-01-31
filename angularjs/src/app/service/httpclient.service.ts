@@ -23,7 +23,7 @@ export class Quizes{
     public option3:string,
     public option4:string,
     public url:string,
-    public answer:string,
+    public answer:number,
   ) {}
 }
 let selectedAnswerMap =  new Map<Number, Number>();

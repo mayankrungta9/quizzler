@@ -39,7 +39,8 @@ export class QuizComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    
+    this.audio.src = "../assets/audio/error.mp3";
+    this.audio.load();
     this.httpClientService.loadQuizes().subscribe(
      response =>this.handleSuccessfulResponse(response),
     );
@@ -58,8 +59,8 @@ handlesubmitAnswerResponse(result)
     this.result=result;
 }
 onSelectAnswer(answer): void {
-  
-  if(answer==this.quizes[this.index].answer)
+  var correctAnswer:number=this.quizes[this.index].answer;
+  if(answer==correctAnswer)
     
   {
     this.buttonCss[answer-1]=1;
@@ -73,8 +74,7 @@ onSelectAnswer(answer): void {
     }
     else{
       this.liveClassesArray[this.remainingLives]="heart-img-blank";
-      this.audio.src = "../assets/audio/error.mp3";
-    this.audio.load();
+     
     this.audio.play();
       this.coins-=50;
       this.remainingLives--;
@@ -82,6 +82,10 @@ onSelectAnswer(answer): void {
         this.gameOver=true;
       }
       this.buttonCss[answer-1]=2;
+      this.buttonCss[correctAnswer-1]=1;
+      setTimeout(() => {
+        this.next();
+      },2000)
     }
     
 };
