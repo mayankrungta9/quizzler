@@ -4,108 +4,72 @@
 	<title>Login V3</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="icon" type="image/png" href="/assets/images/icons/favicon.ico"/>
-	<!--===============================================================================================-->
-	<script src="/assets/vendor/jquery/jquery-3.2.1.min.js"></script>
-<!--===============================================================================================-->
-	<script src="/assets/vendor/animsition/js/animsition.min.js"></script>
-<!--===============================================================================================-->
-	<script src="/assets/vendor/bootstrap/js/popper.js"></script>
-	<script src="/assets/vendor/bootstrap/js/bootstrap.min.js"></script>
-<!--===============================================================================================-->
-	<script src="/assets/vendor/select2/select2.min.js"></script>
-<!--===============================================================================================-->
-	<script src="/assets/vendor/daterangepicker/moment.min.js"></script>
-	<script src="/assets/vendor/daterangepicker/daterangepicker.js"></script>
-<!--===============================================================================================-->
-	<script src="/assets/vendor/countdowntime/countdowntime.js"></script>
-<!--===============================================================================================-->
-	<script src="/assets/js/main.js"></script>
+
+	
 	<link rel="stylesheet" type="text/css" href="/assets/css/util.css">
 	<link rel="stylesheet" type="text/css" href="/assets/css/main.css">
-<!--===============================================================================================-->
+	<link rel="stylesheet" href="/assets/css/mdb.min.css">
+	<!-- Your custom styles (optional) -->
+	<link rel="stylesheet" href="assets/css/style.css">.
+	<script type="text/javascript" src="/assets/js/jquery.min.js"></script>
+  <!-- Bootstrap tooltips -->
+  <script type="text/javascript" src="/assets/js/popper.min.js"></script>
+  <!-- Bootstrap core JavaScript -->
+  <script type="text/javascript" src="/assets/js/bootstrap.min.js"></script>
+  <!-- MDB core JavaScript -->
+  <script type="text/javascript" src="/assets/js/mdb.min.js"></script>
 </head>
 <body>
 	
-	
-		
 			<div class="wrap-login100" style=" height:100%;">
-			<div id="upper-part" style="height: 60%;background-image:  url('/assets/images/guitar2.png');background-repeat: no-repeat ;
-			width: 100%;
+<div id="upper-part" class="upper-part ">
+		    <div id="coinAndTimerandScore" style="height:30%;">
+				<div id='heart-img' class="heart-img-div" style="display:inline-block;">
+				<div *ngFor="let liveclass of liveClassesArray" class={{liveclass}} style="display:inline-block"></div>
 			
-			border-style: solid;
-			border-radius: 21px;
-			border-color: #1b1919;
-			margin-bottom: 5px;
-		">
-
-		<div id="coinAndTimerandScore" style="height:30%;">
-			<div id='heart-img' class="heart-img-div" style="display:inline-block;width:40%">
-				<div class="heart-img-filled"style="display:inline-block"></div>
-				<div class="heart-img-filled"style="display:inline-block"></div>
-				<div class="heart-img-blank"style="display:inline-block"></div>
 				</div>
-				<div id="timer" style="width:45%;display:inline-block;margin-top:-7px;text-align: center;" > 
-				<circle-progress
-    [percent]="65"
-    [radius]="20"
-    [outerStrokeWidth]="5"
-	[innerStrokeWidth]="2" 
-	[outerStrokeColor]="'#dc3545'"   
-    [innerStrokeColor]="'#ffffff'"
-    [animation]="true"
-    [animationDuration]="300"
-    [space]="5"
-    [showSubtitle]= "false"
-    [showUnits]= "false"
-	[titleColor]="'#ff0000'"
-    [titleFontSize]= "15"
-    [clockwise]= "true">
-</circle-progress>
-</div>
-			<div style="width:15%;display:inline-block;" >
-				<div class="coin-img"style="display:inline-block"></div>
-				<div style="display:inline-block;margin-right:-8px;float:right;color:white">
-					{{coins}}
-				</div>
-				</div>
-
-				</div>
-				<div id="middle-section" style="height:50%;" > </div>
-
-					<span class="login100-form-title p-b-34 p-t-27">
-						<! --{{quizes[index].description}} -->
-					</span>
-					<div  *ngIf="quizes[index].type=='image'">
-						<! -- <img src="{{quizes[index].url}}" alt="HTML5 Icon" class="ques-img" >-->
-					  </div>
-					</div>
-<div id="question" class="text-center" style="height:40%">
-<div>
-<button class="button-size" [disabled]="buttonCss[0]=='2'" [ngClass]="{'button-color': buttonCss[0]=='0','btn btn-success': buttonCss[0]=='1','btn btn-danger': buttonCss[0]=='2' }" (click)="onSelectAnswer(1)"> {{quizes[index].option1}}</button>
-</div>
-<div>
-<button class="button-size" [disabled]="buttonCss[1]=='2'" [ngClass]="{'button-color': buttonCss[1]=='0','btn btn-success': buttonCss[1]=='1','btn btn-danger': buttonCss[1]=='2' }" (click)="onSelectAnswer(2)"> {{quizes[index].option2}}</button>
-</div>
-<div>
-<button class="button-size" [disabled]="buttonCss[2]=='2'" [ngClass]="{'button-color': buttonCss[2]=='0','btn btn-success': buttonCss[2]=='1','btn btn-danger': buttonCss[2]=='2' }" (click)="onSelectAnswer(3)"> {{quizes[index].option3}}</button>
-</div>
-<div>
-<button class="button-size" [disabled]="buttonCss[3]=='2'" [ngClass]="{'button-color': buttonCss[3]=='0','btn btn-success': buttonCss[3]=='1','btn btn-danger': buttonCss[3]=='2' }" (click)="onSelectAnswer(4)"> {{quizes[index].option4}}</button>
-</div>
-
-</div>
+				<div id="timer"  class="timer-div" > 
 					
-					
+					  {{timeLeft}}
+							</div>
+							
+					<div style="width:15%;height:100%;float:right" >
+						<div class="coin-img"style="display:inline-block;float:right"></div>
+						<div style="margin-right:-8px;float:right;color:white">
+							{{coins}}
+						</div>
+						</div>
 
-					
-				
-			</div>
+		</div>
+		<div id="middle-section" style="height:70%;" >
 		
-	
+		<span class="login100-form-title">
+							{{quizes[index].description}} 
+	    </span>
+		<div  *ngIf="quizes[index].type=='image'">
+		<img src="/assets/images/sample.jpg" alt="HTML5 Icon" class="ques-img" >
+		</div>
+		
+		</div>
 
-	
-	
+					
+</div>
+<div id="question" class="text-center  " style="height:40%">
+<div >
+<button class="button-size button.horizTranslate " [disabled]="buttonCss[0]=='2'" [ngClass]="{'  button-color ': buttonCss[0]=='0','btn btn-success': buttonCss[0]=='1','btn btn-danger': buttonCss[0]=='2' }" (click)="onSelectAnswer(1)"> {{quizes[index].option1}}</button>
+</div>
+<div>
+<button class="button-size  button.horizTranslate" [disabled]="buttonCss[1]=='2'" [ngClass]="{'button-color ': buttonCss[1]=='0','btn btn-success': buttonCss[1]=='1','btn btn-danger': buttonCss[1]=='2' }" (click)="onSelectAnswer(2)"> {{quizes[index].option2}}</button>
+</div>
+<div>
+<button class="button-size  button.horizTranslate" [disabled]="buttonCss[2]=='2'" [ngClass]="{'button-color ' : buttonCss[2]=='0','btn btn-success': buttonCss[2]=='1','btn btn-danger': buttonCss[2]=='2' }" (click)="onSelectAnswer(3)"> {{quizes[index].option3}}</button>
+</div>
+<div>
+<button class="button-size button.horizTranslate " [disabled]="buttonCss[3]=='2'" [ngClass]="{'button-color ': buttonCss[3]=='0','btn btn-success': buttonCss[3]=='1','btn btn-danger': buttonCss[3]=='2' }" (click)="onSelectAnswer(4)"> {{quizes[index].option4}}</button>
+</div>
 
-</body>
+</div>
+			
+			</div>
+		</body>
 </html>

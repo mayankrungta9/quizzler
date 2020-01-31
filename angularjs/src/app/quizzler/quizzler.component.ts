@@ -1,16 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClientService, Quizes } from '../service/httpclient.service';
-import { timer } from 'rxjs';
-import {MatProgressBarModule} from '@angular/material/progress-bar';
 
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+
  
-import { AppComponent } from '../app.component';
- 
-// Import ng-circle-progress
-import { NgCircleProgressModule } from 'ng-circle-progress';
- 
+
 
 
 
@@ -24,18 +17,20 @@ export class QuizComponent implements OnInit {
   
  
    audio = new Audio();
-    
+   
    
 
-  timeLeft: number = 15;
+  timeLeft: number = 30;
   interval;
   gameOver:boolean=false;
   subscribeTimer: any;
   quizes:Quizes[];
+  liveClassesArray:String[];
     index=0;
-    remainingLives=3;
+    remainingLives=2;
     correctAnswer=0;
     coins=0;
+    
    result:String;
    buttonCss:Number[]=[0,0,0,0];
   constructor(
@@ -44,10 +39,13 @@ export class QuizComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    
     this.httpClientService.loadQuizes().subscribe(
      response =>this.handleSuccessfulResponse(response),
     );
     this.startTimer();
+    this.liveClassesArray=["heart-img-filled","heart-img-filled","heart-img-filled"];
+ 
   }
 
 handleSuccessfulResponse(response)
@@ -62,13 +60,19 @@ handlesubmitAnswerResponse(result)
 onSelectAnswer(answer): void {
   
   if(answer==this.quizes[this.index].answer)
-    {this.buttonCss[answer-1]=1;
+    
+  {
+    this.buttonCss[answer-1]=1;
       this.correctAnswer++;
       this.coins+=100;
       this.result=="answer is correct";
-      this.next();
+      setTimeout(() => {
+        this.next();
+      },2000)
+      
     }
     else{
+      this.liveClassesArray[this.remainingLives]="heart-img-blank";
       this.audio.src = "../assets/audio/error.mp3";
     this.audio.load();
     this.audio.play();
@@ -79,33 +83,37 @@ onSelectAnswer(answer): void {
       }
       this.buttonCss[answer-1]=2;
     }
-    console.log(this.buttonCss[answer-1]);
+    
 };
 
 next(){
   this.buttonCss=[0,0,0,0]
   this.index++;
-  this.timeLeft=15;
+  console.log(this.quizes[this.index].type);
+  this.timeLeft=30;
+  this.startTimer();
+  if(this.quizes[this.index].type=='audio'){
+  this.playSound();
+  }
 }
 
 playSound(): void {
-  var audio = new Audio('https://file-examples.com/wp-content/uploads/2017/11/file_example_MP3_700KB.mp3');
+  var audio = new Audio(this.quizes[this.index].url);
+ 
+  audio.load();
         audio.play();
 };
 
-oberserableTimer() {
-  const source = timer(1000, 2000);
-  const abc = source.subscribe(val => {
-    console.log(val, '-');
-    this.subscribeTimer = this.timeLeft - val;
-  });
-}
+
 
 startTimer() {
+ 
   this.interval = setInterval(() => {
     if(this.timeLeft > 0) {
+ 
       this.timeLeft--;
     } else {
+    
       this.gameOver=true;
     }
   },1000)
