@@ -38,11 +38,12 @@ export class UserComponent implements OnInit {
 
   ngOnInit() {
     this.user=this.httpClientService.loadUser();
-    
+    console.log("dsfd"+localStorage.getItem("lastname"));
   }
   
 registerUser(){
-  
+  //localStorage.setItem("lastname", "Smith");
+  console.log("dsfd"+localStorage.getItem("lastname"));
     const poolData = {    
       UserPoolId : "us-east-1_S9YKJEdml", // Your user pool id here    
       ClientId : "3dtkjkgtbec6u9q6h6h2gduc3u" // Your client id here
@@ -57,7 +58,7 @@ registerUser(){
             return;
         }
    // cognitoUser = result.user;
-        console.log('user name is ' + result.user.getUsername());
+        console.log('user name is ' + result.user.getUsername() );
         
     });
 
@@ -97,6 +98,10 @@ registerUser(){
 
   });
   
+
+}
+skiplogin(){
+  this.router.navigate(['/quiz']);
 }
 }
 

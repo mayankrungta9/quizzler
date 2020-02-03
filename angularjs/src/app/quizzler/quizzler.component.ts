@@ -17,10 +17,10 @@ export class QuizComponent implements OnInit {
   
  
    audio = new Audio();
-   
+   questionAudio=new Audio();
    
 
-  timeLeft: number = 30;
+  timeLeft: number = 15;
   interval;
   gameOver:boolean=false;
   subscribeTimer: any;
@@ -43,8 +43,10 @@ export class QuizComponent implements OnInit {
     this.audio.load();
     this.httpClientService.loadQuizes().subscribe(
      response =>this.handleSuccessfulResponse(response),
+     
     );
     this.startTimer();
+    
     this.liveClassesArray=["heart-img-filled","heart-img-filled","heart-img-filled"];
  
   }
@@ -52,18 +54,23 @@ export class QuizComponent implements OnInit {
 handleSuccessfulResponse(response)
 {
     this.quizes=response;
+    if(this.quizes[this.index].type=='audio'){
+      this.playSound();
+      }
 }
 
 handlesubmitAnswerResponse(result)
 {
     this.result=result;
 }
-onSelectAnswer(answer): void {
+onSelectAnswer(selectedAnswer): void {
+  this.questionAudio.pause();
+  this.pauseTimer();
   var correctAnswer:number=this.quizes[this.index].answer;
-  if(answer==correctAnswer)
+  if(selectedAnswer==correctAnswer)
     
   {
-    this.buttonCss[answer-1]=1;
+    this.buttonCss[selectedAnswer-1]=1;
       this.correctAnswer++;
       this.coins+=100;
       this.result=="answer is correct";
@@ -73,23 +80,30 @@ onSelectAnswer(answer): void {
       
     }
     else{
-      this.liveClassesArray[this.remainingLives]="heart-img-blank";
-     
-    this.audio.play();
-      this.coins-=50;
-      this.remainingLives--;
-      if(this.remainingLives<=0){
-        this.gameOver=true;
-      }
-      this.buttonCss[answer-1]=2;
-      this.buttonCss[correctAnswer-1]=1;
-      setTimeout(() => {
-        this.next();
-      },2000)
+     this.wrongAnswer(selectedAnswer);
     }
     
 };
 
+wrongAnswer(selectedAnswer){
+  var correctAnswer:number=this.quizes[this.index].answer;
+  this.liveClassesArray[this.remainingLives]="heart-img-blank";
+     
+  this.audio.play();
+   this.coins-=50;
+   this.remainingLives--;
+   if(this.remainingLives<=0){
+     this.gameOver=true;
+   }
+   if(selectedAnswer!=0){
+   this.buttonCss[selectedAnswer-1]=2;
+  }
+
+   this.buttonCss[correctAnswer-1]=1;
+   setTimeout(() => {
+     this.next();
+   },2000)
+}
 next(){
   this.buttonCss=[0,0,0,0]
   this.index++;
@@ -99,13 +113,13 @@ next(){
   if(this.quizes[this.index].type=='audio'){
   this.playSound();
   }
+  
 }
 
 playSound(): void {
-  var audio = new Audio(this.quizes[this.index].url);
- 
-  audio.load();
-        audio.play();
+  this.questionAudio.src="/assets/audio/sample.mp3" 
+  this.questionAudio.load();
+  this.questionAudio.play();
 };
 
 
@@ -117,8 +131,9 @@ startTimer() {
  
       this.timeLeft--;
     } else {
-    
+    this.wrongAnswer(0);
       this.gameOver=true;
+      this.pauseTimer();
     }
   },1000)
 }

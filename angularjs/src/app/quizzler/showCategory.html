@@ -28,16 +28,16 @@
 <body>
 	
 	<div >
-		<div class="container-login100" style="background-image: url('/assets/images/bg-01.jpg');">
-			<div class="wrap-login100">
+		<div class="container-login100" >
+			<div class="categoryBackground">
 				<div id='image_container' style ="margin-left: 50px;
 				margin-top: 20px;"> 
 				<div *ngFor="let category of categories">
-					<div style="float:left;    padding-right: 15px;padding-bottom: 15px;">
+					<div style="float:left;    padding-right: 15px;padding-bottom: 15px;width: 30%;">
 											
 						
-					<img src="/assets/images/test.jpg" >
-					<div style = "font-size: 12px;"> {{category.categoryName}}</div>
+					<img src={{category.url}} >
+					<div style = "font-size: 12px;color:white;"> {{category.categoryName}}</div>
 				</div>
 				</div>
 					</div>
