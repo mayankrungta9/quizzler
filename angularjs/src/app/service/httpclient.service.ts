@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { HttpHeaders } from '@angular/common/http';
 export class User{
   username:string;
   password:string;
@@ -26,6 +27,25 @@ export class Quizes{
     public answer:number,
   ) {}
 }
+
+export class UserData{
+  constructor(
+    public user_id:string,
+    public first_name:string,
+    public last_name:string,
+    
+  ) {}
+}
+
+export class UserCategoryData{
+  constructor(
+    public userId:string,
+    public categoryId:Number,
+    public level:Number,
+    
+  ) {}
+}
+
 let selectedAnswerMap =  new Map<Number, Number>();
 export class SelectedAnswer{
   constructor(
@@ -37,26 +57,42 @@ export class SelectedAnswer{
   providedIn: 'root'
 })
 export class HttpClientService {
-
+  userCategoryData:UserCategoryData;
   constructor(
     private httpClient:HttpClient
   ) { 
      }
 
-     loadQuizes()
+     loadQuizes(userCategoryData:UserCategoryData)
   {
-    console.log("test call");
-    return this.httpClient.get<Quizes[]>('http://localhost:8080/quiz/all');
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json',
+        
+      })
+    };
+    return this.httpClient.post<Quizes[]>('http://localhost:8080/quiz/all',userCategoryData,httpOptions);
+  }
+
+  saveUser (user: UserData) {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json',
+        
+      })
+    };
+    return this.httpClient.post<User>('http://localhost:8080/quiz/saveUser', user, httpOptions);
+      
   }
 
   loadCategory()
   {
-    console.log("test call");
+    
     return this.httpClient.get<Category[]>('http://localhost:8080/quiz/getCategory');
   }
   loadUser()
   {
-    console.log("test call");
+    
    
     return new User();
   }

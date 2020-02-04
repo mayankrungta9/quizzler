@@ -5,25 +5,10 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="icon" type="image/png" href="/assets/images/icons/favicon.ico"/>
-	<!--===============================================================================================-->
-	<script src="/assets/vendor/jquery/jquery-3.2.1.min.js"></script>
-<!--===============================================================================================-->
-	<script src="/assets/vendor/animsition/js/animsition.min.js"></script>
-<!--===============================================================================================-->
-	<script src="/assets/vendor/bootstrap/js/popper.js"></script>
-	<script src="/assets/vendor/bootstrap/js/bootstrap.min.js"></script>
-<!--===============================================================================================-->
-	<script src="/assets/vendor/select2/select2.min.js"></script>
-<!--===============================================================================================-->
-	<script src="/assets/vendor/daterangepicker/moment.min.js"></script>
-	<script src="/assets/vendor/daterangepicker/daterangepicker.js"></script>
-<!--===============================================================================================-->
-	<script src="/assets/vendor/countdowntime/countdowntime.js"></script>
-<!--===============================================================================================-->
-	<script src="/assets/js/main.js"></script>
+
 	<link rel="stylesheet" type="text/css" href="/assets/css/util.css">
 	<link rel="stylesheet" type="text/css" href="/assets/css/main.css">
-<!--===============================================================================================-->
+
 </head>
 <body>
 	
@@ -36,7 +21,7 @@
 					<div style="float:left;    padding-right: 15px;padding-bottom: 15px;width: 30%;">
 											
 						
-					<img src={{category.url}} >
+					<img src={{category.url}} (click)=loadQuiz(category.category_id)>
 					<div style = "font-size: 12px;color:white;"> {{category.categoryName}}</div>
 				</div>
 				</div>

@@ -8,7 +8,7 @@ const routes: Routes = [
   
   { path:'', component: UserComponent},
   { path:'quiz', component: QuizComponent},
-  { path:'showCategory', component: ShowCategory},
+  { path:'showCategory/:userName', component: ShowCategory},
 ];
 
 @NgModule({

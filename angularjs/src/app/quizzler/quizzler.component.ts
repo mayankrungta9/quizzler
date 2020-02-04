@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClientService, Quizes } from '../service/httpclient.service';
-
+import { Router,ActivatedRoute } from '@angular/router';
 
  
 
@@ -34,14 +34,15 @@ export class QuizComponent implements OnInit {
    result:String;
    buttonCss:Number[]=[0,0,0,0];
   constructor(
-    private httpClientService:HttpClientService,
-    
+    private httpClientService:HttpClientService,    
+    public  activatedrouter: Router ,
   ) { }
 
   ngOnInit() {
+    console.log(this.httpClientService.userCategoryData);
     this.audio.src = "../assets/audio/error.mp3";
     this.audio.load();
-    this.httpClientService.loadQuizes().subscribe(
+    this.httpClientService.loadQuizes(this.httpClientService.userCategoryData).subscribe(
      response =>this.handleSuccessfulResponse(response),
      
     );
@@ -132,7 +133,7 @@ startTimer() {
       this.timeLeft--;
     } else {
     this.wrongAnswer(0);
-      this.gameOver=true;
+      
       this.pauseTimer();
     }
   },1000)

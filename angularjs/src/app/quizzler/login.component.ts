@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClientService, User } from '../service/httpclient.service';
+import { HttpClientService, User,UserData } from '../service/httpclient.service';
 import { timer } from 'rxjs';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
 import { Router } from '@angular/router';
@@ -32,17 +32,19 @@ export class UserComponent implements OnInit {
 
   constructor(
     public  router: Router ,
-    private httpClientService:HttpClientService,
+    public httpClientService:HttpClientService,
     
   ) { }
 
   ngOnInit() {
     this.user=this.httpClientService.loadUser();
+    
     console.log("dsfd"+localStorage.getItem("lastname"));
   }
   
 registerUser(){
   //localStorage.setItem("lastname", "Smith");
+ var httpClientService= this.httpClientService;
   console.log("dsfd"+localStorage.getItem("lastname"));
     const poolData = {    
       UserPoolId : "us-east-1_S9YKJEdml", // Your user pool id here    
@@ -56,6 +58,11 @@ registerUser(){
         if (err) {
             console.log(err);
             return;
+        }
+        else {
+          var userData= new UserData( result.user.getUsername(),"",""); 
+
+          httpClientService.saveUser(userData).subscribe();
         }
    // cognitoUser = result.user;
         console.log('user name is ' + result.user.getUsername() );
@@ -89,7 +96,7 @@ registerUser(){
           console.log('id token + ' + result.getIdToken().getJwtToken());
           console.log('refresh token + ' + result.getRefreshToken().getToken());
        
-         router.navigate(['/showCategory']);
+         router.navigate(['/showCategory/'+userData.Username]);
       },
       onFailure: function(err) {
           console.log(err);
