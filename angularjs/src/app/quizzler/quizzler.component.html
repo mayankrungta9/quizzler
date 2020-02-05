@@ -39,9 +39,17 @@
 							{{quizes[index].description}} 
 	    </span>
 		<div  *ngIf="quizes[index].type=='image'">
-		<img src="/assets/images/sample.jpg" alt="HTML5 Icon" class="ques-img" >
+		<img src={{quizes[index].url}}  alt="HTML5 Icon" class="ques-img" >
 		</div>
 		
+		<div  *ngIf="quizes[index].type=='video'">
+			<video width="400"  autoplay>
+				<source src={{quizes[index].url}} type="video/mp4">
+				
+				Your browser does not support HTML5 video.
+			  </video>
+			</div>
+
 		</div>
 
 					

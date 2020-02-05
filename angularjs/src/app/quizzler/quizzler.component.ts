@@ -118,7 +118,7 @@ next(){
 }
 
 playSound(): void {
-  this.questionAudio.src="/assets/audio/sample.mp3" 
+  this.questionAudio.src=this.quizes[this.index].url 
   this.questionAudio.load();
   this.questionAudio.play();
 };
