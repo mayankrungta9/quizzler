@@ -1,7 +1,5 @@
 package com.synechron;
 
-import java.io.FileWriter;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -10,12 +8,20 @@ import javax.persistence.PersistenceContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.google.gson.Gson;
+import com.synechron.dao.CategoryDao;
+import com.synechron.dao.CategoryLevelDao;
+import com.synechron.dao.QuizDao;
+import com.synechron.dao.UserDao;
+import com.synechron.entity.Category;
+import com.synechron.entity.CategoryLevelEntity;
+import com.synechron.entity.Quiz;
+import com.synechron.entity.User;
 
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
@@ -26,35 +32,49 @@ public class QuizController {
 	private QuizDao quizDao;
 
 	@Autowired
-	private QuizAnswerDao quizAnsewerDao;
+	private UserDao userDao;
+
+	@Autowired
+	private CategoryDao categoryDao;
+
+	@Autowired
+	private CategoryLevelDao categoryLevelDao;
+
 	@PersistenceContext
 	private EntityManager entityManager;
 
-	@GetMapping(path = "/all", produces = "application/json")
+	@PostMapping(path = "/all", consumes = "application/json",produces = "application/json")
 
-	public List<Quiz> getAll() {
-		List<Quiz> quizList = quizDao.findAll();
+	public List<Quiz> getAll(@RequestBody CategoryLevelEntity categoryLevel) {
+		int level=categoryLevel.getLevel();
+		String userId = categoryLevel.getUserId();
+		int categoryId=categoryLevel.getCategoryId();
+		if (level == 0) {
+			CategoryLevelEntity categoryLevelEntity = categoryLevelDao.findByUserIdAndCategoryId(userId, categoryId);
+			if (categoryLevelEntity == null) {
+				level = 1;
+			} else {
+				level = categoryLevelEntity.getLevel();
+			}
+		}
+		List<Quiz> quizList = quizDao.findAllByCategoryIdAndLevel(categoryId, level);
 
 		return quizList;
 	}
 
-	@PostMapping(path = "/getResult", produces = "application/json")
+	@GetMapping(path = "/getCategory", produces = "application/json")
 
-	public Integer getResult(@RequestBody QuizAnswerModel quizAnserObj) {
-		return quizAnsewerDao.findAllByIdAndAnswer(quizAnserObj.getQuizId(),quizAnserObj.getAnswer());
-		
-		
+	public List<Category> getCategoryAll() {
+		List<Category> categoryList = categoryDao.findAll();
+
+		return categoryList;
 	}
-	
-	/*
-	 * public static void main(String s[]) { Gson gson = new Gson();
-	 * 
-	 * QuizAnswerModel obj = new QuizAnswerModel(); List<Integer> list = new
-	 * ArrayList<>(); list.add(1); list.add(2); obj.setAnswer(list);
-	 * obj.setQuizId(list);
-	 * 
-	 * // 2. Java object to JSON string String jsonInString = gson.toJson(obj);
-	 * 
-	 * System.out.println(jsonInString); }
-	 */
+
+	@PostMapping(path = "/saveUser", consumes = "application/json", produces = "application/json")
+
+	public User saveUser(@RequestBody User user) {
+
+		return userDao.save(user);
+	}
+
 }
