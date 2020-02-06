@@ -57,6 +57,7 @@ export class SelectedAnswer{
   providedIn: 'root'
 })
 export class HttpClientService {
+   baseServicePath:string="http://localhost:8080/quiz/";
   userCategoryData:UserCategoryData;
   constructor(
     private httpClient:HttpClient
@@ -71,7 +72,7 @@ export class HttpClientService {
         
       })
     };
-    return this.httpClient.post<Quizes[]>('http://localhost:8080/quiz/all',userCategoryData,httpOptions);
+    return this.httpClient.post<Quizes[]>(this.baseServicePath+'all',userCategoryData,httpOptions);
   }
 
   saveUser (user: UserData) {
@@ -81,14 +82,14 @@ export class HttpClientService {
         
       })
     };
-    return this.httpClient.post<User>('http://localhost:8080/quiz/saveUser', user, httpOptions);
+    return this.httpClient.post<User>(this.baseServicePath+'saveUser', user, httpOptions);
       
   }
 
   loadCategory()
   {
     
-    return this.httpClient.get<Category[]>('http://localhost:8080/quiz/getCategory');
+    return this.httpClient.get<Category[]>(this.baseServicePath+'getCategory');
   }
   loadUser()
   {

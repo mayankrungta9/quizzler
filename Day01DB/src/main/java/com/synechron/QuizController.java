@@ -23,7 +23,7 @@ import com.synechron.entity.CategoryLevelEntity;
 import com.synechron.entity.Quiz;
 import com.synechron.entity.User;
 
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/quiz")
 public class QuizController {
