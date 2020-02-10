@@ -259,9 +259,16 @@ iframe {
   margin-bottom: 11px;
   margin-top: -9px;
 }
+.upper-part-audio{
+  
+  background-image:  url('/assets/images/bg.gif');
+  background-repeat: repeat-x ;
+		
+		
+}
 .upper-part{
   height: 60%;
-  background-image:  url('/assets/images/guitar2.png');background-repeat: no-repeat ;
+  
 			width: 100%;
 			
 			border-style: solid;
@@ -270,6 +277,15 @@ iframe {
 			margin-bottom: 5px;
 		
 }
+.upper-part-text{
+  
+  height: 60%;
+  background-image:  url('/assets/images/guitar2.png');
+  background-repeat: no-repeat ;
+		
+		
+}
+
 .heart-img-filled{
 	background: url('/assets/images/heart_filled.png') no-repeat;
 	height:50px;

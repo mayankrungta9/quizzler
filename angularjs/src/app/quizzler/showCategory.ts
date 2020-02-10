@@ -34,6 +34,7 @@ export class ShowCategory implements OnInit {
   ) { }
 
   ngOnInit() {
+   
     this.userName=this.activatedrouter.snapshot.paramMap.get("userName");
     this.httpClientService.loadCategory().subscribe(
      response =>this.handleSuccessfulResponse(response),
