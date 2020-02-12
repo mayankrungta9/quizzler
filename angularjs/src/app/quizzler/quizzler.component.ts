@@ -32,6 +32,7 @@ correctlyAnsweredQues:number=0;
   coins = 0;
   testing = false;
   result: String;
+  level:number;
   buttonCss: Number[] = [0, 0, 0, 0];
   constructor(
     private httpClientService: HttpClientService,
@@ -47,7 +48,10 @@ correctlyAnsweredQues:number=0;
 
     this.audio.src = "../assets/audio/error.mp3";
     this.audio.load();
-    this.httpClientService.loadQuizes(this.httpClientService.userCategoryData).subscribe(
+    this.httpClientService.loadCategoryLevel(this.httpClientService.userCategoryData).subscribe(userCategoryData=>{
+      this.level=userCategoryData.level;
+    this.httpClientService.loadQuizes(userCategoryData).subscribe(
+      
       response => this.handleSuccessfulResponse(response),
       (error: any) => {
         if (error instanceof AppError) {
@@ -55,6 +59,7 @@ correctlyAnsweredQues:number=0;
         }
         else throw error;
       }
+    );}
     );
     // this.startTimer(); commented for testing
 
@@ -103,7 +108,7 @@ correctlyAnsweredQues:number=0;
   };
 
   saveUserProgress(){
-    
+    this.httpClientService.userCategoryData.level+=1;
     this.httpClientService.saveUserCategoryLevel().subscribe();
     this.httpClientService.saveUserCoins(this.coins).subscribe();
   }

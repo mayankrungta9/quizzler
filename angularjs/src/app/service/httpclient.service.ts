@@ -91,7 +91,15 @@ export class HttpClientService {
       catchError(this.handleError)
    );
   }
-  
+  loadCategoryLevel(userCategoryData:UserCategoryData)
+  {
+    
+    return this.httpClient.post<UserCategoryData>(this.baseServicePath+'getCategoryLevel',userCategoryData,this.httpOptions).pipe(
+     
+      catchError(this.handleError)
+   );
+   
+  }
   private handleError(error:Response){
     if(error.status==400)
     {

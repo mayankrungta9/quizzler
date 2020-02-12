@@ -41,27 +41,27 @@ public class QuizController {
 
 	@Autowired
 	private CategoryLevelDao categoryLevelDao;
-	
+
 	@Autowired
 	private UserCoinsDao userCoinsDao;
 
 	@PersistenceContext
 	private EntityManager entityManager;
 
-	@PostMapping(path = "/all", consumes = "application/json",produces = "application/json")
+	@PostMapping(path = "/all", consumes = "application/json", produces = "application/json")
 
 	public List<Quiz> getAll(@RequestBody CategoryLevelEntity categoryLevel) {
-		int level=categoryLevel.getLevel();
-		
+		int level = categoryLevel.getLevel();
+
 		String userId = categoryLevel.getUserId();
-		int categoryId=categoryLevel.getCategoryId();
+		int categoryId = categoryLevel.getCategoryId();
 		if (level == 0) {
 			CategoryLevelEntity categoryLevelEntity = categoryLevelDao.findByUserIdAndCategoryId(userId, categoryId);
 			if (categoryLevelEntity == null) {
 				level = 1;
 			} else {
 				level = categoryLevelEntity.getLevel();
-				
+
 			}
 		}
 		List<Quiz> quizList = quizDao.findAllByCategoryIdAndLevel(categoryId, level);
@@ -77,24 +77,41 @@ public class QuizController {
 		return categoryList;
 	}
 
+	@PostMapping(path = "/getCategoryLevel", produces = "application/json", consumes = "application/json")
+
+	public CategoryLevelEntity getCategoryLevel(@RequestBody CategoryLevelEntity categoryLevel) {
+
+		CategoryLevelEntity categoryLevelEntity = categoryLevelDao.findByUserIdAndCategoryId(categoryLevel.getUserId(),
+				categoryLevel.getCategoryId());
+		if (null == categoryLevelEntity) {
+			categoryLevelEntity = categoryLevel;
+
+			categoryLevelEntity.setLevel(1);
+		}
+		return categoryLevelEntity;
+	}
+
 	@PostMapping(path = "/saveUser", consumes = "application/json", produces = "application/json")
 
 	public User saveUser(@RequestBody User user) {
 
 		return userDao.save(user);
 	}
+
 	@PostMapping(path = "/saveUserCategoryLevel", consumes = "application/json", produces = "application/json")
 
-	public CategoryLevelEntity saveUserCategoryLevelsaveUserCategoryLevel(@RequestBody CategoryLevelEntity categoryLevelEntity) {
+	public CategoryLevelEntity saveUserCategoryLevelsaveUserCategoryLevel(
+			@RequestBody CategoryLevelEntity categoryLevelEntity) {
 
 		return categoryLevelDao.save(categoryLevelEntity);
-				
+
 	}
+
 	@PostMapping(path = "/saveUserCoins", consumes = "application/json", produces = "application/json")
 
 	public UserCoins saveUserCoins(@RequestBody UserCoins userCoins) {
 
 		return userCoinsDao.save(userCoins);
-				
+
 	}
 }
