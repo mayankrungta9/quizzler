@@ -14,18 +14,30 @@ import javax.persistence.Table;
 public class CategoryLevelEntity implements Serializable {
 	public CategoryLevelEntity() {
 	}
-	 @Id
+
+	@Id
 	@Column(name = "user_id")
 	private String userId;
-	 
-	 @Id
+
+	@Id
 	@Column(name = "category_id")
-	
+
 	private int categoryId;
-	
+
 	@Column(name = "level")
-	
+
 	private int level;
+
+	@Column(name = "numb_of_ques")
+	private int numbOfQues;
+
+	public int getNumbOfQues() {
+		return numbOfQues;
+	}
+
+	public void setNumbOfQues(int numbOfQues) {
+		this.numbOfQues = numbOfQues;
+	}
 
 	public String getUserId() {
 		return userId;
@@ -51,7 +63,4 @@ public class CategoryLevelEntity implements Serializable {
 		this.level = level;
 	}
 
-	
-	
-	
 }

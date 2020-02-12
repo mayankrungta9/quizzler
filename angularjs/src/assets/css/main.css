@@ -277,6 +277,10 @@ iframe {
 			margin-bottom: 5px;
 		
 }
+
+.input100.ng-touched.ng-invalid{
+border:solid  2px red;
+}
 .upper-part-text{
   
   height: 60%;

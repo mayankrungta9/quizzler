@@ -13,8 +13,12 @@
 <body>
 	
 	<div >
+		
 		<div class="container-login100" >
 			<div class="categoryBackground">
+				<a (click)="logout()">
+					Logout
+				</a>
 				<div id='image_container' style ="margin-left: 50px;
 				margin-top: 20px;"> 
 				<div *ngFor="let category of categories">

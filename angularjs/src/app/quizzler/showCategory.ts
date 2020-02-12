@@ -49,7 +49,11 @@ export class ShowCategory implements OnInit {
     this.categories=response;
   };
 
+ logout(){
  
+   localStorage.removeItem("name");
+   this.router.navigate(['']);
+ }
 }
 
 

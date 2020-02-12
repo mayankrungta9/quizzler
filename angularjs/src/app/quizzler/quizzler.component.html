@@ -1,76 +1,95 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 	<title>Login V3</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 
-	
+
 	<link rel="stylesheet" type="text/css" href="/assets/css/util.css">
 	<link rel="stylesheet" type="text/css" href="/assets/css/main.css">
-	
-	
+
+
 </head>
+
 <body>
-	
-			<div class="wrap-login100" style=" height:100%;" >
-<div id="upper-part" class="upper-part " [ngClass] ="{'upper-part-audio': isAudio,'upper-part-text': !isAudio,'btn btn-danger': buttonCss[1]=='2' }">
-		    <div id="coinAndTimerandScore" style="height:30%;">
+
+	<div class="wrap-login100" style=" height:100%;" *ngIf="quizes.length>0; else loading">
+		<div id="upper-part" class="upper-part "
+			[ngClass]="{'upper-part-audio': isAudio,'upper-part-text': !isAudio }">
+			<div id="coinAndTimerandScore" style="height:30%;">
 				<div id='heart-img' class="heart-img-div" style="display:inline-block;">
 
-				<div *ngFor="let liveclass of liveClassesArray " class={{liveclass}} style="display:inline-block"></div>
-			
+					<div *ngFor="let liveclass of liveClassesArray " class={{liveclass}} style="display:inline-block">
+					</div>
+
 				</div>
-				<div id="timer"  class="timer-div" > 
-					
-					  {{timeLeft}}
-							</div>
-							
-					<div style="height:100%;float:right" >
-						<div class="coin-img"style="display:inline-block;float:right"></div>
-						<div style="margin-right:-8px;float:right;color:white">
-							{{coins}}
-						</div>
-						</div>
-
-		</div>
-		<div id="middle-section" style="height:70%;" >
-		
-		<span class="login100-form-title" style="margin-top: 40%;">
-							{{quizes[index].description}} 
-	    </span>
-		<div  *ngIf="quizes[index]?.type=='image'">
-		<img src={{quizes[index].url}}  alt="HTML5 Icon" class="ques-img" >
-		</div>
-		
-		<div  *ngIf="quizes[index].type=='video'" style="text-align: center;" >
-			<video width="400" autoplay loop #videoPlayer>
-				<source src={{quizes[index].url}} type="video/mp4">
-				
-				Your browser does not support HTML5 video.
-			  </video>
-			</div>
-
-		</div>
-
-					
-</div>
-<div id="question" class="text-center  " style="height:40%">
-<div >
-<button class="button-size button.horizTranslate " [disabled]="buttonCss[0]=='2'" [ngClass]="{'  button-color ': buttonCss[0]=='0','btn btn-success': buttonCss[0]=='1','btn btn-danger': buttonCss[0]=='2' }" (click)="onSelectAnswer(1)"> {{quizes[index].option1}}</button>
-</div>
-<div>
-<button class="button-size  button.horizTranslate" [disabled]="buttonCss[1]=='2'" [ngClass]="{'button-color ': buttonCss[1]=='0','btn btn-success': buttonCss[1]=='1','btn btn-danger': buttonCss[1]=='2' }" (click)="onSelectAnswer(2)"> {{quizes[index].option2}}</button>
-</div>
-<div>
-<button class="button-size  button.horizTranslate" [disabled]="buttonCss[2]=='2'" [ngClass]="{'button-color ' : buttonCss[2]=='0','btn btn-success': buttonCss[2]=='1','btn btn-danger': buttonCss[2]=='2' }" (click)="onSelectAnswer(3)"> {{quizes[index].option3}}</button>
-</div>
-<div>
-<button class="button-size button.horizTranslate " [disabled]="buttonCss[3]=='2'" [ngClass]="{'button-color ': buttonCss[3]=='0','btn btn-success': buttonCss[3]=='1','btn btn-danger': buttonCss[3]=='2' }" (click)="onSelectAnswer(4)"> {{quizes[index].option4}}</button>
-</div>
-
-</div>
+				<div id='currentStatus' class="timer-div"> {{correctlyAnsweredQues}}/{{totalQuestion}}</div>
 			
+				<div id="timer" class="timer-div">
+
+					{{timeLeft}}
+				</div>
+
+				<div style="height:100%;float:right">
+					<div class="coin-img" style="display:inline-block;float:right"></div>
+					<div style="margin-right:-8px;float:right;color:white">
+						{{coins}}
+					</div>
+				</div>
+
 			</div>
-		</body>
+			<div id="middle-section" style="height:70%;">
+				<div *ngIf="quizes[index]?.type=='image'">
+					<img src={{quizes[index].url}} alt="HTML5 Icon" class="ques-img">
+				</div>
+
+				<div *ngIf="quizes[index].type=='video'" style="text-align: center;">
+					<video width="400" autoplay loop #videoPlayer>
+						<source src={{quizes[index].url}} type="video/mp4">
+
+						Your browser does not support HTML5 video.
+					</video>
+				</div>
+				<span class="login100-form-title" style="margin-top: 40%;" ngif="quizes[index].description!=''">
+					{{quizes[index].description}}
+				</span>
+
+
+			</div>
+
+
+		</div>
+		<div id="question" class="text-center  " style="height:40%">
+			<div>
+				<button class="button-size button.horizTranslate " [disabled]="buttonCss[0]=='2'"
+					[ngClass]="{'  button-color ': buttonCss[0]=='0','btn btn-success': buttonCss[0]=='1','btn btn-danger': buttonCss[0]=='2' }"
+					(click)="onSelectAnswer(1)"> {{quizes[index].option1}}</button>
+			</div>
+			<div>
+				<button class="button-size  button.horizTranslate" [disabled]="buttonCss[1]=='2'"
+					[ngClass]="{'button-color ': buttonCss[1]=='0','btn btn-success': buttonCss[1]=='1','btn btn-danger': buttonCss[1]=='2' }"
+					(click)="onSelectAnswer(2)"> {{quizes[index].option2}}</button>
+			</div>
+			<div>
+				<button class="button-size  button.horizTranslate" [disabled]="buttonCss[2]=='2'"
+					[ngClass]="{'button-color ' : buttonCss[2]=='0','btn btn-success': buttonCss[2]=='1','btn btn-danger': buttonCss[2]=='2' }"
+					(click)="onSelectAnswer(3)"> {{quizes[index].option3}}</button>
+			</div>
+			<div>
+				<button class="button-size button.horizTranslate " [disabled]="buttonCss[3]=='2'"
+					[ngClass]="{'button-color ': buttonCss[3]=='0','btn btn-success': buttonCss[3]=='1','btn btn-danger': buttonCss[3]=='2' }"
+					(click)="onSelectAnswer(4)"> {{quizes[index].option4}}</button>
+			</div>
+
+		</div>
+
+	</div>
+	<ng-template #loading>
+
+		Loading.............
+	</ng-template>
+</body>
+
 </html>
