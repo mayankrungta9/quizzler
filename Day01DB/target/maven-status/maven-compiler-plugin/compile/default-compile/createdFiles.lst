@@ -6,8 +6,10 @@ com\synechron\PersonNotFoundException.class
 com\synechron\QuizController.class
 com\synechron\entity\Category.class
 com\synechron\entity\User.class
+com\synechron\entity\UserCoins.class
 com\synechron\dao\CategoryLevelDao.class
 com\synechron\Day01DbApplication.class
+com\synechron\dao\UserCoinsDao.class
 com\synechron\dao\UserDao.class
 com\synechron\entity\Quiz.class
 com\synechron\GlobalExceptionHandler.class

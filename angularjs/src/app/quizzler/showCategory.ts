@@ -15,7 +15,7 @@ import {
 } from 'amazon-cognito-identity-js';
 
 @Component({
-  selector: 'etst',
+  selector: 'test',
   templateUrl: './showCategory.html',
   styleUrls: ['./quizzler.component.css']
 })
@@ -42,8 +42,9 @@ export class ShowCategory implements OnInit {
    
   }
    loadQuiz( categoryId){
-     this.httpClientService.userCategoryData=new UserCategoryData(this.userName,categoryId,0);
-    this.router.navigate(['quiz']);
+    this.httpClientService.loadCategoryLevel(this.userName,categoryId).subscribe(userCategoryData=>{
+    this.router.navigate(['quiz', this.userName,categoryId,userCategoryData.level]);
+    });
   };
     handleSuccessfulResponse(response){
     this.categories=response;

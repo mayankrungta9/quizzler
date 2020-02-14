@@ -10,22 +10,27 @@ import { FormsModule } from '@angular/forms';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { ShowCategory } from './quizzler/showCategory';
-import { AppErrorHandler } from './common/app-errorHandler';
 import { success } from './quizzler/success-component';
 import { gameOver } from './quizzler/gameOver-component';
+ import {NoopAnimationsModule} from '@angular/platform-browser/animations';
+import { MatDialogModule } from '@angular/material/dialog';
+ import {saveMe} from './quizzler/saveMe.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     QuizComponent,
         HeaderComponent,ShowCategory,
-    FooterComponent,UserComponent,success,gameOver
+    FooterComponent,UserComponent,success,gameOver,saveMe
+  ],
+  entryComponents:[
+    saveMe
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule,
+    FormsModule,NoopAnimationsModule,MatDialogModule
   ],
   providers: [
     

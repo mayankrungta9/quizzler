@@ -63,4 +63,12 @@ public class CategoryLevelEntity implements Serializable {
 		this.level = level;
 	}
 
+	public CategoryLevelEntity(String userId, int categoryId, int level) {
+		super();
+		this.userId = userId;
+		this.categoryId = categoryId;
+		this.level = level;
+	}
+	
+
 }

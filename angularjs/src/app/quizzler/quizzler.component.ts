@@ -1,17 +1,24 @@
 import { Component, OnInit, HostListener, ElementRef, ViewChild } from '@angular/core';
-import { HttpClientService, Quizes, UserCoins } from '../service/httpclient.service';
-import { Router } from '@angular/router';
+import { HttpClientService, Quizes, UserCoins, UserCategoryData } from '../service/httpclient.service';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AppError } from '../common/app.error';
+import { Subscription } from 'rxjs';
+import { MatDialog } from '@angular/material/dialog';
+import { ShowCategory } from './showCategory';
+import { gameOver } from './gameOver-component';
+import { saveMe } from './saveMe.component';
+
 
 @Component({
   selector: 'sdasdapp-employeefdfdsf',
   templateUrl: './quizzler.component.html',
   styleUrls: ['./quizzler.component.css'],
-  host: { 'window:beforeunload': 'test' }
+  host: { 'window:beforeunload': 'test' },
+  
 })
 export class QuizComponent implements OnInit {
 
-
+  subscriptions:Subscription[] = [];
   audio = new Audio();
   @ViewChild('videoPlayer') videoplayer: ElementRef;
   questionAudio = new Audio();
@@ -26,7 +33,8 @@ correctlyAnsweredQues:number=0;
   quizes: Quizes[] = [];
   liveClassesArray: String[] = ["heart-img-filled", "heart-img-filled", "heart-img-filled"];
   index = 0;
-  
+  buttonAnimationCss1="animated  bounceInLeft delay-5s";
+  buttonAnimationCss2="animated  bounceInRight delay-5s";
   remainingLives = 2;
   correctAnswer = 0;
   coins = 0;
@@ -34,39 +42,63 @@ correctlyAnsweredQues:number=0;
   result: String;
   level:number;
   buttonCss: Number[] = [0, 0, 0, 0];
+  userName:string;
+  categoryId:number;
+  userCategoryData:UserCategoryData;
   constructor(
     private httpClientService: HttpClientService,
-    public activatedrouter: Router,
+    public activatedrouter: ActivatedRoute,
+    public  router: Router ,
+    private dialog:MatDialog,
   ) { }
-  @HostListener('window:popstate', ['$event'])
-  onPopState(event) {
+  
+  ngOnInit() {
+     this.userName = this.activatedrouter.snapshot.paramMap.get("userName");
+    this. categoryId = +this.activatedrouter.snapshot.paramMap.get("categoryId");
+    this.level = +this.activatedrouter.snapshot.paramMap.get("level");
+   this.userCategoryData = new UserCategoryData(this.userName, this.categoryId, this.level);
+  this.loadQuiz();
+  //this.startTimer(); 
 
-    window.location.reload();
+
 
   }
-  ngOnInit() {
-
+  openSaveMeDialog(){
+   
+    this.dialog.open(saveMe).afterClosed().subscribe(response=>{
+      if(response=='yes'){
+        this.coins-=100;
+        setTimeout(() => {
+          this.next();
+        }, 1000);
+      }
+      else {
+      this.httpClientService.saveUserCoins(this.userName,this.coins).subscribe();
+      this.router.navigate(['gameOver']);
+    }
+    });
+  }
+  private loadQuiz() {
+   
+    this.buttonCss = [0, 0, 0, 0]
     this.audio.src = "../assets/audio/error.mp3";
     this.audio.load();
-    this.httpClientService.loadCategoryLevel(this.httpClientService.userCategoryData).subscribe(userCategoryData=>{
-      this.level=userCategoryData.level;
-    this.httpClientService.loadQuizes(userCategoryData).subscribe(
-      
-      response => this.handleSuccessfulResponse(response),
-      (error: any) => {
-        if (error instanceof AppError) {
-          console.log("some thing app missing")
-        }
-        else throw error;
+   
+    this.subscriptions.push(this.httpClientService.loadQuizes(this.userCategoryData).subscribe(response => this.handleSuccessfulResponse(response), (error: any) => {
+      if (error instanceof AppError) {
+        console.log("some thing app missing");
       }
-    );}
-    );
-    // this.startTimer(); commented for testing
-
-
-
+      else
+        throw error;
+    }));
   }
 
+  ngOnDestroy(){
+   
+    this.questionAudio.pause();
+    this.subscriptions.forEach(s => s.unsubscribe());
+    
+  }
   handleSuccessfulResponse(response) {
     this.quizes = response;
     if (this.quizes[this.index].type == 'audio') {
@@ -89,14 +121,16 @@ correctlyAnsweredQues:number=0;
       this.buttonCss[selectedAnswer - 1] = 1;
      
       this.coins += 100;
-      this.result == "answer is correct";
+      
       if(this.correctlyAnsweredQues<this.totalQuestion){
       setTimeout(() => {
         this.next();
-      }, 2000)
+      }, 1000)
     }else {
-
+      this.level+=1;
+      this.userCategoryData.level=this.level;
       this.saveUserProgress();
+      this.loadQuiz();
     //  this.activatedrouter.navigate(['success']);
     }
     }
@@ -108,9 +142,9 @@ correctlyAnsweredQues:number=0;
   };
 
   saveUserProgress(){
-    this.httpClientService.userCategoryData.level+=1;
-    this.httpClientService.saveUserCategoryLevel().subscribe();
-    this.httpClientService.saveUserCoins(this.coins).subscribe();
+    
+    this.httpClientService.saveUserCategoryLevel(this.userCategoryData).subscribe();
+    this.httpClientService.saveUserCoins(this.userName,this.coins).subscribe();
   }
   wrongAnswer(selectedAnswer) {
     var correctAnswer: number = this.quizes[this.index].answer;
@@ -118,26 +152,38 @@ correctlyAnsweredQues:number=0;
 
     this.audio.play();
     this.coins -= 50;
-    this.remainingLives--;
+    
     if (this.remainingLives <0) {
-      this.activatedrouter.navigate(['gameOver']);
+      this.openSaveMeDialog();
+     
     }
+    else{
     if (selectedAnswer != 0) {
       this.buttonCss[selectedAnswer - 1] = 2;
     }
-
-    this.buttonCss[correctAnswer - 1] = 1;
+    this.remainingLives--;
+    //this.buttonCss[correctAnswer - 1] = 1;
     setTimeout(() => {
       this.next();
-    }, 2000)
+    }, 1000)
+  }
   }
   next() {
+    this.buttonAnimationCss1="animated  bounceOutRight delay-2s";
+      this.buttonAnimationCss2="animated  bounceOutRight delay-2s";
+    
+   
+      setTimeout(() => {
+        this.buttonAnimationCss1="animated  bounceInLeft delay-2s";
+        this.buttonAnimationCss2="animated  bounceInRight delay-2s";
+      }, )
     
     this.buttonCss = [0, 0, 0, 0]
+    
     this.index++;
     console.log(this.quizes[this.index].type);
     this.timeLeft = this.totalTimeLeft;
-    this.startTimer();
+    this.startTimer();   
     if (this.quizes[this.index].type == 'audio') {
       this.playSound();
     }

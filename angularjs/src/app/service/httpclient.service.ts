@@ -45,7 +45,7 @@ export class UserData{
 export class UserCategoryData{
   constructor(
     public userId:string,
-    public categoryId:Number,
+    public categoryId:number,
     public level:number,
     
   ) {}
@@ -91,10 +91,10 @@ export class HttpClientService {
       catchError(this.handleError)
    );
   }
-  loadCategoryLevel(userCategoryData:UserCategoryData)
+  loadCategoryLevel(userName:string,categoryId:number)
   {
     
-    return this.httpClient.post<UserCategoryData>(this.baseServicePath+'getCategoryLevel',userCategoryData,this.httpOptions).pipe(
+    return this.httpClient.post<UserCategoryData>(this.baseServicePath+'getCategoryLevel/'+userName+'/'+categoryId,null,this.httpOptions).pipe(
      
       catchError(this.handleError)
    );
@@ -124,17 +124,17 @@ export class HttpClientService {
       
   }
 
-  saveUserCategoryLevel() {
+  saveUserCategoryLevel(userCategoryData:UserCategoryData) {
      
-    this.userCategoryData.level+=1;
-    return this.httpClient.post<User>(this.baseServicePath+'saveUserCategoryLevel', this.userCategoryData, this.httpOptions).pipe(
+
+    return this.httpClient.post<User>(this.baseServicePath+'saveUserCategoryLevel', userCategoryData, this.httpOptions).pipe(
      
       catchError(this.handleError)
    );
   }
 
-  saveUserCoins(coins:number) {
-     var usercoins=new UserCoins(this.userCategoryData.userId,coins);
+  saveUserCoins(userName:string,coins:number) {
+     var usercoins=new UserCoins(userName,coins);
    console.log(usercoins);
     return this.httpClient.post<User>(this.baseServicePath+'saveUserCoins', usercoins, this.httpOptions).pipe(
      

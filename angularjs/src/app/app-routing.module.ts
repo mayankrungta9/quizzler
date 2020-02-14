@@ -9,7 +9,7 @@ const routes: Routes = [
 
   
   { path:'', component: UserComponent},
-  { path:'quiz', component: QuizComponent},
+  { path:'quiz/:userName/:categoryId/:level', component: QuizComponent},
   { path:'showCategory/:userName', component: ShowCategory},
   { path:'success', component: success},
   { path:'gameOver', component: gameOver},

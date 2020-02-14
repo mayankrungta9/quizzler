@@ -10,11 +10,13 @@
 	<link rel="stylesheet" type="text/css" href="/assets/css/util.css">
 	<link rel="stylesheet" type="text/css" href="/assets/css/main.css">
 
+	<link rel="stylesheet" type="text/css" href="/assets/css/deeppurple-amber.css">
+	
 
 </head>
 
 <body>
-
+	
 	<div class="wrap-login100" style=" height:100%;" *ngIf="quizes.length>0; else loading">
 		<div id="upper-part" class="upper-part "
 			[ngClass]="{'upper-part-audio': isAudio,'upper-part-text': !isAudio }">
@@ -63,22 +65,23 @@
 		</div>
 		<div id="question" class="text-center  " style="height:40%">
 			<div>
-				<button class="button-size button.horizTranslate " [disabled]="buttonCss[0]=='2'"
+				<button class=" {{buttonAnimationCss1}} button-size button.horizTranslate " [disabled]="buttonCss[0]=='2'"
 					[ngClass]="{'  button-color ': buttonCss[0]=='0','btn btn-success': buttonCss[0]=='1','btn btn-danger': buttonCss[0]=='2' }"
 					(click)="onSelectAnswer(1)"> {{quizes[index].option1}}</button>
 			</div>
 			<div>
-				<button class="button-size  button.horizTranslate" [disabled]="buttonCss[1]=='2'"
+				<button class="{{buttonAnimationCss2}} button-size  button.horizTranslate" [disabled]="buttonCss[1]=='2'"
 					[ngClass]="{'button-color ': buttonCss[1]=='0','btn btn-success': buttonCss[1]=='1','btn btn-danger': buttonCss[1]=='2' }"
 					(click)="onSelectAnswer(2)"> {{quizes[index].option2}}</button>
 			</div>
 			<div>
-				<button class="button-size  button.horizTranslate" [disabled]="buttonCss[2]=='2'"
+				<button class="{{buttonAnimationCss1}}  button-size  button.horizTranslate" [disabled]="buttonCss[2]=='2'"
 					[ngClass]="{'button-color ' : buttonCss[2]=='0','btn btn-success': buttonCss[2]=='1','btn btn-danger': buttonCss[2]=='2' }"
 					(click)="onSelectAnswer(3)"> {{quizes[index].option3}}</button>
 			</div>
+			
 			<div>
-				<button class="button-size button.horizTranslate " [disabled]="buttonCss[3]=='2'"
+				<button class="{{buttonAnimationCss2}}  button-size button.horizTranslate " [disabled]="buttonCss[3]=='2'"
 					[ngClass]="{'button-color ': buttonCss[3]=='0','btn btn-success': buttonCss[3]=='1','btn btn-danger': buttonCss[3]=='2' }"
 					(click)="onSelectAnswer(4)"> {{quizes[index].option4}}</button>
 			</div>

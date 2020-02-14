@@ -9,9 +9,11 @@ import javax.persistence.PersistenceContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.synechron.dao.CategoryDao;
@@ -52,18 +54,7 @@ public class QuizController {
 
 	public List<Quiz> getAll(@RequestBody CategoryLevelEntity categoryLevel) {
 		int level = categoryLevel.getLevel();
-
-		String userId = categoryLevel.getUserId();
 		int categoryId = categoryLevel.getCategoryId();
-		if (level == 0) {
-			CategoryLevelEntity categoryLevelEntity = categoryLevelDao.findByUserIdAndCategoryId(userId, categoryId);
-			if (categoryLevelEntity == null) {
-				level = 1;
-			} else {
-				level = categoryLevelEntity.getLevel();
-
-			}
-		}
 		List<Quiz> quizList = quizDao.findAllByCategoryIdAndLevel(categoryId, level);
 		Collections.shuffle(quizList);
 		return quizList;
@@ -77,16 +68,14 @@ public class QuizController {
 		return categoryList;
 	}
 
-	@PostMapping(path = "/getCategoryLevel", produces = "application/json", consumes = "application/json")
+	@PostMapping(path = "/getCategoryLevel/{userId}/{categoryId}", produces = "application/json", consumes = "application/json")
 
-	public CategoryLevelEntity getCategoryLevel(@RequestBody CategoryLevelEntity categoryLevel) {
+	public CategoryLevelEntity getCategoryLevel(@PathVariable String userId,@PathVariable int categoryId) {
 
-		CategoryLevelEntity categoryLevelEntity = categoryLevelDao.findByUserIdAndCategoryId(categoryLevel.getUserId(),
-				categoryLevel.getCategoryId());
+		CategoryLevelEntity categoryLevelEntity = categoryLevelDao.findByUserIdAndCategoryId(userId,
+				categoryId);
 		if (null == categoryLevelEntity) {
-			categoryLevelEntity = categoryLevel;
-
-			categoryLevelEntity.setLevel(1);
+			categoryLevelEntity=new CategoryLevelEntity(userId,categoryId,1);
 		}
 		return categoryLevelEntity;
 	}
