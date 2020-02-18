@@ -43,22 +43,32 @@
 
 			</div>
 			<div id="middle-section" style="height:70%;">
+				
 				<div *ngIf="quizes[index]?.type=='image'">
-					<img src={{quizes[index].url}} alt="HTML5 Icon" class="ques-img">
+					<img src={{quizes[0].url}} alt="HTML5 Icon" class="ques-img" #imagesTemp>
 				</div>
-
-				<div *ngIf="quizes[index].type=='video'" style="text-align: center;">
-					<video width="400" autoplay loop #videoPlayer>
-						<source src={{quizes[index].url}} type="video/mp4">
+			
+				<div *ngIf="quizes[index].type=='video'"  style="text-align: center;">
+					
+					<video   loop #videoPlayer [ngClass]="{'hide' : !flag,'show' : flag}">
+						<source src={{videoSource}} type="video/mp4">
 
 						Your browser does not support HTML5 video.
 					</video>
-				</div>
-				<span class="login100-form-title" style="margin-top: 40%;" ngif="quizes[index].description!=''">
+					<video   loop #videoPlayer1 [ngClass]="{'hide' : flag,'show' : !flag}">
+						<source src={{videoSource1}} type="video/mp4">
+
+						Your browser does not support HTML5 video.
+					</video>
+				
+					
+					</div>
+				
+				<span class="login100-form-title"ngif="quizes[index].description!=''">
 					{{quizes[index].description}}
 				</span>
 
-
+				<img src="/assets/images/sample.gif" alt="HTML5 Icon" *ngIf="isanimatedGifVaisible" style="height:90%;width:80%">
 			</div>
 
 

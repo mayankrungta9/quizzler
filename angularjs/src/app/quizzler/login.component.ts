@@ -1,30 +1,22 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClientService, User,UserData } from '../service/httpclient.service';
-import { timer } from 'rxjs';
-import {MatProgressBarModule} from '@angular/material/progress-bar';
-import { Router } from '@angular/router';
+import { Router,ActivatedRoute } from '@angular/router';
 import {
   
   AuthenticationDetails,
   CognitoUserPool,
   CognitoUser,
   CognitoUserAttribute,
-  ICognitoUserAttributeData,
-  ISignUpResult,
-  CognitoUserSession,
+  
 } from 'amazon-cognito-identity-js';
 
-
-
-
- 
 @Component({
-  selector: 'etst',
+  selector: 'login',
   templateUrl: './login.html',
   styleUrls: ['./quizzler.component.css']
 })
 
-export class UserComponent implements OnInit {
+export class LoginComponent implements OnInit {
   
   user:User;
  signin:boolean=true;
@@ -33,6 +25,7 @@ export class UserComponent implements OnInit {
  public errorMessage:String;
   constructor(
     public  router: Router ,
+    public activateRoute:ActivatedRoute,
     public httpClientService:HttpClientService,
     
   ) { }
@@ -88,7 +81,7 @@ registerUser(){
 
  login() {
   var router=this.router;
-  
+  var activateRoute=this.activateRoute;
 
   const poolData = {    
     UserPoolId : "us-east-1_S9YKJEdml", // Your user pool id here    
@@ -113,7 +106,9 @@ registerUser(){
           console.log('id token + ' + result.getIdToken().getJwtToken());
           console.log('refresh token + ' + result.getRefreshToken().getToken());
         localStorage.setItem('name',userData.Username);
-         router.navigate(['/showCategory/'+userData.Username]);
+        let returnUrl=activateRoute.snapshot.queryParamMap.get('returnUrl');
+        
+         router.navigate([returnUrl||'/showCategory/'+userData.Username]);
       },
       onFailure: function(err) {
           console.log(err);

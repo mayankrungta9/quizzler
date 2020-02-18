@@ -4,7 +4,7 @@ import { NgModule, ErrorHandler } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { QuizComponent } from './quizzler/quizzler.component';
-import { UserComponent } from './quizzler/login.component';
+import { LoginComponent } from './quizzler/login.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { HeaderComponent } from './header/header.component';
@@ -21,7 +21,7 @@ import { MatDialogModule } from '@angular/material/dialog';
     AppComponent,
     QuizComponent,
         HeaderComponent,ShowCategory,
-    FooterComponent,UserComponent,success,gameOver,saveMe
+    FooterComponent,LoginComponent,success,gameOver,saveMe
   ],
   entryComponents:[
     saveMe

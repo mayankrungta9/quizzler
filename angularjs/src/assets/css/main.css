@@ -206,6 +206,15 @@ iframe {
   border-radius: 43px;
 
 }
+.hide{
+  width: 0px;
+  height:0px;
+}
+
+.show{
+  width: 100%;
+  height:100%
+}
 .categoryBackground {
   width: 100%;
   height:100%;
@@ -246,10 +255,10 @@ iframe {
 }
 
 .ques-img{
-  width: 60%;
+  width: 100%;
   height: 140px;
   text-align: center;
-  margin-left: 20%;
+  
 }
 .coin-img{
 	background: url('/assets/images/coin.png') no-repeat;
@@ -261,8 +270,8 @@ iframe {
 }
 .upper-part-audio{
   
-  background-image:  url('/assets/images/bg.gif');
-  background-repeat: repeat-x ;
+  background-image:  url('/assets/images/bg.gif') ;
+  background-repeat: no-repeat;
 		
 		
 }
@@ -284,8 +293,7 @@ border:solid  2px red;
 .upper-part-text{
   
   height: 60%;
-  background-image:  url('/assets/images/guitar2.png');
-  background-repeat: no-repeat ;
+  
 		
 		
 }
@@ -323,7 +331,7 @@ border:solid  2px red;
     border-style: solid;
     border-radius: 20px;
     border-color: hsl(0, 100%, 50%);
-    margin-left: 30%;
+  /* margin-left: 30%;*/
 }
 /*------------------------------------------------------------------
 [ Form ]*/

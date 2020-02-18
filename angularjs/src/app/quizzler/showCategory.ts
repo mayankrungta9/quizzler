@@ -55,6 +55,7 @@ export class ShowCategory implements OnInit {
    localStorage.removeItem("name");
    this.router.navigate(['']);
  }
+ 
+ 
 }
-
 

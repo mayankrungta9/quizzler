@@ -21,12 +21,20 @@ export class QuizComponent implements OnInit {
   subscriptions:Subscription[] = [];
   audio = new Audio();
   @ViewChild('videoPlayer') videoplayer: ElementRef;
+  @ViewChild('videoPlayer1') videoplayer1: ElementRef;
+  @ViewChild('imagesTemp') imagesTemp: ElementRef;
   questionAudio = new Audio();
-totalQuestion:number=2;
+  isanimatedGifVaisible=false;
+  tempAudio = new Audio();
+  videoSource="";
+  videoSource1="";
+totalQuestion:number=20;
+ imgArray= new Image();
 correctlyAnsweredQues:number=0;
   totalTimeLeft = 15;
   timeLeft: number = this.totalTimeLeft;
   interval;
+  flag=true;
   isAudio = false;
   gameOver: boolean = false;
   subscribeTimer: any;
@@ -58,11 +66,14 @@ correctlyAnsweredQues:number=0;
     this.level = +this.activatedrouter.snapshot.paramMap.get("level");
    this.userCategoryData = new UserCategoryData(this.userName, this.categoryId, this.level);
   this.loadQuiz();
+ 
   //this.startTimer(); 
 
 
 
+  
   }
+
   openSaveMeDialog(){
    
     this.dialog.open(saveMe).afterClosed().subscribe(response=>{
@@ -94,7 +105,7 @@ correctlyAnsweredQues:number=0;
   }
 
   ngOnDestroy(){
-   
+   this.quizes=[];
     this.questionAudio.pause();
     this.subscriptions.forEach(s => s.unsubscribe());
     
@@ -103,9 +114,26 @@ correctlyAnsweredQues:number=0;
     this.quizes = response;
     if (this.quizes[this.index].type == 'audio') {
       this.isAudio = true;
+      this.tempAudio.src = this.quizes[this.index].url;
+    this.tempAudio.loop = true;
+    this.tempAudio.load();
+    setTimeout(() => {
       this.playSound();
+    }, 100);
+      
     }
-
+    if (this.quizes[this.index].type == 'image') {
+      this.imgArray.src = this.quizes[1].url;  
+    }
+    if (this.quizes[this.index].type == 'video') {
+      this.videoSource=this.quizes[this.index].url;
+      
+      this.videoSource1=this.quizes[this.index+1].url;
+      setTimeout(() => {
+        this.videoplayer.nativeElement.play();
+      }, 0);
+    }
+    
   }
 
   handlesubmitAnswerResponse(result) {
@@ -123,7 +151,9 @@ correctlyAnsweredQues:number=0;
       this.coins += 100;
       
       if(this.correctlyAnsweredQues<this.totalQuestion){
+        this.isanimatedGifVaisible=true;
       setTimeout(() => {
+        this.isanimatedGifVaisible=false;
         this.next();
       }, 1000)
     }else {
@@ -168,7 +198,13 @@ correctlyAnsweredQues:number=0;
     }, 1000)
   }
   }
+  
   next() {
+    if (this.quizes[this.index].type == 'image') {
+      this.imagesTemp.nativeElement.src= this.imgArray.src;
+    }
+    
+
     this.buttonAnimationCss1="animated  bounceOutRight delay-2s";
       this.buttonAnimationCss2="animated  bounceOutRight delay-2s";
     
@@ -189,19 +225,35 @@ correctlyAnsweredQues:number=0;
     }
 
     if (this.quizes[this.index].type == 'video') {
-      this.playVideo();
+      
+      this.playVideo();    
+          
     }
+    this.imgArray.src = this.quizes[this.index+1].url;     
   }
 
   playSound(): void {
-    this.questionAudio.src = this.quizes[this.index].url;
-    this.questionAudio.loop = true;
-    this.questionAudio.load();
+    this.questionAudio=this.tempAudio;
     this.questionAudio.play();
+    this.tempAudio = new Audio();
+    this.tempAudio.src = this.quizes[this.index+1].url;
+    this.tempAudio.loop = true;
+    this.tempAudio.load();
+       
   };
   playVideo(): void {
-    this.videoplayer.nativeElement.load();
+
+  this.flag=!this.flag;
+
+  if(this.flag){
     this.videoplayer.nativeElement.play();
+    this.videoSource1=this.quizes[this.index+1].url;
+    this.videoplayer1.nativeElement.load();
+  }else {
+    this.videoplayer1.nativeElement.play();
+    this.videoSource=this.quizes[this.index+1].url;
+    this.videoplayer.nativeElement.load();
+  }
 
   };
 
