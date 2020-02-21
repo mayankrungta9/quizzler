@@ -2,6 +2,7 @@ package com.synechron;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -95,7 +96,15 @@ public class QuizController {
 		return categoryLevelDao.save(categoryLevelEntity);
 
 	}
+	
+	@GetMapping(path = "/getUserCoins/{userId}", produces = "application/json")
 
+	public UserCoins getUserCoins(@PathVariable String userId) {
+
+		 Optional<UserCoins> usercoins = userCoinsDao.findById(userId);
+		
+		 return usercoins.orElse(new UserCoins());
+	}
 	@PostMapping(path = "/saveUserCoins", consumes = "application/json", produces = "application/json")
 
 	public UserCoins saveUserCoins(@RequestBody UserCoins userCoins) {
@@ -103,4 +112,6 @@ public class QuizController {
 		return userCoinsDao.save(userCoins);
 
 	}
+	
+	
 }

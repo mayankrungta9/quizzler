@@ -16,10 +16,6 @@ public class UserCoins {
 	
 	private int coins;
 
-
-	
-	
-
 	public String getUserId() {
 		return userId;
 	}

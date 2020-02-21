@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { QuizComponent } from './quizzler/quizzler.component';
-import { LoginComponent } from './quizzler/login.component';
-import { ShowCategory } from './quizzler/showCategory';
-import { success } from './quizzler/success-component';
-import { gameOver } from './quizzler/gameOver-component';
+import { QuizComponent } from './quizzler/ts/quizzler.component';
+import { LoginComponent } from './quizzler/ts/login.component';
+import { ShowCategory } from './quizzler/ts/showCategory';
+import { success } from './quizzler/ts/success-component';
+import { GameOver } from './quizzler/ts/gameOver-component';
 import { AuthGuard } from './service/auth-guard.service';
 const routes: Routes = [
 
@@ -13,7 +13,7 @@ const routes: Routes = [
   { path:'quiz/:userName/:categoryId/:level', component: QuizComponent},
   { path:'showCategory/:userName', component: ShowCategory,canActivate:[AuthGuard]},
   { path:'success', component: success},
-  { path:'gameOver', component: gameOver},
+  { path:'GameOver', component: GameOver},
 ];
 
 @NgModule({
