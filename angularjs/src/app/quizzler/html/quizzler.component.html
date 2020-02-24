@@ -18,8 +18,8 @@
 	
 	<div  class="wrap-login100"  *ngIf="quizes.length>0; else loading">
 		<div id="upper-part" class="upper-part "
-			[ngClass]="{'upper-part-audio': isAudio,'upper-part-text': !isAudio }">
-			<div id="coinAndTimerandScore" style="height:30%;">
+			>
+			<div id="coinAndTimerandScore" >
 				<div id='heart-img' class="heart-img-div" style="display:inline-block;">
 
 					<div *ngFor="let liveclass of liveClassesArray " class={{liveclass}} style="display:inline-block">
@@ -41,8 +41,8 @@
 				</div>
 
 			</div>
-			<div id="middle-section" style="height:70%;">
-				
+			<div id="middle-section" style="height:70%;" [ngClass]="{'upper-part-audio': isAudio,'upper-part-text': !isAudio }">
+				<a (click)="openQuestionReportedDialogue();" style="color:white">  questyion rep</a>
 				<div *ngIf="quizes[index]?.type=='image'">
 					<img src={{quizes[0].url}} alt="HTML5 Icon" class="ques-img" #imagesTemp>
 				</div>

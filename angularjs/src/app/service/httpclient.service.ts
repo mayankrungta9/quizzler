@@ -22,7 +22,7 @@ export class Category {
 }
 export class Quizes {
   constructor(
-    public id: Number,
+    public id: number,
     public description: string,
     public type: string,
     public option1: string,
@@ -55,6 +55,14 @@ export class UserCoins {
   constructor(
     public userId: string,
     public coins: number,
+
+
+  ) { }
+}
+export class QuestionReported {
+  constructor(
+    public qid: number,
+    public comments: string,
 
 
   ) { }
@@ -101,14 +109,16 @@ export class HttpClientService {
 
   }
   private handleError(error: Response) {
+
     if (error.status == 400) {
       console.log('Something went wrong');
       return throwError(new AppError(error));
     }
 
-    else throw error;
+    else {
+      throw error;
   }
-
+  }
   saveUser(user: UserData) {
     const httpOptions = {
       headers: new HttpHeaders({
@@ -140,7 +150,14 @@ export class HttpClientService {
       catchError(this.handleError)
     );
   }
+  reportQuestion(qid: number, comments: string) {
+    var questionreported = new QuestionReported(qid, comments);
+  
+    return this.httpClient.post<QuestionReported>(this.baseServicePath + 'reportQuestion', questionreported, this.httpOptions).pipe(
 
+      catchError(this.handleError)
+    );
+  }
   getUserCoins(userName: string) {
   
     

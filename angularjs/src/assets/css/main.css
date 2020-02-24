@@ -225,7 +225,7 @@ iframe {
   border-style: solid;
 }
 .button-size {
-	 width:320px;
+	 width:80%;
 	 height:20%;
    border-radius: 16px;
    margin-bottom: 1%;
@@ -237,10 +237,10 @@ iframe {
 }
 
 .ques-img{
-  width: 100%;
+ 
   height: 140px;
   text-align: center;
-  
+  margin-left: 20%;
 }
 .coin-img{
 	background: url('/assets/images/coin.png') no-repeat;
@@ -254,7 +254,7 @@ iframe {
   
   background-image:  url('/assets/images/bg.gif') ;
   background-repeat: no-repeat;
-		
+  margin-left: 8%;
 		
 }
 .upper-part{
@@ -299,8 +299,9 @@ border:solid  2px red;
   .heart-img-div{
     border-style: solid;
     border-radius: 20px;
-    border-color: hsl(0, 100%, 50%);    
-    height: 45%;
+    border-color: hsl(0, 100%, 50%);   
+  
+    height: 35px;
     float: left;
     padding-right: 3px;
   }

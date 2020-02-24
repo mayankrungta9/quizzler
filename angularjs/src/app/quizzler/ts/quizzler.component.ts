@@ -8,6 +8,8 @@ import { ShowCategory } from './showCategory';
 import { GameOver } from './gameOver-component';
 import { saveMe } from './saveMe.component';
 import { success } from './success-component';
+import { reportQues } from './reportQues.component';
+import { HttpErrorResponse } from '@angular/common/http';
 
 
 @Component({
@@ -310,6 +312,18 @@ export class QuizComponent implements OnInit {
 
   pauseTimer() {
     clearInterval(this.interval);
+  }
+  openQuestionReportedDialogue(){
+    this.dialog.open(reportQues).afterClosed().subscribe(response => {
+     this.httpClientService.reportQuestion(this.quizes[this.index].id,response).subscribe(
+       result=>{
+         alert("question reported successfully");
+       },(error: HttpErrorResponse)=>{
+       
+       alert(error.error.text);
+       }
+     );
+    });
   }
 }
 

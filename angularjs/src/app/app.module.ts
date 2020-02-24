@@ -16,16 +16,17 @@ import {NoopAnimationsModule} from '@angular/platform-browser/animations';
 import { MatDialogModule } from '@angular/material/dialog';
 import {saveMe} from './quizzler/ts/saveMe.component';
 import { ButtonControlDirective } from './button-control.directive';
+import { reportQues } from './quizzler/ts/reportQues.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     QuizComponent,
         HeaderComponent,ShowCategory,
-    FooterComponent,LoginComponent,success,GameOver,saveMe, ButtonControlDirective
+    FooterComponent,LoginComponent,success,GameOver,saveMe,reportQues , ButtonControlDirective,
   ],
   entryComponents:[
-    saveMe
+    saveMe,reportQues
   ],
   imports: [
     BrowserModule,
