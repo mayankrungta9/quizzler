@@ -1,62 +1,60 @@
 
-
 <head>
 	<title>Login V3</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 
-
 	<link rel="stylesheet" type="text/css" href="/assets/css/util.css">
 	<link rel="stylesheet" type="text/css" href="/assets/css/main.css">
-
 	<link rel="stylesheet" type="text/css" href="/assets/css/deeppurple-amber.css">
 	
-
 </head>
-
-
-	
 	<div  class="wrap-login100"  *ngIf="quizes.length>0; else loading">
 		<div id="upper-part" class="upper-part "
 			>
 			<div id="coinAndTimerandScore" >
 				<div id='heart-img' class="heart-img-div" style="display:inline-block;">
-
 					<div *ngFor="let liveclass of liveClassesArray " class={{liveclass}} style="display:inline-block">
 					</div>
-
 				</div>
 				<div id='currentStatus' class="timer-div"> {{correctlyAnsweredQues}}/{{totalQuestion}}</div>
 				<div id='level' class="timer-div"> {{level}}</div>
 				<div id="timer" class="timer-div">
-
 					{{timeLeft}}
 				</div>
-
 				<div style="height:100%;float:right">
 					<div class="coin-img" style="display:inline-block;float:right"></div>
 					<div style="margin-right:-8px;float:right;color:white">
 						{{coins}}
 					</div>
 				</div>
-
 			</div>
 			<div id="middle-section" style="height:70%;" [ngClass]="{'upper-part-audio': isAudio,'upper-part-text': !isAudio }">
 				<a (click)="openQuestionReportedDialogue();" style="color:white">  questyion rep</a>
 				<div *ngIf="quizes[index]?.type=='image'">
 					<img src={{quizes[0].url}} alt="HTML5 Icon" class="ques-img" #imagesTemp>
 				</div>
-			
+				<div *ngIf="quizes[index].type=='audio' && index==0"  style="text-align: center;">
+					
+					<audio  autoplay loop  [ngClass]="{'hide' : !flag,'show' : flag}">
+						<source src={{quizes[0].url}} >
+						Your browser does not support HTML5 video.
+						</audio>
+					<video   loop #videoPlayer1 [ngClass]="{'hide' : flag,'show' : !flag}">
+						<source src={{videoSource1}} type="video/mp4">
+						Your browser does not support HTML5 video.
+					</video>
+				
+					
+					</div>
 				<div *ngIf="quizes[index].type=='video'"  style="text-align: center;">
 					
 					<video   loop #videoPlayer [ngClass]="{'hide' : !flag,'show' : flag}">
 						<source src={{videoSource}} type="video/mp4">
-
 						Your browser does not support HTML5 video.
 					</video>
 					<video   loop #videoPlayer1 [ngClass]="{'hide' : flag,'show' : !flag}">
 						<source src={{videoSource1}} type="video/mp4">
-
 						Your browser does not support HTML5 video.
 					</video>
 				
@@ -66,10 +64,8 @@
 				<span class="login100-form-title"ngif="quizes[index].description!=''">
 					{{quizes[index].description}}
 				</span>
-
 				<img src="/assets/images/sample.gif" alt="HTML5 Icon" *ngIf="isanimatedGifVaisible" style="height:90%;width:80%">
 			</div>
-
 
 		</div>
 		<div id="question" class="text-center  " style="height:45%">
@@ -94,11 +90,8 @@
 					[ngClass]="{'button-color ': buttonCss[3]=='0','btn btn-success': buttonCss[3]=='1','btn btn-danger': buttonCss[3]=='2' }"
 					(click)="onSelectAnswer(4)"> {{quizes[index].option4}}</button>
 			
-
 		</div>
-
 	</div>
 	<ng-template #loading>
-
 		Loading.............
 	</ng-template>

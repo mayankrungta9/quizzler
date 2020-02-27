@@ -8,25 +8,30 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.synechron.dao.CategoryDao;
 import com.synechron.dao.CategoryLevelDao;
+import com.synechron.dao.QuestionReportedDao;
 import com.synechron.dao.QuizDao;
 import com.synechron.dao.UserCoinsDao;
 import com.synechron.dao.UserDao;
 import com.synechron.entity.Category;
 import com.synechron.entity.CategoryLevelEntity;
+import com.synechron.entity.QuestionReported;
 import com.synechron.entity.Quiz;
 import com.synechron.entity.User;
 import com.synechron.entity.UserCoins;
+import com.synechron.exception.QuestionAlreadyReported;
 
 @CrossOrigin(origins = "*")
 @RestController
@@ -47,6 +52,9 @@ public class QuizController {
 
 	@Autowired
 	private UserCoinsDao userCoinsDao;
+	
+	@Autowired
+	private QuestionReportedDao questionReportedDao;
 
 	@PersistenceContext
 	private EntityManager entityManager;
@@ -56,7 +64,9 @@ public class QuizController {
 	public List<Quiz> getAll(@RequestBody CategoryLevelEntity categoryLevel) {
 		int level = categoryLevel.getLevel();
 		int categoryId = categoryLevel.getCategoryId();
-		List<Quiz> quizList = quizDao.findAllByCategoryIdAndLevel(categoryId, level);
+		List<Quiz> quizList = quizDao.findAll();
+
+		//List<Quiz> quizList = quizDao.findAllByCategoryIdAndLevel(categoryId, level);
 		Collections.shuffle(quizList);
 		return quizList;
 	}
@@ -92,7 +102,7 @@ public class QuizController {
 
 	public CategoryLevelEntity saveUserCategoryLevelsaveUserCategoryLevel(
 			@RequestBody CategoryLevelEntity categoryLevelEntity) {
-
+//throw new UserNotFoundException();
 		return categoryLevelDao.save(categoryLevelEntity);
 
 	}
@@ -113,5 +123,40 @@ public class QuizController {
 
 	}
 	
+	@PostMapping(path = "/reportQuestion", consumes = "application/json", produces = "application/json")
+
+	public ResponseEntity<QuestionReported>  reportQuestion(@RequestBody QuestionReported questionReported) {
+
+		if( questionReportedDao.findById(questionReported.getQid()).isPresent())
+		{
+			throw new QuestionAlreadyReported();
+		}
+		else {
+			questionReportedDao.save(questionReported);
+		return new ResponseEntity<>(questionReported,HttpStatus.OK);
+		}
+	}
 	
+	@PostMapping(path = "/redirectPaytm", produces =  MediaType.TEXT_HTML_VALUE)
+
+	public String  redirectPaytm( Test params ) {
+
+		
+		 return paytm.redirectToPaytm(params).toString();
+		 
+	}
+	
+	@PostMapping(path = "/callback", produces =  MediaType.TEXT_HTML_VALUE)
+
+	public String  callBack( PaytmResponse params ) {
+		try {
+			return PaytmResponse.reVerify(params);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return "errro";
+		
+	}
 }
