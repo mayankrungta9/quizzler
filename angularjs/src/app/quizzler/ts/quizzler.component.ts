@@ -44,7 +44,8 @@ export class QuizComponent implements OnInit {
   index = 0;
   buttonAnimationCss1 = 'animated  bounceInLeft delay-5s';
   buttonAnimationCss2 = 'animated  bounceInRight delay-5s';
-  remainingLives = 10;
+  emojiBoxCss = 'animated  heartBeat delay-5s'
+  remainingLives = 2;
   correctAnswer = 0;
   coins = 0;
   testing = false;
@@ -54,6 +55,14 @@ export class QuizComponent implements OnInit {
   userName: string;
   categoryId: number;
   userCategoryData: UserCategoryData;
+  isOptionButtonVisible = true;
+  emojiCategoryId = 6;
+  emojiAnswerArray = [];
+  emojiIndex = 0;
+  keyboardArray1 = ['Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P'];
+  keyboardArray2 = ['A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L'];
+  keyboardArray3 = ['Z', 'X', 'C', 'V', 'B', 'N', 'M'];
+  keyboardAnimation= 'animated  bounceIn delay-2s'
   constructor(
     private httpClientService: HttpClientService,
     public activatedrouter: ActivatedRoute,
@@ -128,6 +137,7 @@ export class QuizComponent implements OnInit {
   }
   handleSuccessfulResponse(response) {
     this.quizes = response;
+    this.setEmojiButtonOption();
     if (this.quizes[this.index].type === 'audio') { this.isAudio = true; }
     if (this.quizes[this.index].type === 'video') {
       this.videoSource = this.quizes[this.index].url;
@@ -142,41 +152,112 @@ export class QuizComponent implements OnInit {
       this.loadNextInBackground();
     }
   }
+  private setEmojiButtonOption() {
+    if (this.quizes[this.index].categoryId === this.emojiCategoryId) {
+      this.isOptionButtonVisible = false;
+      var length = this.quizes[this.index].answer.length;
+      this.emojiAnswerArray = Array(length);
+    }
+    else {
+      this.isOptionButtonVisible = true;
+    }
+  }
+
   handlesubmitAnswerResponse(result) {
     this.result = result;
   }
   onSelectAnswer(selectedAnswer): void {
     this.questionAudio.pause();
     this.pauseTimer();
-    let correctAnswer: number = this.quizes[this.index].answer;
-    if (selectedAnswer == correctAnswer) {
-      this.correctlyAnsweredQues++;
-      this.buttonCss[selectedAnswer - 1] = 1;
-      this.coins += 100;
-      if (this.correctlyAnsweredQues < this.totalQuestion) {
-        this.isanimatedGifVaisible = true;
-        setTimeout(() => {
-          this.isanimatedGifVaisible = false;
-          this.next();
-        }, 1000);
-      } else {
-        this.openSuccessDialog();
-        this.level += 1;
-        this.userCategoryData.level = this.level;
-        this.saveUserProgress();
+    let correctAnswer: string = this.quizes[this.index].answer;
 
-        //  this.activatedrouter.navigate(['success']);
-      }
+    if (selectedAnswer == correctAnswer) {
+      this.whenAnswerIsCorrect(selectedAnswer);
     } else {
+
       this.wrongAnswer(selectedAnswer);
     }
   }
+  private whenAnswerIsCorrect(selectedAnswer: any) {
+
+
+    this.correctlyAnsweredQues++;
+    this.buttonCss[selectedAnswer - 1] = 1;
+    this.coins += 100;
+    if (this.correctlyAnsweredQues < this.totalQuestion) {
+      this.isanimatedGifVaisible = true;
+      setTimeout(() => {
+        this.isanimatedGifVaisible = false;
+        this.next();
+      }, 1000);
+    }
+    else {
+      this.openSuccessDialog();
+      this.level += 1;
+      this.userCategoryData.level = this.level;
+      this.saveUserProgress();
+
+    }
+  }
+  onPressBackKey() {
+    if (this.emojiIndex > 0) {
+      this.emojiAnswerArray[--this.emojiIndex] = '';
+    }
+  }
+  private applyAnimationOnWrongEmojiAnswer() {
+
+    setTimeout(() => {
+      this.emojiBoxCss = 'animated  bounceIn delay-2s';
+
+    });
+    this.emojiBoxCss = 'animated   delay-2s';
+  }
+
+  private applyAnimationOnKeyBoardLoad() {
+    this.keyboardAnimation = 'animated bounceOutRight delay-2s';
+    setTimeout(() => {
+      this.keyboardAnimation= 'animated   bounceInLeft delay-2s';
+
+    });
+    
+  }
+  onPressKey(keyboard, event) {
+    this.addAnimationOnKeyboardPress(event);
+    this.emojiAnswerArray[this.emojiIndex++] = keyboard;
+    if (this.emojiIndex === this.emojiAnswerArray.length) {
+      var correctAnswer = this.quizes[this.index].answer.toUpperCase();
+      var userAnswer = this.emojiAnswerArray.join("");
+
+      if (userAnswer === correctAnswer) {
+        this.pauseTimer();
+        this.emojiIndex = 0;
+        this.whenAnswerIsCorrect(null);
+      }
+      else {
+        this.applyAnimationOnWrongEmojiAnswer();
+        this.pauseTimer();
+        this.emojiIndex = 0;
+        this.wrongAnswer(null);
+
+      }
+    }
+  }
+  private addAnimationOnKeyboardPress(event: any) {
+    const classList = event.target.classList;
+    classList.remove('bounceIn');
+    setTimeout(() => {
+      classList.add("animated");
+      classList.add("bounceIn");
+      classList.add("delay-2s");
+    });
+  }
+
   saveUserProgress() {
     this.httpClientService.saveUserCategoryLevel(this.userCategoryData).subscribe();
     this.httpClientService.saveUserCoins(this.userName, this.coins).subscribe();
   }
   wrongAnswer(selectedAnswer) {
-    let correctAnswer: number = this.quizes[this.index].answer;
+    let correctAnswer: string = this.quizes[this.index].answer;
     this.liveClassesArray[this.remainingLives] = 'heart-img-blank';
     this.audio.play();
     this.coins -= 50;
@@ -186,6 +267,7 @@ export class QuizComponent implements OnInit {
       if (selectedAnswer != 0) {
         this.buttonCss[selectedAnswer - 1] = 2;
       }
+
       this.remainingLives--;
       // this.buttonCss[correctAnswer - 1] = 1;
       setTimeout(() => {
@@ -196,6 +278,7 @@ export class QuizComponent implements OnInit {
   next() {
     this.isAudio = false;
     this.index++;
+    this.setEmojiButtonOption();
     setTimeout(() => {
       const type = this.quizes[this.index].type;
       console.log(type);
@@ -212,6 +295,7 @@ export class QuizComponent implements OnInit {
       this.loadNextInBackground();
     }, 0);
     this.applyAnimationOnButton();
+    this.applyAnimationOnKeyBoardLoad();
     this.buttonCss = [0, 0, 0, 0];
 
     this.timeLeft = this.totalTimeLeft;

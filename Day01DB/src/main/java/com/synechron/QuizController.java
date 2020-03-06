@@ -8,6 +8,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -36,6 +38,7 @@ import com.synechron.exception.QuestionAlreadyReported;
 @CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/quiz")
+@EnableCaching
 public class QuizController {
 
 	@Autowired
@@ -60,22 +63,22 @@ public class QuizController {
 	private EntityManager entityManager;
 
 	@PostMapping(path = "/all", consumes = "application/json", produces = "application/json")
-
-	public List<Quiz> getAll(@RequestBody CategoryLevelEntity categoryLevel) {
+	//@Cacheable(value="books", key=""+"#categoryLevel.categoryId"+"-"+"(#categoryLevel.level)")	
+	public List<Quiz> getAll(@RequestBody CategoryLevelEntity categoryLevel) throws InterruptedException {
 		int level = categoryLevel.getLevel();
 		int categoryId = categoryLevel.getCategoryId();
-		List<Quiz> quizList = quizDao.findAll();
-
-		//List<Quiz> quizList = quizDao.findAllByCategoryIdAndLevel(categoryId, level);
+		//List<Quiz> quizList = quizDao.findAll();
+		
+		List<Quiz> quizList = quizDao.findAllByCategoryIdAndLevel(categoryId, level);
 		Collections.shuffle(quizList);
 		return quizList;
 	}
 
 	@GetMapping(path = "/getCategory", produces = "application/json")
-
-	public List<Category> getCategoryAll() {
+	@Cacheable("category")
+	public List<Category> getCategoryAll() throws InterruptedException {
 		List<Category> categoryList = categoryDao.findAll();
-
+		
 		return categoryList;
 	}
 

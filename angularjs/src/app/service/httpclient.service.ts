@@ -30,7 +30,8 @@ export class Quizes {
     public option3: string,
     public option4: string,
     public url: string,
-    public answer: number,
+    public answer: string,
+    public categoryId:number,
   ) { }
 }
 

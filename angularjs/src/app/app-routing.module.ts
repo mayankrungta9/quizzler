@@ -6,6 +6,8 @@ import { ShowCategory } from './quizzler/ts/showCategory';
 import { success } from './quizzler/ts/success-component';
 import { GameOver } from './quizzler/ts/gameOver-component';
 import { AuthGuard } from './service/auth-guard.service';
+import { CrosswordComponent } from './crossword/crossword.component';
+import { CatchHeroComponent } from './catch-hero/catch-hero.component';
 const routes: Routes = [
 
   
@@ -14,6 +16,8 @@ const routes: Routes = [
   { path:'showCategory/:userName', component: ShowCategory,canActivate:[AuthGuard]},
   { path:'success', component: success},
   { path:'GameOver', component: GameOver},
+  { path:'crossword', component: CrosswordComponent},
+  { path:'catchHero', component: CatchHeroComponent},
 ];
 
 @NgModule({

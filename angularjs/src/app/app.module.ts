@@ -20,7 +20,9 @@ import { reportQues } from './quizzler/ts/reportQues.component';
 import { APP_INITIALIZER } from '@angular/core';
 import { map, catchError } from 'rxjs/operators';
 import { Observable, ObservableInput, of } from 'rxjs';
-
+import { CrosswordComponent } from './crossword/crossword.component';
+import { CatchHeroComponent } from './catch-hero/catch-hero.component';
+import { NgImageSliderModule } from 'ng-image-slider';
 @Injectable({
   providedIn: 'root'
 })
@@ -55,7 +57,7 @@ function load(http: HttpClient, config: ConfigService): (() => Promise<boolean>)
     AppComponent,
     QuizComponent,
         HeaderComponent,ShowCategory,
-    FooterComponent,LoginComponent,success,GameOver,saveMe,reportQues , ButtonControlDirective,
+    FooterComponent,LoginComponent,success,GameOver,saveMe,reportQues , ButtonControlDirective, CrosswordComponent, CatchHeroComponent,
   ],
   entryComponents:[
     saveMe,reportQues
@@ -64,7 +66,7 @@ function load(http: HttpClient, config: ConfigService): (() => Promise<boolean>)
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule,NoopAnimationsModule,MatDialogModule
+    FormsModule,NoopAnimationsModule,MatDialogModule,NgImageSliderModule
   ],
   providers: [
     {provide:DIALOG_DATA,useValue:{ }},
