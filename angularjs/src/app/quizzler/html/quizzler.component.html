@@ -5,7 +5,7 @@
 
 	<link rel="stylesheet" type="text/css" href="/assets/css/util.css">
 	<link rel="stylesheet" type="text/css" href="/assets/css/main.css">
-	<link rel="stylesheet" type="text/css" href="/assets/css/deeppurple-amber.css">
+
 
 </head>
 <div class="wrap-login100" *ngIf="quizes.length>0; else loading">
@@ -91,36 +91,14 @@
 				[ngClass]="{'button-color ': buttonCss[3]=='0','btn btn-success': buttonCss[3]=='1','btn btn-danger': buttonCss[3]=='2' }"
 				(click)="onSelectAnswer(4)"> {{quizes[index].option4}}</button>
 		</div>
-		<div *ngIf="!isOptionButtonVisible" style="height:100%">
+		<div *ngIf="!isOptionButtonVisible" style="height:100%; width:100%;text-align:center;">
 			<div id='inputtext' class="emojiTextBoxDiv {{emojiBoxCss}}">
-				<div *ngFor="let input of emojiAnswerArray">
-					<input type="text" disabled class="emojiTextBox" value={{input}}>
+				<div *ngFor="let input of emojiAnswerArray let i = index">
+					<input type="text"  class="emojiTextBox"  [(value)]="values[i]" minlength="1"  maxlength="1" (keyup)="onPressKey1($event,i)">
 				</div>
 
 			</div>
-			<div class ="keboardDiv {{keyboardAnimation}}"> 
-				<div style="margin-left:5px;display: block;">
-					<div *ngFor="let keyboard of keyboardArray1 ">
-						<button class='keyword-button' (click)="onPressKey(keyboard,$event)">{{keyboard}} </button>
-
-					</div>
-				</div>
-
-				<div style="margin-left:15px;display: block;width:100%">
-					<div *ngFor="let keyboard of keyboardArray2 ">
-						<button class='keyword-button'(click)="onPressKey(keyboard,$event)">{{keyboard}} </button>
-
-					</div>
-				</div>
-
-				<div style="margin-left:25px;;display: block;width:100%">
-					<div *ngFor="let keyboard of keyboardArray3 ">
-						<button class='keyword-button' (click)="onPressKey(keyboard,$event)">{{keyboard}} </button>
-
-					</div>
-				</div>
-				<button class='keyword-button' (click)="onPressBackKey()">1 </button>
-			</div>
+			
 
 		</div>
 	</div>

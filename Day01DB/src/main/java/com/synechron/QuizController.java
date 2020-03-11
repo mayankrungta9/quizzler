@@ -75,7 +75,7 @@ public class QuizController {
 	}
 
 	@GetMapping(path = "/getCategory", produces = "application/json")
-	@Cacheable("category")
+	//@Cacheable("category")
 	public List<Category> getCategoryAll() throws InterruptedException {
 		List<Category> categoryList = categoryDao.findAll();
 		

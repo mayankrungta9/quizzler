@@ -14,7 +14,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 @Component({
   selector: 'sdasdapp-employeefdfdsf',
   templateUrl: '../html/quizzler.component.html',
-  styleUrls: ['./quizzler.component.css'],
+ 
   host: { 'window:beforeunload': 'test' },
 })
 export class QuizComponent implements OnInit {
@@ -28,7 +28,7 @@ export class QuizComponent implements OnInit {
   tempAudio = new Audio();
   videoSource = '';
   videoSource1 = '';
-  totalQuestion = 200;
+  totalQuestion = 2;
   imgArray = new Image();
   audioFlag = true;
   correctlyAnsweredQues = 0;
@@ -45,7 +45,7 @@ export class QuizComponent implements OnInit {
   buttonAnimationCss1 = 'animated  bounceInLeft delay-5s';
   buttonAnimationCss2 = 'animated  bounceInRight delay-5s';
   emojiBoxCss = 'animated  heartBeat delay-5s'
-  remainingLives = 2;
+  remainingLives = 0;
   correctAnswer = 0;
   coins = 0;
   testing = false;
@@ -59,10 +59,12 @@ export class QuizComponent implements OnInit {
   emojiCategoryId = 6;
   emojiAnswerArray = [];
   emojiIndex = 0;
+  emojiTextBox='';
   keyboardArray1 = ['Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P'];
   keyboardArray2 = ['A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L'];
   keyboardArray3 = ['Z', 'X', 'C', 'V', 'B', 'N', 'M'];
   keyboardAnimation= 'animated  bounceIn delay-2s'
+values=['','','','',''];
   constructor(
     private httpClientService: HttpClientService,
     public activatedrouter: ActivatedRoute,
@@ -103,6 +105,7 @@ export class QuizComponent implements OnInit {
       }
     });
   }
+  
   openSaveMeDialog() {
     this.dialog.open(saveMe).afterClosed().subscribe(response => {
       if (response == 'yes') {
@@ -199,6 +202,7 @@ export class QuizComponent implements OnInit {
 
     }
   }
+ 
   onPressBackKey() {
     if (this.emojiIndex > 0) {
       this.emojiAnswerArray[--this.emojiIndex] = '';
@@ -221,9 +225,20 @@ export class QuizComponent implements OnInit {
     });
     
   }
-  onPressKey(keyboard, event) {
+  onPressKey1(event,index) {
+    var keyPressed=event.target.value;    
+    this.values[index]=keyPressed;
+    var userAnswer = this.values.join("");
+    console.log(userAnswer);
+  }
+  onPressKey(event) {
+    var keyPressed=event.target.value;
+    console.log(this.emojiIndex);
+    this.values[this.emojiIndex]=keyPressed;
+    console.log(keyPressed);
     this.addAnimationOnKeyboardPress(event);
-    this.emojiAnswerArray[this.emojiIndex++] = keyboard;
+    this.emojiAnswerArray[this.emojiIndex++] = keyPressed;
+  
     if (this.emojiIndex === this.emojiAnswerArray.length) {
       var correctAnswer = this.quizes[this.index].answer.toUpperCase();
       var userAnswer = this.emojiAnswerArray.join("");
@@ -242,6 +257,7 @@ export class QuizComponent implements OnInit {
       }
     }
   }
+  
   private addAnimationOnKeyboardPress(event: any) {
     const classList = event.target.classList;
     classList.remove('bounceIn');

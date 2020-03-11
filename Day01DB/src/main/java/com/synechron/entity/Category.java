@@ -11,7 +11,7 @@ public class Category {
 	
 	@Id	
 	@Column(name = "category_id")
-	private int category_id;
+	private int categoryId;
 	
 	@Column(name = "category_name")
 	
@@ -20,14 +20,28 @@ public class Category {
 	@Column(name = "url")
 	
 	private String url;
+	
+@Column(name = "level")
+	
+	private int level;
 
-	public int getCategory_id() {
-		return category_id;
-	}
+	public int getLevel() {
+	return level;
+}
 
-	public void setCategory_id(int category_id) {
-		this.category_id = category_id;
-	}
+public void setLevel(int level) {
+	this.level = level;
+}
+
+	
+
+	public int getCategoryId() {
+	return categoryId;
+}
+
+public void setCategoryId(int categoryId) {
+	this.categoryId = categoryId;
+}
 
 	public String getCategoryName() {
 		return categoryName;

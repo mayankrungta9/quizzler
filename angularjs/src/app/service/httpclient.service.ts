@@ -15,9 +15,10 @@ export class User {
 }
 
 export class Category {
-  categoryId: string;
+  categoryId: number;
   categoryName: string;
   url: string;
+  level:number
 
 }
 export class Quizes {
