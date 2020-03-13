@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Quizes } from "../service/httpclient.service";
 
 @Component({
   selector: 'app-catch-hero',
@@ -6,32 +7,21 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./catch-hero.component.css']
 })
 export class CatchHeroComponent implements OnInit {
-  imageObject: Array<object> = [{
-    
-    thumbImage: '/assets/images/sallu.jpg',
-    
-}, 
-{
- 
-  thumbImage: '/assets/images/sallu.jpg',
-  
-}, 
-{
- 
-  thumbImage: '/assets/images/sallu.jpg',
-  
-}, 
-{
-  
-  thumbImage: '/assets/images/sallu.jpg',
-  
-}
-];
   constructor() { }
+  
+  prepareOption(quiz: Quizes ): object[] {
+ 
+    var imageObject = [
+      {thumbImage: quiz.option1,},
+       {thumbImage: quiz.option2,},
+       {thumbImage: quiz.option3,},
+        {thumbImage: quiz.option4,},
+    ];
+
+    return imageObject;
+  }
 
   ngOnInit() {
   }
-  imageClick(count) {
-    console.log(count);
-}
+  
 }

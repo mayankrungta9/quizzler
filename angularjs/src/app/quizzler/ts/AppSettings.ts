@@ -1,0 +1,10 @@
+
+
+export class AppSettings {
+  public static totalQuestion = 0;
+  public static totalTimeLeft = 150;
+  public static remainingLives = 0;
+  public static emojiCategoryId = 4;
+  public static catchHeroCategoryId=3;
+ 
+}

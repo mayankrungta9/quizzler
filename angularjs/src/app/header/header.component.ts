@@ -18,6 +18,9 @@ export class HeaderComponent  {
   ngOnInit() {
    
     this.userName=localStorage.getItem("name");
+    if(this.userName==null){
+      this.userName='Guest';
+     }
     this.httpClientService.getUserCoins(this.userName).subscribe(response=>this.coins=response.coins);
    
   }

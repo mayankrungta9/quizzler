@@ -1,39 +1,48 @@
-import { Component, OnInit, HostListener, ElementRef, ViewChild, InjectionToken } from '@angular/core';
+import { Component, OnInit, HostListener, ElementRef, ViewChild } from '@angular/core';
 import { HttpClientService, Quizes, UserCoins, UserCategoryData } from '../../service/httpclient.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AppError } from '../../common/app.error';
 import { Subscription } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
-import { ShowCategory } from './showCategory';
 import { GameOver } from './gameOver-component';
 import { saveMe } from './saveMe.component';
 import { success } from './success-component';
 import { reportQues } from './reportQues.component';
 import { HttpErrorResponse } from '@angular/common/http';
+import { CatchHeroComponent } from '../../catch-hero/catch-hero.component';
+import { NgImageSliderComponent } from 'ng-image-slider';
+import {AppSettings} from './AppSettings';
+import { LoginComponent } from './login.component';
 
 @Component({
-  selector: 'sdasdapp-employeefdfdsf',
+  selector: 'app-employee',
   templateUrl: '../html/quizzler.component.html',
- 
+  styleUrls: ['./quizzler.component.css'],
   host: { 'window:beforeunload': 'test' },
 })
 export class QuizComponent implements OnInit {
+  constructor(
+    private httpClientService: HttpClientService,
+    public activatedrouter: ActivatedRoute,
+    public router: Router,
+    private dialog: MatDialog,
+  ) {  }
   subscriptions: Subscription[] = [];
   audio = new Audio();
   @ViewChild('videoPlayer') videoplayer: ElementRef;
   @ViewChild('videoPlayer1') videoplayer1: ElementRef;
   @ViewChild('imagesTemp') imagesTemp: ElementRef;
+ catchHero = new CatchHeroComponent();
   questionAudio = new Audio();
   isanimatedGifVaisible = false;
   tempAudio = new Audio();
   videoSource = '';
   videoSource1 = '';
-  totalQuestion = 2;
   imgArray = new Image();
   audioFlag = true;
   correctlyAnsweredQues = 0;
-  totalTimeLeft = 150;
-  timeLeft: number = this.totalTimeLeft;
+
+  timeLeft: number = AppSettings.totalTimeLeft;
   interval;
   flag = false;
   isAudio = false;
@@ -44,8 +53,8 @@ export class QuizComponent implements OnInit {
   index = 0;
   buttonAnimationCss1 = 'animated  bounceInLeft delay-5s';
   buttonAnimationCss2 = 'animated  bounceInRight delay-5s';
-  emojiBoxCss = 'animated  heartBeat delay-5s'
-  remainingLives = 0;
+  emojiBoxCss = 'animated  heartBeat delay-5s';
+
   correctAnswer = 0;
   coins = 0;
   testing = false;
@@ -55,34 +64,59 @@ export class QuizComponent implements OnInit {
   userName: string;
   categoryId: number;
   userCategoryData: UserCategoryData;
-  isOptionButtonVisible = true;
-  emojiCategoryId = 6;
+  isOptionButtonVisible = false;
   emojiAnswerArray = [];
   emojiIndex = 0;
-  emojiTextBox='';
-  keyboardArray1 = ['Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P'];
-  keyboardArray2 = ['A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L'];
-  keyboardArray3 = ['Z', 'X', 'C', 'V', 'B', 'N', 'M'];
-  keyboardAnimation= 'animated  bounceIn delay-2s'
-values=['','','','',''];
-  constructor(
-    private httpClientService: HttpClientService,
-    public activatedrouter: ActivatedRoute,
-    public router: Router,
-    private dialog: MatDialog,
-  ) { console.log('quizzler module loaded.'); }
+  emojiTextBox = '';
+  values = ['', '', '', '', ''];
+  imageObject: Array < object >;
+  @ViewChild('nav') slider: NgImageSliderComponent;
+  @ViewChild('emojiTextBox') searchElement: ElementRef;
+isMovingPictureDivVisible = false;
+   isemojiBoxVisible = false;
   ngOnInit() {
+
     this.userName = this.activatedrouter.snapshot.paramMap.get('userName');
     this.categoryId = +this.activatedrouter.snapshot.paramMap.get('categoryId');
     this.level = +this.activatedrouter.snapshot.paramMap.get('level');
     this.userCategoryData = new UserCategoryData(this.userName, this.categoryId, this.level);
+    if (this.categoryId == 1 || this.categoryId === 2   ) {
+      this.isOptionButtonVisible = true;
+    } else if (this.categoryId == AppSettings.catchHeroCategoryId    ) {
+      this.isMovingPictureDivVisible = true;
+          } else if (this.categoryId == AppSettings.emojiCategoryId   ) {
+           
+            this.isemojiBoxVisible = true;
+    }
     this.loadQuiz();
     // this.startTimer();
   }
+  checkAnswer(selectedAnswer) {
+
+    if (selectedAnswer + 1 == this.quizes[this.index].answer) {
+this.whenAnswerIsCorrect(null);
+    } else {
+this.wrongAnswer(null);
+    }
+}
+openLoginDialog() {
+
+  this.dialog.open(LoginComponent).afterClosed().subscribe(response => {
+    if (response != null) {
+      this.userName = response;    
+    this.userCategoryData.userId=response;
+      this.openSuccessDialog();
+    } else {
+      console.log("sorry wrong credential");
+    }
+  });
+}
   openSuccessDialog() {
+   
     this.dialog.open(success, {
       data: this.coins,
     }).afterClosed().subscribe(response => {
+      this.saveUserProgress();
       if (response == 'continue') {
         setTimeout(() => {
           this.loadQuiz();
@@ -105,7 +139,7 @@ values=['','','','',''];
       }
     });
   }
-  
+
   openSaveMeDialog() {
     this.dialog.open(saveMe).afterClosed().subscribe(response => {
       if (response == 'yes') {
@@ -140,7 +174,8 @@ values=['','','','',''];
   }
   handleSuccessfulResponse(response) {
     this.quizes = response;
-    this.setEmojiButtonOption();
+    if (this.quizes[this.index].categoryId === AppSettings.catchHeroCategoryId) { this.prepareCelebrityOption(this.quizes[this.index]); }
+    if (this.quizes[this.index].categoryId === AppSettings.emojiCategoryId) { this.setEmojiButtonOption(); }
     if (this.quizes[this.index].type === 'audio') { this.isAudio = true; }
     if (this.quizes[this.index].type === 'video') {
       this.videoSource = this.quizes[this.index].url;
@@ -150,21 +185,22 @@ values=['','','','',''];
         this.playVideo();
         this.loadNextInBackground();
       }, 100);
-    }
-    else {
+    } else {
       this.loadNextInBackground();
     }
   }
+  prepareCelebrityOption(quiz: Quizes) {
+    this.imageObject = this.catchHero.prepareOption(quiz);
+     }
   private setEmojiButtonOption() {
-    if (this.quizes[this.index].categoryId === this.emojiCategoryId) {
-      this.isOptionButtonVisible = false;
-      var length = this.quizes[this.index].answer.length;
+      const length = this.quizes[this.index].answer.length;
       this.emojiAnswerArray = Array(length);
-    }
-    else {
-      this.isOptionButtonVisible = true;
-    }
-  }
+      this.values = Array(length).fill('');
+      const element = document.getElementById('0');
+      if (null != element) {
+        element.focus();
+      }
+     }
 
   handlesubmitAnswerResponse(result) {
     this.result = result;
@@ -172,7 +208,7 @@ values=['','','','',''];
   onSelectAnswer(selectedAnswer): void {
     this.questionAudio.pause();
     this.pauseTimer();
-    let correctAnswer: string = this.quizes[this.index].answer;
+    const correctAnswer: string = this.quizes[this.index].answer;
 
     if (selectedAnswer == correctAnswer) {
       this.whenAnswerIsCorrect(selectedAnswer);
@@ -187,27 +223,30 @@ values=['','','','',''];
     this.correctlyAnsweredQues++;
     this.buttonCss[selectedAnswer - 1] = 1;
     this.coins += 100;
-    if (this.correctlyAnsweredQues < this.totalQuestion) {
+    if (this.correctlyAnsweredQues < AppSettings.totalQuestion) {
       this.isanimatedGifVaisible = true;
       setTimeout(() => {
         this.isanimatedGifVaisible = false;
         this.next();
       }, 1000);
-    }
-    else {
-      this.openSuccessDialog();
-      this.level += 1;
-      this.userCategoryData.level = this.level;
-      this.saveUserProgress();
+    } else {
+      
+      if(this.userName=='Guest'){
+        this.openLoginDialog();
+      }
+      else {
+        this.openSuccessDialog();
+        
+      }
+
+      
+      
 
     }
   }
- 
-  onPressBackKey() {
-    if (this.emojiIndex > 0) {
-      this.emojiAnswerArray[--this.emojiIndex] = '';
-    }
-  }
+  
+
+
   private applyAnimationOnWrongEmojiAnswer() {
 
     setTimeout(() => {
@@ -217,74 +256,67 @@ values=['','','','',''];
     this.emojiBoxCss = 'animated   delay-2s';
   }
 
-  private applyAnimationOnKeyBoardLoad() {
-    this.keyboardAnimation = 'animated bounceOutRight delay-2s';
-    setTimeout(() => {
-      this.keyboardAnimation= 'animated   bounceInLeft delay-2s';
 
-    });
-    
-  }
-  onPressKey1(event,index) {
-    var keyPressed=event.target.value;    
-    this.values[index]=keyPressed;
-    var userAnswer = this.values.join("");
-    console.log(userAnswer);
-  }
-  onPressKey(event) {
-    var keyPressed=event.target.value;
-    console.log(this.emojiIndex);
-    this.values[this.emojiIndex]=keyPressed;
-    console.log(keyPressed);
-    this.addAnimationOnKeyboardPress(event);
-    this.emojiAnswerArray[this.emojiIndex++] = keyPressed;
-  
-    if (this.emojiIndex === this.emojiAnswerArray.length) {
-      var correctAnswer = this.quizes[this.index].answer.toUpperCase();
-      var userAnswer = this.emojiAnswerArray.join("");
+  onPressKey1(event, index) {
 
-      if (userAnswer === correctAnswer) {
-        this.pauseTimer();
-        this.emojiIndex = 0;
-        this.whenAnswerIsCorrect(null);
+    if (event.key === 'Backspace') {
+      const element = document.getElementById('' + (index - 1));
+      if (null != element) {
+
+          element.focus();
+          (element as HTMLInputElement).value = '';
+
+        }
+  } else {
+    const keyPressed = event.target.value;
+    const regex = /^[A-Za-z0-9]+$/;
+
+
+    const element = document.getElementById(index + 1);
+    if (null != element) {
+        element.focus();
       }
-      else {
-        this.applyAnimationOnWrongEmojiAnswer();
-        this.pauseTimer();
-        this.emojiIndex = 0;
-        this.wrongAnswer(null);
+    this.values[index] = keyPressed;
+    const userAnswer = this.values.join('').toUpperCase();
 
+    if (userAnswer.length === this.emojiAnswerArray.length) {
+        const correctAnswer = this.quizes[this.index].answer.toUpperCase();
+
+        if (userAnswer === correctAnswer) {
+          this.pauseTimer();
+          this.emojiIndex = 0;
+          this.whenAnswerIsCorrect(null);
+        } else {
+          this.applyAnimationOnWrongEmojiAnswer();
+          this.pauseTimer();
+          this.emojiIndex = 0;
+          this.wrongAnswer(null);
+
+        }
       }
-    }
-  }
-  
-  private addAnimationOnKeyboardPress(event: any) {
-    const classList = event.target.classList;
-    classList.remove('bounceIn');
-    setTimeout(() => {
-      classList.add("animated");
-      classList.add("bounceIn");
-      classList.add("delay-2s");
-    });
-  }
+      }
+}
+   saveUserProgress() {
+    console.log(this.userName);
+    this.level += 1;
+    this.userCategoryData.level = this.level;
 
-  saveUserProgress() {
     this.httpClientService.saveUserCategoryLevel(this.userCategoryData).subscribe();
     this.httpClientService.saveUserCoins(this.userName, this.coins).subscribe();
   }
   wrongAnswer(selectedAnswer) {
-    let correctAnswer: string = this.quizes[this.index].answer;
-    this.liveClassesArray[this.remainingLives] = 'heart-img-blank';
+    const correctAnswer: string = this.quizes[this.index].answer;
+    this.liveClassesArray[AppSettings.remainingLives] = 'heart-img-blank';
     this.audio.play();
     this.coins -= 50;
-    if (this.remainingLives < 0) {
+    if (AppSettings.remainingLives < 0) {
       this.openSaveMeDialog();
     } else {
       if (selectedAnswer != 0) {
         this.buttonCss[selectedAnswer - 1] = 2;
       }
 
-      this.remainingLives--;
+      AppSettings.remainingLives--;
       // this.buttonCss[correctAnswer - 1] = 1;
       setTimeout(() => {
         this.next();
@@ -294,7 +326,15 @@ values=['','','','',''];
   next() {
     this.isAudio = false;
     this.index++;
-    this.setEmojiButtonOption();
+    if (this.categoryId === AppSettings.emojiCategoryId) {  this.setEmojiButtonOption(); }
+    if (this.categoryId === AppSettings.catchHeroCategoryId) {
+       this.prepareCelebrityOption(this.quizes[this.index]);
+
+       setInterval(() => {
+     this.slider.next();
+    }
+       , 500);
+      }
     setTimeout(() => {
       const type = this.quizes[this.index].type;
       console.log(type);
@@ -310,11 +350,10 @@ values=['','','','',''];
       }
       this.loadNextInBackground();
     }, 0);
-    this.applyAnimationOnButton();
-    this.applyAnimationOnKeyBoardLoad();
+    this.applyAnimationOnButton(); 
     this.buttonCss = [0, 0, 0, 0];
 
-    this.timeLeft = this.totalTimeLeft;
+    this.timeLeft = AppSettings.totalTimeLeft;
     this.startTimer();
   }
   private loadNextInBackground() {
@@ -326,8 +365,7 @@ values=['','','','',''];
       this.tempAudio.load();
     } else if (type === 'image') {
       this.imgArray.src = this.quizes[this.index + 1].url;
-    }
-    else if (type === 'video') {
+    } else if (type === 'video') {
       if (this.flag) {
         this.videoSource1 = this.quizes[this.index + 1].url;
         this.videoplayer1.nativeElement.load();

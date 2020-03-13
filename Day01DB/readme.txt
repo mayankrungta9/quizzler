@@ -1,0 +1,1 @@
+java -jar -Dspring.profiles.active=prod Day01DB-0.0.1-SNAPSHOT.jar

@@ -10,8 +10,8 @@ import { CrosswordComponent } from './crossword/crossword.component';
 import { CatchHeroComponent } from './catch-hero/catch-hero.component';
 const routes: Routes = [
 
-  
-  { path:'', component: LoginComponent},
+  { path:'login', component: LoginComponent},
+  { path:'', component: ShowCategory},
   { path:'quiz/:userName/:categoryId/:level', component: QuizComponent},
   { path:'showCategory/:userName', component: ShowCategory,canActivate:[AuthGuard]},
   { path:'success', component: success},

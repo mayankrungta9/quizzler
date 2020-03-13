@@ -9,11 +9,12 @@ import {
   CognitoUserAttribute,
 
 } from 'amazon-cognito-identity-js';
+import { MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'LoginComponent',
   templateUrl: '../html/login.html',
-  styleUrls: ['./quizzler.component.css']
+  styleUrls: ['./login.component.css']
 })
 
 export class LoginComponent implements OnInit {
@@ -27,7 +28,7 @@ export class LoginComponent implements OnInit {
     public  router: Router ,
     public activateRoute: ActivatedRoute,
     public httpClientService: HttpClientService,
-
+    public dialogRef: MatDialogRef<LoginComponent>
   ) { }
 
   ngOnInit() {
@@ -78,6 +79,7 @@ registerUser() {
 }
 
  login() {
+  let self=this;
   let router = this.router;
   let activateRoute = this.activateRoute;
 
@@ -104,16 +106,19 @@ registerUser() {
           console.log('id token + ' + result.getIdToken().getJwtToken());
           console.log('refresh token + ' + result.getRefreshToken().getToken());
           localStorage.setItem('name', userData.Username);
-          let returnUrl = activateRoute.snapshot.queryParamMap.get('returnUrl');
+         // let returnUrl = activateRoute.snapshot.queryParamMap.get('returnUrl');
 
-          router.navigate([returnUrl || '/showCategory/' + userData.Username]);
+          //router.navigate([returnUrl || '/showCategory/' + userData.Username]);
+          self.dialogRef.close(userData.Username);
       },
       onFailure(err) {
           console.log(err);
+          
       },
 
 
   });
+  
 }
 
 

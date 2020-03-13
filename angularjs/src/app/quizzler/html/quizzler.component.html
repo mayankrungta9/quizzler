@@ -91,16 +91,24 @@
 				[ngClass]="{'button-color ': buttonCss[3]=='0','btn btn-success': buttonCss[3]=='1','btn btn-danger': buttonCss[3]=='2' }"
 				(click)="onSelectAnswer(4)"> {{quizes[index].option4}}</button>
 		</div>
-		<div *ngIf="!isOptionButtonVisible" style="height:100%; width:100%;text-align:center;">
+		<div *ngIf="isemojiBoxVisible" style="height:100%; width:100%;text-align:center;">
 			<div id='inputtext' class="emojiTextBoxDiv {{emojiBoxCss}}">
 				<div *ngFor="let input of emojiAnswerArray let i = index">
-					<input type="text"  class="emojiTextBox"  [(value)]="values[i]" minlength="1"  maxlength="1" (keyup)="onPressKey1($event,i)">
+					<input type="text"  id={{i}} class="emojiTextBox" #emojiTextBox [(value)]="values[i]" minlength="1"  maxlength="1" 
+					 (keyup)="onPressKey1($event,i)" >
 				</div>
-
 			</div>
-			
-
 		</div>
+		<div *ngIf="isMovingPictureDivVisible" style="height:100%; width:100%;text-align:center;">
+			<div style="padding-top:6%;padding-bottom: 5%;background-image: url(/assets/images/background.jpg) ;background-repeat:  repeat-x; width:100%;height:100%;    width: 100%">
+
+				<ng-image-slider [images]="imageObject" [infinite]="true" [autoSlide]="1" 
+			[showArrow]="false" [arrowKeyMove]=true [imagePopup]="false" [animationSpeed]="0.5" [imageSize]="{width: '30%', height: '22%'}"
+			(imageClick) = "checkAnswer($event)" #nav	>  
+			</ng-image-slider>
+			</div>
+		</div>
+
 	</div>
 </div>
 <ng-template #loading>

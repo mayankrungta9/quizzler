@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClientService,Category} from '../../service/httpclient.service';
+import { HttpClientService, Category} from '../../service/httpclient.service';
 
-import { Router,ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import {
 
 } from 'amazon-cognito-identity-js';
-import { saveMe } from './saveMe.component';
+
 import { MatDialog } from '@angular/material/dialog';
+import { LoginComponent } from './login.component';
 
 @Component({
   selector: 'test',
@@ -15,53 +16,59 @@ import { MatDialog } from '@angular/material/dialog';
 })
 
 export class ShowCategory implements OnInit {
-  
-  categories:Category;
-  level=Array(0);
-   userName:string;
-categoryId:number;
+
+  categories: Category;
+  level = Array(0);
+   userName: string;
+categoryId: number;
 iscategoryvisible = true;
-userCurrentLevel:number;
+userCurrentLevel: number;
   constructor(
     public  router: Router ,
     public  activatedrouter: ActivatedRoute ,
-    private httpClientService:HttpClientService,
+    private httpClientService: HttpClientService,
     private dialog: MatDialog,
-    
+
   ) { }
 
   ngOnInit() {
-    this.dialog.open(saveMe);
-    this.userName=this.activatedrouter.snapshot.paramMap.get("userName");
+    if (localStorage.getItem('name') != null) {
+    this.userName = localStorage.getItem('name');
+      } else {
+        this.userName = 'Guest';
+      }
+
     this.httpClientService.loadCategory().subscribe(
-     response =>this.handleSuccessfulResponse(response),
+     response => this.handleSuccessfulResponse(response),
     );
 
-   
+
   }
-  openSaveMeDialog() {
-    this.dialog.open(saveMe).afterClosed().subscribe(response => {
-   
-    });
-  }
-   loadQuiz(level){
-    this.router.navigate(['quiz', this.userName,this.categoryId,level]);
+
+   loadQuiz(level) {
+     if(level <= this.userCurrentLevel){
+       this.router.navigate(['quiz', this.userName, this.categoryId, level]);
       }
-  private selectCategory(category:Category){
+    else {
+    alert('level is locked');
+    }
+      }
+     
+  private selectCategory(category: Category) {
     console.log(category);
-    this.httpClientService.loadCategoryLevel(this.userName,category.categoryId).subscribe(userCategoryData=>{
-      this.userCurrentLevel=userCategoryData.level;
-      this.categoryId=category.categoryId;
-      this.iscategoryvisible=false;
+    this.httpClientService.loadCategoryLevel(this.userName, category.categoryId).subscribe(userCategoryData => {
+      this.userCurrentLevel = userCategoryData.level;
+      this.categoryId = category.categoryId;
+      this.iscategoryvisible = false;
       this.level = Array(category.level);
     });
   }
-    handleSuccessfulResponse(response){
-    this.categories=response;
-    
-  };
+    handleSuccessfulResponse(response) {
+    this.categories = response;
+
+  }
 
 
-  
+
 }
 
