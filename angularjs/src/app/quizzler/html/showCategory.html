@@ -15,7 +15,7 @@
 	
 			<div class="categoryBackground">
 				
-				<div *ngIf="iscategoryvisible" style = "height:95%">
+				<div *ngIf="iscategoryvisible" style = "height:95%;margin-top:2%;">
 				<div  class ="categoryDiv" *ngFor="let category of categories" (click)=selectCategory(category)>
 					<div >
 						<div style = "font-size: 16px;color:white;float:left;"> {{category.categoryName}}</div>					

@@ -27,11 +27,13 @@
 				</div>
 			</div>
 		</div>
-		<div id="middle-section" style="height:70%;"
+
+
+		<div id="middle-section" class=middle-section
 			[ngClass]="{'upper-part-audio': isAudio,'upper-part-text': !isAudio }">
-			<a (click)="openQuestionReportedDialogue();" style="color:white"> questyion rep</a>
-			<div *ngIf="quizes[index]?.type=='image'">
-				<img src={{quizes[0].url}} alt="HTML5 Icon" class="ques-img" #imagesTemp>
+		
+			<div *ngIf="quizes[index]?.type=='image'" class="ques-img">
+				<img src={{quizes[0].url}} alt="HTML5 Icon"  #imagesTemp style="width: 100%;border-radius: 16px;			height: 100%;">
 			</div>
 			<div *ngIf="quizes[index].type=='audio' && index==0" style="text-align: center;">
 
