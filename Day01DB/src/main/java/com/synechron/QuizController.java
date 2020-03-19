@@ -140,26 +140,7 @@ public class QuizController {
 		}
 	}
 	
-	@PostMapping(path = "/redirectPaytm", produces =  MediaType.TEXT_HTML_VALUE)
-
-	public String  redirectPaytm( Test params ) {
-
-		
-		 return paytm.redirectToPaytm(params).toString();
-		 
-	}
 	
-	@PostMapping(path = "/callback", produces =  MediaType.TEXT_HTML_VALUE)
-
-	public String  callBack( PaytmResponse params ) {
-		try {
-			return PaytmResponse.reVerify(params);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		return "errro";
-		
-	}
+	
+	
 }
