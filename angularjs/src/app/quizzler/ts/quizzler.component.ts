@@ -40,7 +40,7 @@ export class QuizComponent implements OnInit {
   videoSource1 = '';
   imgArray = new Image();
   audioFlag = true;
-  correctlyAnsweredQues = 0;
+  correctlyAnsweredQues = 1;
 
   timeLeft: number = AppSettings.totalTimeLeft;
   interval;
@@ -54,7 +54,7 @@ export class QuizComponent implements OnInit {
   buttonAnimationCss1 = 'animated  bounceInLeft delay-5s';
   buttonAnimationCss2 = 'animated  bounceInRight delay-5s';
   emojiBoxCss = 'animated  heartBeat delay-5s';
-
+totalQuestion:number=AppSettings.totalQuestion
   correctAnswer = 0;
   coins = 0;
   testing = false;
