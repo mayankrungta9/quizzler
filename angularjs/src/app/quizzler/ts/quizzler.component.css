@@ -1,13 +1,33 @@
 input:focus {
-    height: 100%;
-    margin-bottom: 4%;
-    width: 15%;
-    background: red;
-    border-style: solid;
-    border-color: white;
+     height: 30px;
+   
+    width: 12%;
+    background: wheat;
+    border-style: none;
+    border-color: rgba(0,0,0,.87);
     text-align: center;
     color: white;
     float: left;
     margin-left: 2%;
+    background-position-y: initial;
+    color: black;
+    border-radius: 7px;
+    /* border-color: #f2bf55; */
+    border-style: solid;
+    /* border-radius: 20px; */
+    border-width: 3px;
+	animation: beat .25s infinite alternate;
+	transform-origin: center;
+	animation: beat .5s infinite alternate;
+	transform-origin: center;
   }
-  
+  .heart {
+	
+	animation: beat 1s infinite alternate;
+	transform-origin: center;
+}
+
+/* Heart beat animation */
+@keyframes beat{
+	to { transform: scale(1.1); }
+}

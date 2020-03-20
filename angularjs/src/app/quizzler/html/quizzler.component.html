@@ -9,7 +9,7 @@
 
 </head>
 <div class="wrap-login100" *ngIf="quizes.length>0; else loading">
-	<div id="upper-part" class="upper-part ">
+	<div id="upper-part"  [ngClass]="{'upper-part':!isemojiBoxVisible , 'upper-part-emoji':isemojiBoxVisible }">
 		<div id="heartTimer" style="width:100%">
 			<div id='heart-img' class="heart-img-div" style="display:inline-block;">
 				<div *ngFor="let liveclass of liveClassesArray " class={{liveclass}} style="display:inline-block">
@@ -23,11 +23,11 @@
 		</div>
 
 
-		<div id="middle-section" class=middle-section
+		<div id="middle-section"  [ngClass]="{'middle-section':!isemojiBoxVisible}"
 			[ngClass]="{'upper-part-audio': isAudio,'upper-part-text': !isAudio }">
 		
-			<div *ngIf="quizes[index]?.type=='image'" class="ques-img">
-				<img src={{quizes[0].url}} alt="HTML5 Icon"  #imagesTemp style="width: 100%;border-radius: 16px;			height: 100%;">
+			<div *ngIf="quizes[index]?.type=='image'"  [ngClass]="{'ques-img':!isemojiBoxVisible , 'ques-emoji':isemojiBoxVisible }">
+				<img src='https://quereka.s3.amazonaws.com/image/308.png' alt="HTML5 Icon"  #imagesTemp style="width: 100%;border-radius: 16px;			height: 100%;">
 			</div>
 			<div *ngIf="quizes[index].type=='audio' && index==0" style="text-align: center;">
 
@@ -59,15 +59,13 @@
 
 			</div>
 
-			<span class="login100-form-title" ngif="quizes[index].description!=''">
-				{{quizes[index].description}}
-			</span>
+			
 			<img src="/assets/images/sample.gif" alt="HTML5 Icon" *ngIf="isanimatedGifVaisible"
 				style="height:90%;width:80%">
 		</div>
 
 	</div>
-	<div id="question" class="text-center  " style="height:45%">
+	<div id="question" class="text-center  " style="height:50%">
 		<div *ngIf="isOptionButtonVisible" style="height:100%">
 			<button appButtonControl class=" {{buttonAnimationCss1}} button-size button.horizTranslate "
 				[disabled]="buttonCss[0]=='2'"
@@ -91,10 +89,11 @@
 				(click)="onSelectAnswer(4)"> {{quizes[index].option4}}</button>
 		</div>
 		<div *ngIf="isemojiBoxVisible" style="height:100%; width:100%;text-align:center;">
-			<div id='inputtext' class="emojiTextBoxDiv {{emojiBoxCss}}">
-				<div *ngFor="let input of emojiAnswerArray let i = index">
-					<input type="text"  id={{i}} class="emojiTextBox" #emojiTextBox [(value)]="values[i]" minlength="1"  maxlength="1" 
-					 (keyup)="onPressKey1($event,i)" >
+			<div id='inputtext' class="emojiTextBoxDiv  {{emojiDivCss}}" style="height:100%; width:100%;text-align:center;">
+				<div *ngFor="let text of emojiAnswerArray let i = index">
+					<input type="text"  id={{i}} class="emojiTextBox  emojiTextBoxColor" #emojiTextBox  minlength="1"  maxlength="1" 
+					 (keyup)="onPressKey1($event,(i))"  [ngStyle]="{'margin-right':emojiLengthArray[i]}"  >
+					 
 				</div>
 			</div>
 		</div>

@@ -226,7 +226,18 @@ iframe {
   
 }
 
-
+.ques-emoji{
+ 
+ height: 94%;
+    width: 60%;
+    margin-left: 3%;
+    border: 2px solid;
+    border-radius: 16px;
+    margin-top: 3%;
+    margin-left: 20%;
+    background: wheat;
+  
+}
 .coin-img{
 	    background: url(/assets/images/coin.png) no-repeat;
     height: 33px;
@@ -251,7 +262,16 @@ iframe {
 		
 }
 .upper-part{
-  height: 50%;
+  
+  height:50%;
+			width: 100%;
+			
+			
+			margin-bottom: 5px;
+		
+}
+.upper-part-emoji{
+  
   
 			width: 100%;
 			
@@ -259,7 +279,6 @@ iframe {
 			margin-bottom: 5px;
 		
 }
-
 
 .upper-part-text{
   
@@ -583,24 +602,46 @@ a  {
 .emojiTextBoxDiv{
   height: 100%;
   margin-bottom: 4%;
-  margin-left: 15%;
+  
 
 }
 .keboardDiv{
   height:60%;
 }
 .emojiTextBox{
-  height: 100%;
-  margin-bottom: 4%;
-  width: 15%;
-  background: none;
-  border-style: solid;
-  border-color: red;
-  text-align: center;
-  color: white;
-  float:left;  
-  margin-left: 2%;
+     height: 30px;
+    margin-bottom: 4%;
+    width: 12%;
+    
+   background: none;
+    text-align: center;
+    color: white;
+    float: left;
+    margin-left: 2%;
+    background-position-y: initial;
+   
+   
 }
+
+.emojiTextBoxColor{
+	
+	background: wheat;
+	 border-style: none;
+    border-color: rgba(0,0,0,.87);
+	 color: black;
+    border-radius: 7px;
+	 /* border-color: #f2bf55; */
+    border-style: solid;
+    /* border-radius: 20px; */
+    border-width: 1px;
+	
+}
+.emojiTextNone{
+	
+	display:none;
+	
+}
+
 .dialog-container1{
  
   background:#ffa500;
