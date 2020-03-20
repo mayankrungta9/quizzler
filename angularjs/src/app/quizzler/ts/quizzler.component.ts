@@ -72,11 +72,12 @@ totalQuestion:number=AppSettings.totalQuestion
   values = ['', '', '', '', ''];
   imageObject: Array < object >;
   @ViewChild('nav') slider: NgImageSliderComponent;
-  @ViewChild('emojiTextBox') searchElement: ElementRef;
+  @ViewChild('emojiTextBox0') searchElement: ElementRef;
    emojilengthcounter=0;
 	   marginRrightPercent=[];
 isMovingPictureDivVisible = false;
    isemojiBoxVisible = false;
+   @ViewChild("myInput0") private _inputElement: ElementRef;
   ngOnInit() {
 
     this.userName = this.activatedrouter.snapshot.paramMap.get('userName');
@@ -196,39 +197,47 @@ openLoginDialog() {
     this.imageObject = this.catchHero.prepareOption(quiz);
      }
 	 
-  private setemojiSpaceArray(index,value) {
-	  	 
-  this.emojiLengthArray[index]=value.length+'%';
-  console.log(this.emojiLengthArray);
   
-}
   private setEmojiButtonOption() {
-	  
-	  this.quizes[this.index].answer="city lights";
-	  
-	   var tempArray=this.quizes[this.index].answer.split(" ");
-	   this.quizes[this.index].answer=this.quizes[this.index].answer.replace(" ","");
-	   const length = this.quizes[this.index].answer.length;
-      this.emojiAnswerArray = this.quizes[this.index].answer.split("");
-	   this.emojiLengthArray=Array(length);
-	   
-   
-	  for(var number=0; number<this.emojiLengthArray.length; number++)
-	  {
-		  this.setemojiSpaceArray(number,tempArray[number]);
-	  }
 	  	  
-       
-	 
+	var form =document.getElementById("myForm");
+	this.emojiLengthArray = Array(length).fill('0%');
+	if(null!=form){
+		form.reset();
+		
+		
+	}
+	
+	 var tempArray=this.quizes[this.index].answer;
+	  this.quizes[this.index].answer=this.quizes[this.index].answer.replace(/ /g,"");
+      this.emojiAnswerArray = this.quizes[this.index].answer.split("");
 	  
+	   var counter=1;
+	   
+	   
+	for(var number=0;number<tempArray.length;number++)	   
+	{
+		if(tempArray[number]==' '){
+			console.log(number-counter);
+			this.emojiLengthArray[number-counter]='14%';
+			++counter;
+			
+		}
+	}
+	 
+	
+	   
+	   const length = this.emojiAnswerArray.length;
       this.values = Array(length).fill('');
       const element = document.getElementById('0');
       if (null != element) {
+		  console.log(element)
         element.focus();
       }
+	 
      }
 	  
-	 
+	 	
 
 
 
@@ -292,25 +301,23 @@ openLoginDialog() {
     if (event.key === 'Backspace') {
       let element = document.getElementById('' + (index - 1));
       if (null != element) {
-
           element.focus();
           (element as HTMLInputElement).value = '';
-
         }
   } else {
-	   var element = document.getElementById('' + (index + 1));
-	  
-    const keyPressed = event.target.value;
+	  const keyPressed = event.target.value;
     const regex = /^[A-Za-z0-9]+$/;
+	  var element = document.getElementById('' + (index ));
+	  (element as HTMLInputElement).value = keyPressed.toUpperCase();
+	    element = document.getElementById('' + (index + 1));
+	  
+    
 
 
      element = document.getElementById(index + 1);
     if (null != element) {
-        element.focus();
-		 
-      
+        element.focus();  
 
-   
     //this.emojiDivCss = 'animated   delay-2s';
       }
     this.values[index] = keyPressed;

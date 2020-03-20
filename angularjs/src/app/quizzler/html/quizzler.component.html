@@ -27,7 +27,7 @@
 			[ngClass]="{'upper-part-audio': isAudio,'upper-part-text': !isAudio }">
 		
 			<div *ngIf="quizes[index]?.type=='image'"  [ngClass]="{'ques-img':!isemojiBoxVisible , 'ques-emoji':isemojiBoxVisible }">
-				<img src='https://quereka.s3.amazonaws.com/image/308.png' alt="HTML5 Icon"  #imagesTemp style="width: 100%;border-radius: 16px;			height: 100%;">
+				<img src={{quizes[index].url}} alt="HTML5 Icon"  #imagesTemp style="width: 100%;border-radius: 16px;			height: 100%;">
 			</div>
 			<div *ngIf="quizes[index].type=='audio' && index==0" style="text-align: center;">
 
@@ -90,11 +90,13 @@
 		</div>
 		<div *ngIf="isemojiBoxVisible" style="height:100%; width:100%;text-align:center;">
 			<div id='inputtext' class="emojiTextBoxDiv  {{emojiDivCss}}" style="height:100%; width:100%;text-align:center;">
+				<form id="myForm">
 				<div *ngFor="let text of emojiAnswerArray let i = index">
-					<input type="text"  id={{i}} class="emojiTextBox  emojiTextBoxColor" #emojiTextBox  minlength="1"  maxlength="1" 
-					 (keyup)="onPressKey1($event,(i))"  [ngStyle]="{'margin-right':emojiLengthArray[i]}"  >
+					<input type="text"  value="" id={{i}}   class="emojiTextBox  emojiTextBoxColor" #emojiTextBox minlength="1"  maxlength="1" 
+					 (keyup)="onPressKey1($event,(i))"    [ngClass]="{'focus':i==0}" [ngStyle]="{'margin-right':emojiLengthArray[i], 'margin-left': i==0 && emojiAnswerArray.length<6?'25%':'0%' }"  >
 					 
 				</div>
+				</form>
 			</div>
 		</div>
 		<div *ngIf="isMovingPictureDivVisible" style="height:100%; width:100%;text-align:center;">
