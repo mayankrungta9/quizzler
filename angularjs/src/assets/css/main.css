@@ -642,6 +642,12 @@ a  {
 	
 }
 
+.cdk-global-overlay-wrapper {
+    display: flex;
+    position: absolute;
+    z-index: 1000;
+    margin-top: -15%;
+}
 .dialog-container1{
  
   background:#ffa500;
@@ -653,11 +659,15 @@ border-color: #f2bf55;
 
 }
 .mat-dialog-container {
-background: #ffa500;
-border-color: #f2bf55;
-border-style: solid;  
-border-radius: 20px;
-border-width: 12px;
+	overflow: scroll;
+background: #f08205;
+    border-color: #e3b711;
+    border-style: solid;
+    border-radius: 20px;
+    border-width: 12px;
+    padding: 14px;
+	    min-height: 100%;
+    max-height: 100%;
 }
 .saveMe{margin-top: 56%;
   font-weight: bold;

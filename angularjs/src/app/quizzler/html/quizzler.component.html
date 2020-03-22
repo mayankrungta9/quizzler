@@ -91,11 +91,13 @@
 		<div *ngIf="isemojiBoxVisible" style="height:100%; width:100%;text-align:center;">
 			<div id='inputtext' class="emojiTextBoxDiv  {{emojiDivCss}}" style="height:100%; width:100%;text-align:center;">
 				<form id="myForm">
+				
 				<div *ngFor="let text of emojiAnswerArray let i = index">
 					<input type="text"  value="" id={{i}}   class="emojiTextBox  emojiTextBoxColor" #emojiTextBox minlength="1"  maxlength="1" 
 					 (keyup)="onPressKey1($event,(i))"    [ngClass]="{'focus':i==0}" [ngStyle]="{'margin-right':emojiLengthArray[i], 'margin-left': i==0 && emojiAnswerArray.length<6?'25%':'0%' }"  >
 					 
 				</div>
+				<input id='reset' type="reset" value="Reset" style="display:none;">
 				</form>
 			</div>
 		</div>

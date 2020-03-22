@@ -1,105 +1,93 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<title>Login V3</title>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="stylesheet" type="text/css" href="/assets/css/util.css">
-	<link rel="stylesheet" type="text/css" href="/assets/css/main.css">
-</head>
-<body>
-	
-	
+
 		
-			<div class="login-form ">
-				
-				<form *ngIf="signin; else signup1">
-					<div style="height:20%">
-					<span class="login100-form-title p-b-34 p-t-27">
-						Log in						
-					</span>
-				</div>
-					<div id ="userdetail" style="height:50%">
-					<div class="wrap-input100 validate-input" data-validate = "Enter username">
-						<input class="input100" type="text" [(ngModel)]="user.username" name="username" placeholder="Username">
-						<span class="focus-input100" data-placeholder="&#xf207;"></span>
+		
+			
+				<div class="login-container">
+					
+					<form *ngIf="signin; else signup1" >
+						<div style="height:20%">
+						<span class="login100-form-title p-b-34 p-t-27">
+							Log in						
+						</span>
 					</div>
-					
-
-					<div class="wrap-input100 validate-input" data-validate="Enter password">
-						<input class="input100" type="password" [(ngModel)]="user.password" name="password"placeholder="Password">
-						<span class="focus-input100" data-placeholder="&#xf191;"></span>
-					</div>
-				</div>
-
-					<div id="login-button" style="height:20%;"> 
-					
-						<button class="login100-form-btn"  (click)="login()">
-							Login
-						</button>			
-					
-					
-				
-				</div>
-
-				<div style="margin-top:5%"> 
-				<div  (click)="signup=true;signin=false;" style="float:left">
-				<span style="color:white"> dont have account?</span>	<span class ="hyperlink">click here </span>
-				</div>
-				<div class="hyperlink" (click)="skiplogin()">
-					skip login
-			</div>
-		</div>	
-				</form>
-				<ng-template #signup1>
-				<form  #f="ngForm">
-					
-
-					<span class="login100-form-title p-b-34 p-t-27">
-						Create New Account
-					</span>
-					<div class="alert alert-danger" *ngIf="password.valid && confPassword.touched && !confPassword.valid" >Password must be 6 character</div>
-					<div class="alert alert-danger" *ngIf="password.valid && confPassword.valid  && !(confPassword.value==password.value)" >Both password must be equaL</div>
-					<div class="alert alert-danger" *ngIf="username.touched && !username.valid"> User name is required.</div>
-					<div class="alert alert-danger" *ngIf="password.touched && !password.valid" >Password must be 6 character</div>
-					<div class="alert alert-danger" *ngIf="errorMessage" >{{errorMessage}}</div>
-					<div class="wrap-input100" >
-						<input required class="input100 " type="text" [(ngModel)]="user.username" #username="ngModel"name="username" placeholder="Username">
-						<span class="focus-input100" data-placeholder="&#xf191;"></span>
-					</div>
-					
-
-					<div class="wrap-input100 " >
-						<input class="input100 " type="password" required minlength="6" [(ngModel)]="user.password" #password=ngModel name="password"placeholder="Password">
-						<span class="focus-input100" data-placeholder="&#xf191;"></span>
-					</div>
-					
-					
-					<div class="wrap-input100 " data-validate="Enter password again">						
-						<input class="input100 " required minlength="6" type="password" ngModel #confPassword =ngModel name="confPassword"placeholder="Confirm Password">
-						<span class="focus-input100" data-placeholder="&#xf084;"></span>
-					</div>
-					<div class='checkbox' style="color:white">
-						<label >
-						Remember me	<input type="checkbox" [(ngModel)]="isChecked" name="isChecked">
-						</label>
-					</div>
-					<div >
-						<button class="login100-form-btn" style="float:left" [disabled]="!f.valid" (click)="registerUser()">
-							Signup
-						</button>
-						<button class="login100-form-btn" style="margin-left:40%"  (click)="signup=false;signin=true;">
-							Login
-						</button>
+						<div id ="userdetail" style="height:50%">
+						<div class="wrap-input100 validate-input" data-validate = "Enter username">
+							<input class="input100" type="text" [(ngModel)]="user.username" name="username" placeholder="Username">
+							<span class="focus-input100" data-placeholder="&#xf207;"></span>
+						</div>
 						
+
+						<div class="wrap-input100 validate-input" data-validate="Enter password">
+							<input class="input100" type="password" [(ngModel)]="user.password" name="password"placeholder="Password">
+							<span class="focus-input100" data-placeholder="&#xf191;"></span>
+						</div>
 					</div>
 
+						<div id="login-button" style="height:20%;"> 
+						
+							<button class="login100-form-btn"  (click)="login()">
+								Login
+							</button>			
+						
+						
 					
-				</form>
-			</ng-template>
-			</div>
-		
-	
+					</div>
 
-</body>
-</html>
+					<div style="margin-top:5%"> 
+					<div  (click)="signup=true;signin=false;" style="float:left">
+					<span style="color:white"> dont have account?</span>	<span class ="hyperlink">click here </span>
+					</div>
+					<div class="hyperlink" (click)="skiplogin()">
+						skip login
+				</div>
+			</div>	
+					</form>
+					<ng-template #signup1>
+					<form  #f="ngForm">
+						
+
+						<span class="login100-form-title p-b-34 p-t-27">
+							Create New Account
+						</span>
+						<div class="alert alert-danger" *ngIf="password.valid && confPassword.touched && !confPassword.valid" >Password must be 6 character</div>
+						<div class="alert alert-danger" *ngIf="password.valid && confPassword.valid  && !(confPassword.value==password.value)" >Both password must be equaL</div>
+						<div class="alert alert-danger" *ngIf="username.touched && !username.valid"> User name is required.</div>
+						<div class="alert alert-danger" *ngIf="password.touched && !password.valid" >Password must be 6 character</div>
+						<div class="alert alert-danger" *ngIf="errorMessage" >{{errorMessage}}</div>
+						<div class="wrap-input100" >
+							<input required class="input100 " type="text" [(ngModel)]="user.username" #username="ngModel"name="username" placeholder="Username">
+							<span class="focus-input100" data-placeholder="&#xf191;"></span>
+						</div>
+						
+
+						<div class="wrap-input100 " >
+							<input class="input100 " type="password" required minlength="6" [(ngModel)]="user.password" #password=ngModel name="password"placeholder="Password">
+							<span class="focus-input100" data-placeholder="&#xf191;"></span>
+						</div>
+						
+						
+						<div class="wrap-input100 " data-validate="Enter password again">						
+							<input class="input100 " required minlength="6" type="password" ngModel #confPassword =ngModel name="confPassword"placeholder="Confirm Password">
+							<span class="focus-input100" data-placeholder="&#xf084;"></span>
+						</div>
+						<div class='checkbox' style="color:white">
+							<label >
+							Remember me	<input type="checkbox" [(ngModel)]="isChecked" name="isChecked">
+							</label>
+						</div>
+						<div >
+							<button class="login100-form-btn" style="float:left" [disabled]="!f.valid" (click)="registerUser()">
+								Signup
+							</button>
+							<button class="login100-form-btn" style="margin-left:40%"  (click)="signup=false;signin=true;">
+								Login
+							</button>
+							
+						</div>
+
+						
+					</form>
+				</ng-template>
+				</div>
+			
+		

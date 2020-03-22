@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,ViewChild } from '@angular/core';
 import { HttpClientService, User, UserData } from '../../service/httpclient.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import {
@@ -23,6 +23,9 @@ export class LoginComponent implements OnInit {
  signin= true;
  signup= false;
  isChecked= true;
+ ifOnFocus=false;
+flag=false;
+
  public errorMessage: String;
   constructor(
     public  router: Router ,
@@ -33,7 +36,10 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     this.user = this.httpClientService.loadUser();
-
+var elelist = document.getElementsByTagName("input");
+for(var i = 0; i < elelist.length; i++){
+    elelist[i].blur();
+}
     if (localStorage.getItem('name') != null) {
 this.router.navigate(['/showCategory/' + localStorage.getItem('name')]);
   }
@@ -121,7 +127,16 @@ registerUser() {
   
 }
 
+focusFunction(){
+	
+	this.ifOnFocus=true;
+	
+	
+}
 
+focusOutFunction(){
+	this.ifOnFocus=false;
+}
 skiplogin() {
 
   const userName = Math.random().toString(36).substring(7);

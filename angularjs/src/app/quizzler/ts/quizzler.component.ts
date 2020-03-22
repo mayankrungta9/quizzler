@@ -200,10 +200,10 @@ openLoginDialog() {
   
   private setEmojiButtonOption() {
 	  	  
-	var form =document.getElementById("myForm");
-	this.emojiLengthArray = Array(length).fill('0%');
+	var form =document.getElementById("reset");
+	this.emojiLengthArray = Array(this.quizes[this.index].answer.split("").length).fill('0%');
 	if(null!=form){
-		form.reset();
+		(form as HTMLInputElement).click();
 		
 		
 	}
@@ -263,7 +263,7 @@ openLoginDialog() {
     this.buttonCss[selectedAnswer - 1] = 1;
     this.coins += 100;
     if (this.correctlyAnsweredQues < AppSettings.totalQuestion) {
-      this.isanimatedGifVaisible = true;
+      //this.isanimatedGifVaisible = true;
       setTimeout(() => {
         this.isanimatedGifVaisible = false;
         this.next();
