@@ -20,8 +20,8 @@ import { MatDialogRef } from '@angular/material/dialog';
 export class LoginComponent implements OnInit {
 
   user: User;
- signin= true;
- signup= false;
+ signin= false;
+ signup= true;
  isChecked= true;
  ifOnFocus=false;
 flag=false;
@@ -50,6 +50,7 @@ this.router.navigate(['/showCategory/' + localStorage.getItem('name')]);
   }
 registerUser() {
   // localStorage.setItem("lastname", "Smith");
+  alert('hello');
   let self = this;
 
   var httpClientService = this.httpClientService;
@@ -119,7 +120,7 @@ registerUser() {
       },
       onFailure(err) {
           console.log(err);
-          
+           self.errorMessage = err.message;
       },
 
 

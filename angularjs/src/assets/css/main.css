@@ -658,6 +658,20 @@ border-color: #f2bf55;
   background-image: url("/assets/images/clapper.jpg" );
 
 }
+
+.alert {
+    position: relative;
+   padding: 0;
+    margin-bottom: 1rem;
+    border: 1px solid transparent;
+    border-radius: .25rem;
+    text-align: center;
+}
+.alert-danger {
+    color: #0e0e0e;
+    background-color: #ec0a1f;
+    border-color: #f5c6cb;
+}
 .mat-dialog-container {
 	overflow: scroll;
 background: #f08205;

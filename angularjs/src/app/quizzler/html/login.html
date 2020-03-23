@@ -1,9 +1,9 @@
 
 		
 		
-			
+			<div style="overflow:scroll;height:100%">
 
-					<div class="social-login-container"style="height:30%;" >
+					<div class="social-login-container"style="height:25%;min-height:80px" >
 					
 					<div class="fb-login-container">
 					<div class="f-text"> f</div>
@@ -20,35 +20,80 @@
 					
 					<div class="or" > OR </div>
 					
-					<form class="login-container">
-						
-						<div id ="userdetail" style="height:60%">
-						
+					<form class="login-container" *ngIf="signin">
+								<div class="alert alert-danger" *ngIf="errorMessage" >{{errorMessage}}</div>							
 						<div class="wrap-input100 validate-input" data-validate = "Enter username">
 						<img src="/assets/images/user.png" alt="HTML5 Icon"  class='social-img'>
-						<input class="input blur" id='userId' blur type="text" (focus)="focusFunction()" (focusout)="focusOutFunction()" [(ngModel)]="user.username" name="username" placeholder="Username">
+						<input class="input blur" value=''id='userId' blur type="text" (focus)="focusFunction()" (focusout)="focusOutFunction()" [(ngModel)]="user.username" name="username" placeholder="Username">
 							
 						</div>
 						
 
 						<div class="wrap-input100 validate-input" data-validate="Enter password">
 							<img src="/assets/images/key.png" alt="HTML5 Icon"  class='social-img'>
-							<input class="input" type="password" (focus)="focusFunction()" (focusout)="focusOutFunction()" [(ngModel)]="user.password" name="password"placeholder="Password">
+							<input class="input" value='' type="password" (focus)="focusFunction()" (focusout)="focusOutFunction()" [(ngModel)]="user.password" name="password"placeholder="Password">
 							
 						</div>
 						<a href="#" class="forgot-password">Forgot Password? </a>
 					
-					<div class='login'>
-							
-							<input type="button" > Login
-							
-						</div>
-					</div>
-
-						
-
-					
+					<button class="login" style="float:left" (click)="login()">
+								Login
+							</button>
+				
+					<div class='signupinfo'>
+			<div class="dont-have-account">don't have an account  </div><span style="font-size: 14px;
+    font-weight: bold;
+    color: blue;" (click)="signup=true;signin=false;">signup</span>
+			</div>
 					</form>
 					
+					
+					<form  #f="ngForm" class="login-container" *ngIf="signup">
+						
+
+						
+						<div class="alert alert-danger" *ngIf="password.valid && confPassword.touched && !confPassword.valid" >Password must be 6 character</div>
+						<div class="alert alert-danger" *ngIf="password.valid && confPassword.valid  && !(confPassword.value==password.value)" >Both password must be equaL</div>
+						<div class="alert alert-danger" *ngIf="username.touched && !username.valid"> User name is required.</div>
+						<div class="alert alert-danger" *ngIf="password.touched && !password.valid" >Password must be 6 character</div>
+						<div class="alert alert-danger" *ngIf="errorMessage" >{{errorMessage}}</div>
+						
+						<div class="wrap-input100 validate-input" data-validate = "Enter username">
+						<img src="/assets/images/user.png" alt="HTML5 Icon"  class='social-img'>
+						<input class="input " id='newuserId'  type="text"  [(ngModel)]="user.username" #username="ngModel" name="username" placeholder="Username">
+							
+						</div>				
+						
+
+						<div class="wrap-input100 " >
+						<img src="/assets/images/key.png" alt="HTML5 Icon"  class='social-img'>
+							<input class="input " type="password" required minlength="6" [(ngModel)]="user.password" #password=ngModel name="password"placeholder="Password">
+							
+						</div>
+						
+						
+						<div class="wrap-input100 " data-validate="Enter password again">
+								<img src="/assets/images/key.png" alt="HTML5 Icon"  class='social-img'>						
+							<input class="input " required minlength="6" type="password" ngModel #confPassword =ngModel name="confPassword"placeholder="Confirm Password">
+							
+						</div>
+						<div class='checkbox' style="color:white">
+							<label >
+							Remember me	<input type="checkbox" [(ngModel)]="isChecked" name="isChecked">
+							</label>
+						</div>
+						
+						<button class="login" style="float:left" [disabled]="!f.valid" (click)="registerUser()">
+								Signup
+							</button>
+						
+							<div class='signupinfo'>
+			<div class="dont-have-account">Already have an account  </div>
+			<span style="font-size: 14px;    font-weight: bold;    color: blue;" (click)="signup=false;signin=true;">click here</span>
+			</div>
+
+						
+					</form>
 				
-		
+							
+		</div>
