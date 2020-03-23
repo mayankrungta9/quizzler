@@ -5,7 +5,7 @@ export const DIALOG_DATA = new InjectionToken('DIALOG_DATA');
 @Component({
     selector: 'Success-component',
     templateUrl: '../html/Success.Component.html',
-    
+    styleUrls: ['./login.component.css','./success.component.css']
   })
   export class success  {
      coins:string;

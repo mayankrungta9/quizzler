@@ -24,7 +24,7 @@ export class LoginComponent implements OnInit {
  signup= true;
  isChecked= true;
  ifOnFocus=false;
-flag=false;
+flag=false; 
 
  public errorMessage: String;
   constructor(

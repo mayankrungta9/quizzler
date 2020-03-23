@@ -5,7 +5,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import {
 
 } from 'amazon-cognito-identity-js';
-
+import { success } from './success-component';
 import { MatDialog } from '@angular/material/dialog';
 import { LoginComponent } from './login.component';
 
@@ -32,9 +32,9 @@ userCurrentLevel: number;
   ) { }
 
   ngOnInit() {
-	  this.dialog.open(LoginComponent,{
-  height: '75%',
-  width: '95%',
+	  this.dialog.open(success,{
+  height: '50%',
+  width: '98%',
 	  });
     if (localStorage.getItem('name') != null) {
     this.userName = localStorage.getItem('name');

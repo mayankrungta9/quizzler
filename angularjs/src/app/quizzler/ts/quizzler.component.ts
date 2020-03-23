@@ -103,9 +103,14 @@ this.whenAnswerIsCorrect(null);
 this.wrongAnswer(null);
     }
 }
+
+
 openLoginDialog() {
 
-  this.dialog.open(LoginComponent).afterClosed().subscribe(response => {
+  this.dialog.open(LoginComponent,{
+  height: '75%',
+  width: '95%',
+	  }).afterClosed().subscribe(response => {
     if (response != null) {
       this.userName = response;    
     this.userCategoryData.userId=response;
