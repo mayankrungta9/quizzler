@@ -8,8 +8,9 @@ import { GameOver } from './quizzler/ts/gameOver-component';
 import { AuthGuard } from './service/auth-guard.service';
 import { CrosswordComponent } from './crossword/crossword.component';
 import { CatchHeroComponent } from './catch-hero/catch-hero.component';
+import { fb  } from './quizzler/ts/fb.component';
 const routes: Routes = [
-
+ { path:'fb', component: fb},
   { path:'login', component: LoginComponent},
   { path:'', component: ShowCategory},
   { path:'quiz/:userName/:categoryId/:level', component: QuizComponent},

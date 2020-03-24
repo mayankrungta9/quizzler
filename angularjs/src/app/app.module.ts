@@ -5,6 +5,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { QuizComponent } from './quizzler/ts/quizzler.component';
 import { LoginComponent } from './quizzler/ts/login.component';
+import { fb  } from './quizzler/ts/fb.component';
+import {MatCardModule} from '@angular/material/card'
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { HeaderComponent } from './header/header.component';
@@ -22,7 +24,17 @@ import { map, catchError } from 'rxjs/operators';
 import { Observable, ObservableInput, of } from 'rxjs';
 import { CrosswordComponent } from './crossword/crossword.component';
 import { CatchHeroComponent } from './catch-hero/catch-hero.component';
+import { SocialLoginModule, AuthServiceConfig, FacebookLoginProvider } from 'angularx-social-login';
 import { NgImageSliderModule } from 'ng-image-slider';
+const config = new AuthServiceConfig([
+  {
+    id: FacebookLoginProvider.PROVIDER_ID,
+    provider: new FacebookLoginProvider('235888204232671')
+  }
+]);
+export function provideConfig() {
+  return config;
+}
 @Injectable({
   providedIn: 'root'
 })
@@ -55,7 +67,7 @@ function load(http: HttpClient, config: ConfigService): (() => Promise<boolean>)
 @NgModule({
   declarations: [
     AppComponent,
-    QuizComponent,
+    QuizComponent,fb,
         HeaderComponent,ShowCategory,
     FooterComponent,LoginComponent,success,GameOver,saveMe,reportQues , ButtonControlDirective, CrosswordComponent, CatchHeroComponent,
   ],
@@ -63,10 +75,10 @@ function load(http: HttpClient, config: ConfigService): (() => Promise<boolean>)
     saveMe,reportQues
   ],
   imports: [
-    BrowserModule,
+    BrowserModule,SocialLoginModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule,NoopAnimationsModule,MatDialogModule,NgImageSliderModule
+    FormsModule,NoopAnimationsModule,MatDialogModule,NgImageSliderModule,MatCardModule
   ],
   providers: [
     {provide:DIALOG_DATA,useValue:{ }},
@@ -79,6 +91,8 @@ function load(http: HttpClient, config: ConfigService): (() => Promise<boolean>)
       ],
       multi: true
     },
+	{ provide: AuthServiceConfig,
+    useFactory: provideConfig},
   ],
   bootstrap: [AppComponent]
 })
