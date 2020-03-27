@@ -2,12 +2,10 @@ D:\quizzler\Day01DB\src\main\java\com\synechron\Day01DbApplication.java
 D:\quizzler\Day01DB\src\main\java\com\synechron\exception\QuestionAlreadyReported.java
 D:\quizzler\Day01DB\src\main\java\com\synechron\entity\QuestionReported.java
 D:\quizzler\Day01DB\src\main\java\com\synechron\dao\CategoryDao.java
-D:\quizzler\Day01DB\src\main\java\com\synechron\entity\UserCoins.java
 D:\quizzler\Day01DB\src\main\java\com\synechron\dao\UserDao.java
 D:\quizzler\Day01DB\src\main\java\com\synechron\entity\Quiz.java
 D:\quizzler\Day01DB\src\main\java\com\synechron\exception\GlobalExceptionHandler.java
 D:\quizzler\Day01DB\src\main\java\com\synechron\dao\CategoryLevelDao.java
-D:\quizzler\Day01DB\src\main\java\com\synechron\dao\UserCoinsDao.java
 D:\quizzler\Day01DB\src\main\java\com\synechron\QuizController.java
 D:\quizzler\Day01DB\src\main\java\com\synechron\entity\User.java
 D:\quizzler\Day01DB\src\main\java\com\synechron\entity\CategoryLevelEntityPK.java

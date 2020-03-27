@@ -2,16 +2,13 @@ package com.synechron;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,14 +22,12 @@ import com.synechron.dao.CategoryDao;
 import com.synechron.dao.CategoryLevelDao;
 import com.synechron.dao.QuestionReportedDao;
 import com.synechron.dao.QuizDao;
-import com.synechron.dao.UserCoinsDao;
 import com.synechron.dao.UserDao;
 import com.synechron.entity.Category;
 import com.synechron.entity.CategoryLevelEntity;
 import com.synechron.entity.QuestionReported;
 import com.synechron.entity.Quiz;
 import com.synechron.entity.User;
-import com.synechron.entity.UserCoins;
 import com.synechron.exception.QuestionAlreadyReported;
 
 @CrossOrigin(origins = "*")
@@ -53,8 +48,7 @@ public class QuizController {
 	@Autowired
 	private CategoryLevelDao categoryLevelDao;
 
-	@Autowired
-	private UserCoinsDao userCoinsDao;
+	
 	
 	@Autowired
 	private QuestionReportedDao questionReportedDao;
@@ -98,7 +92,33 @@ public class QuizController {
 
 	public User saveUser(@RequestBody User user) {
 
+		User userDetail=userDao.findByUserId(user.getUserId());
+		if(null !=userDetail)
+			return userDetail;
+		
 		return userDao.save(user);
+	}
+	
+	@PostMapping(path = "/updateUserCoins", consumes = "application/json", produces = "application/json")
+
+	public User updateUserCoins(@RequestBody User user) {
+
+		User userDetail=userDao.findByUserId(user.getUserId());
+		if(null !=userDetail)
+		{
+			userDetail.setCoins(user.getCoins());
+			return userDao.save(userDetail);
+		}
+		
+		return user;
+	}
+	
+	@GetMapping(path = "/getUserData/{userId}",  produces = "application/json")
+
+	public User getUser(@PathVariable String userId) {
+
+		
+		return userDao.findByUserId(userId);
 	}
 
 	@PostMapping(path = "/saveUserCategoryLevel", consumes = "application/json", produces = "application/json")
@@ -110,21 +130,7 @@ public class QuizController {
 
 	}
 	
-	@GetMapping(path = "/getUserCoins/{userId}", produces = "application/json")
-
-	public UserCoins getUserCoins(@PathVariable String userId) {
-
-		 Optional<UserCoins> usercoins = userCoinsDao.findById(userId);
-		
-		 return usercoins.orElse(new UserCoins());
-	}
-	@PostMapping(path = "/saveUserCoins", consumes = "application/json", produces = "application/json")
-
-	public UserCoins saveUserCoins(@RequestBody UserCoins userCoins) {
-
-		return userCoinsDao.save(userCoins);
-
-	}
+	
 	
 	@PostMapping(path = "/reportQuestion", consumes = "application/json", produces = "application/json")
 

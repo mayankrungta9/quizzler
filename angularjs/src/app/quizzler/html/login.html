@@ -5,12 +5,12 @@
 
 					<div class="social-login-container"style="height:25%;min-height:80px" >
 					
-					<div class="fb-login-container">
+					<div class="fb-login-container" (click)="signInWithFB()">
 					<div class="f-text"> f</div>
 					<div class='social-login-text' style="padding-top: 3%;"> Login With Facebook</div>
 					</div>
 					
-					<div class="fb-login-container" style="background: rgb(66, 133, 244);">
+					<div class="fb-login-container" style="background: rgb(66, 133, 244);" (click)="signInWithGoogle()">
 					<img src="/assets/images/google.png" alt="HTML5 Icon"  class='social-img'>
 					<span class='social-login-text'> Login With Google</span>
 					</div>

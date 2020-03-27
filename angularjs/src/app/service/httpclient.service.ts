@@ -35,17 +35,45 @@ export class Quizes {
     public categoryId:number,
   ) { }
 }
+  
 
 export class UserData {
+	 public userId: string="";
+    public first_name: string="";
+    public last_name: string="";
+	public coins:number=0;
   constructor(
-    public user_id: string,
-    public first_name: string,
-    public last_name: string,
+   
+  ) { 
+  
+  }
+  public createUserData(userId,first_name,last_name,coins){
+	  this.userId=userId;
+	  this.first_name=first_name;
+	  this.last_name=last_name;
+	  this.coins=coins;
+  }
+  
+   public cloneUserData(response){
+	  this.userId=response.userId;
+	  this.first_name=response.first_name;
+	  this.last_name=response.last_name;
+	  this.coins=response.coins;
+  }
+}
 
+export class UserCoins {
+  constructor(
+    public userId: string,
+    public coins: number,
+    
+	
   ) { }
 }
 
+
 export class UserCategoryData {
+	
   constructor(
     public userId: string,
     public categoryId: number,
@@ -53,14 +81,7 @@ export class UserCategoryData {
 
   ) { }
 }
-export class UserCoins {
-  constructor(
-    public userId: string,
-    public coins: number,
 
-
-  ) { }
-}
 export class QuestionReported {
   constructor(
     public qid: number,
@@ -128,7 +149,7 @@ export class HttpClientService {
 
       })
     };
-    return this.httpClient.post<User>(this.baseServicePath + 'saveUser', user, httpOptions).pipe(
+    return this.httpClient.post<UserData>(this.baseServicePath + 'saveUser', user, httpOptions).pipe(
 
       catchError(this.handleError)
     );
@@ -144,14 +165,15 @@ export class HttpClientService {
     );
   }
 
-  saveUserCoins(userName: string, coins: number) {
-    var usercoins = new UserCoins(userName, coins);
-    console.log(usercoins);
-    return this.httpClient.post<User>(this.baseServicePath + 'saveUserCoins', usercoins, this.httpOptions).pipe(
+saveUserCoins(userId,coins ) {
+
+var userCoins = new UserCoins(userId,coins );
+    return this.httpClient.post<UserData>(this.baseServicePath + 'updateUserCoins', userCoins, this.httpOptions).pipe(
 
       catchError(this.handleError)
     );
   }
+  
   reportQuestion(qid: number, comments: string) {
     var questionreported = new QuestionReported(qid, comments);
   
@@ -160,17 +182,18 @@ export class HttpClientService {
       catchError(this.handleError)
     );
   }
-  getUserCoins(userName: string) {
-  
-    
-    return this.httpClient.get<UserCoins>(this.baseServicePath + 'getUserCoins/'+userName).pipe(
+   
+  loadCategory() {
+
+    return this.httpClient.get<Category[]>(this.baseServicePath + 'getCategory').pipe(
 
       catchError(this.handleError)
     );
   }
-  loadCategory() {
+  
+  loadUserData(userId:string) {
 
-    return this.httpClient.get<Category[]>(this.baseServicePath + 'getCategory').pipe(
+    return this.httpClient.get<UserData>(this.baseServicePath + 'getUserData/'+userId).pipe(
 
       catchError(this.handleError)
     );

@@ -15,7 +15,7 @@
 				<div *ngFor="let liveclass of liveClassesArray " class={{liveclass}} style="display:inline-block">
 				</div>
 			</div>
-			<div id='currentStatus' class="currentStatus"> {{correctlyAnsweredQues}}/{{totalQuestion}}</div>			
+			<div id='currentStatus' class="currentStatus"> {{index+1}}/{{totalQuestion}}</div>			
 			<div id="timer" class="timer-div">
 				{{timeLeft}}
 			</div>

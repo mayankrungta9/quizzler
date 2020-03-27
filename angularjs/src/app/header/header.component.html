@@ -3,13 +3,16 @@
   <div style="float:right">
 				<div class="coin-img" style="display:inline-block;float:right"></div>
 				<div style="margin-right:-8px;float:right;color:white">
-					{{coins}}
+					{{userData.coins}}
 				</div>
 			</div>
 <div  class="bg-color">
- Hi! {{userName}} 
- <a (click)="logout()" style="float:right;margin-right:33%;" >
+ Hi! <span>{{userData.first_name!='' ?userData.first_name:userData.userId!=''?userData.userId:'Guest' }} </span> 
+ <a *ngIf="userData.userId!='' && userData.userId!=null"(click)="logout()" style="float:right;margin-right:33%;" >
   Logout
+</a>
+<a *ngIf="userData.userId=='' || userData.userId==null "(click)="login()" style="float:right;margin-right:33%;" >
+  Login
 </a>
 </div>
   

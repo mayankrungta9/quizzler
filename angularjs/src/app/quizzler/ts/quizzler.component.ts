@@ -1,5 +1,5 @@
 import { Component, OnInit, HostListener, ElementRef, ViewChild } from '@angular/core';
-import { HttpClientService, Quizes, UserCoins, UserCategoryData } from '../../service/httpclient.service';
+import { HttpClientService, Quizes, UserData, UserCategoryData } from '../../service/httpclient.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AppError } from '../../common/app.error';
 import { Subscription } from 'rxjs';
@@ -26,6 +26,7 @@ export class QuizComponent implements OnInit {
     public activatedrouter: ActivatedRoute,
     public router: Router,
     private dialog: MatDialog,
+	private userData:UserData,
   ) {  }
   subscriptions: Subscription[] = [];
   audio = new Audio();
@@ -40,7 +41,7 @@ export class QuizComponent implements OnInit {
   videoSource1 = '';
   imgArray = new Image();
   audioFlag = true;
-  correctlyAnsweredQues = 1;
+  
 
   timeLeft: number = AppSettings.totalTimeLeft;
   interval;
@@ -78,9 +79,15 @@ totalQuestion:number=AppSettings.totalQuestion
 isMovingPictureDivVisible = false;
    isemojiBoxVisible = false;
    @ViewChild("myInput0") private _inputElement: ElementRef;
+  
+  
+  
   ngOnInit() {
 
-    this.userName = this.activatedrouter.snapshot.paramMap.get('userName');
+    this.userName = this.userData.userId;
+	console.log(this.userData);
+	
+	console.log(this.userData.coins);
     this.categoryId = +this.activatedrouter.snapshot.paramMap.get('categoryId');
     this.level = +this.activatedrouter.snapshot.paramMap.get('level');
     this.userCategoryData = new UserCategoryData(this.userName, this.categoryId, this.level);
@@ -94,6 +101,7 @@ isMovingPictureDivVisible = false;
     }
     this.loadQuiz();
     // this.startTimer();
+	//this.openLoginDialog();
   }
   checkAnswer(selectedAnswer) {
 
@@ -103,7 +111,13 @@ this.whenAnswerIsCorrect(null);
 this.wrongAnswer(null);
     }
 }
-
+setUserData(){
+	   this.httpClientService.loadUserData(this.userData.userId).subscribe(response=>{
+	this.userData=response
+	
+	}
+	);
+  }
 
 openLoginDialog() {
 
@@ -112,9 +126,12 @@ openLoginDialog() {
   width: '95%',
 	  }).afterClosed().subscribe(response => {
     if (response != null) {
-      this.userName = response;    
-    this.userCategoryData.userId=response;
-      this.openSuccessDialog();
+      this.userData.cloneUserData(response);
+	 
+	  console.log(this.userData.userId );
+    this.userCategoryData.userId=response.userId;
+	this.saveUserProgress(); // need to comment later
+     // this.openSuccessDialog();
     } else {
       console.log("sorry wrong credential");
     }
@@ -157,7 +174,7 @@ openLoginDialog() {
           this.next();
         }, 1000);
       } else {
-        this.httpClientService.saveUserCoins(this.userName, this.coins).subscribe();
+        this.httpClientService.saveUserCoins(this.userData.userId, this.coins).subscribe();
         this.openGameOverDialog();
       }
     });
@@ -197,6 +214,7 @@ openLoginDialog() {
     } else {
       this.loadNextInBackground();
     }
+	
   }
   prepareCelebrityOption(quiz: Quizes) {
     this.imageObject = this.catchHero.prepareOption(quiz);
@@ -250,6 +268,7 @@ openLoginDialog() {
     this.result = result;
   }
   onSelectAnswer(selectedAnswer): void {
+	  //this.userData.coins=560;
     this.questionAudio.pause();
     this.pauseTimer();
     const correctAnswer: string = this.quizes[this.index].answer;
@@ -264,32 +283,34 @@ openLoginDialog() {
   private whenAnswerIsCorrect(selectedAnswer: any) {
 
 
-    this.correctlyAnsweredQues++;
+    
     this.buttonCss[selectedAnswer - 1] = 1;
     this.coins += 100;
-    if (this.correctlyAnsweredQues < AppSettings.totalQuestion) {
-      //this.isanimatedGifVaisible = true;
-      setTimeout(() => {
+    setTimeout(() => {
         this.isanimatedGifVaisible = false;
         this.next();
       }, 1000);
-    } else {
-      
-      if(this.userName=='Guest'){
-        this.openLoginDialog();
-      }
-      else {
-        this.openSuccessDialog();
-        
-      }
-
-      
-      
-
-    }
   }
   
+wrongAnswer(selectedAnswer) {
+    const correctAnswer: string = this.quizes[this.index].answer;
+    this.liveClassesArray[AppSettings.remainingLives] = 'heart-img-blank';
+    this.audio.play();
+    this.coins -= 50;
+    if (AppSettings.remainingLives < 0) {
+      this.openSaveMeDialog();
+    } else {
+      if (selectedAnswer != 0) {
+        this.buttonCss[selectedAnswer - 1] = 2;
+      }
 
+      AppSettings.remainingLives--;
+      // this.buttonCss[correctAnswer - 1] = 1;
+      setTimeout(() => {
+        this.next();
+      }, 1000);
+    }
+  }
 
   private applyAnimationOnWrongEmojiAnswer() {
 
@@ -349,30 +370,25 @@ openLoginDialog() {
     console.log(this.userName);
     this.level += 1;
     this.userCategoryData.level = this.level;
-
+this.userData.coins+=this.coins;
     this.httpClientService.saveUserCategoryLevel(this.userCategoryData).subscribe();
-    this.httpClientService.saveUserCoins(this.userName, this.coins).subscribe();
+    this.httpClientService.saveUserCoins(this.userData.userId, this.userData.coins).subscribe(	response=>this.userData=response
+	);
   }
-  wrongAnswer(selectedAnswer) {
-    const correctAnswer: string = this.quizes[this.index].answer;
-    this.liveClassesArray[AppSettings.remainingLives] = 'heart-img-blank';
-    this.audio.play();
-    this.coins -= 50;
-    if (AppSettings.remainingLives < 0) {
-      this.openSaveMeDialog();
-    } else {
-      if (selectedAnswer != 0) {
-        this.buttonCss[selectedAnswer - 1] = 2;
-      }
-
-      AppSettings.remainingLives--;
-      // this.buttonCss[correctAnswer - 1] = 1;
-      setTimeout(() => {
-        this.next();
-      }, 1000);
-    }
-  }
+  
   next() {
+	  if (this.index+1>= AppSettings.totalQuestion) {
+      //this.isanimatedGifVaisible = true;   
+        console.log(this.userName);
+      if(this.userName==null || this.userName==''){
+        this.openLoginDialog();
+      }
+      else {
+        this.openSuccessDialog();
+        
+      } 
+	  }
+	  else {
     this.isAudio = false;
     this.index++;
     if (this.categoryId === AppSettings.emojiCategoryId) {  this.setEmojiButtonOption(); }
@@ -404,6 +420,7 @@ openLoginDialog() {
 
     this.timeLeft = AppSettings.totalTimeLeft;
     this.startTimer();
+	  }
   }
   private loadNextInBackground() {
     const type = this.quizes[this.index + 1].type;

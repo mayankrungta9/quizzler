@@ -6,6 +6,7 @@ import com.synechron.entity.User;
 
 public interface UserDao extends JpaRepository<User, Integer>{
 
+	User findByUserId(String user_id);
 	
 }
 

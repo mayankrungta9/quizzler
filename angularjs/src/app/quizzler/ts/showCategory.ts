@@ -32,10 +32,10 @@ userCurrentLevel: number;
   ) { }
 
   ngOnInit() {
-	  this.dialog.open(success,{
-  height: '50%',
-  width: '98%',
-	  });
+	//  this.dialog.open(LoginComponent,{
+ // height: '75%',
+ // width: '98%',
+//	  });
     if (localStorage.getItem('name') != null) {
     this.userName = localStorage.getItem('name');
       } else {

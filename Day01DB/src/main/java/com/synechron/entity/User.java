@@ -1,5 +1,6 @@
 package com.synechron.entity;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -9,19 +10,22 @@ import javax.persistence.Table;
 public class User {
 	
 	@Id	
-	private String user_id;
+	@Column(name="user_id")
+	private String userId;
 	
 	
 	private String first_name;
 	
 	private String last_name;
 
-	public String getUser_id() {
-		return user_id;
+	private int coins;
+
+	public String getUserId() {
+		return userId;
 	}
 
-	public void setUser_id(String user_id) {
-		this.user_id = user_id;
+	public void setUserId(String userId) {
+		this.userId = userId;
 	}
 
 	public String getFirst_name() {
@@ -39,6 +43,23 @@ public class User {
 	public void setLast_name(String last_name) {
 		this.last_name = last_name;
 	}
+
+	public int getCoins() {
+		return coins;
+	}
+
+	public void setCoins(int coins) {
+		this.coins = coins;
+	}
+
+	@Override
+	public String toString() {
+		return "User [userId=" + userId + ", first_name=" + first_name + ", last_name=" + last_name + ", coins=" + coins
+				+ "]";
+	}
+
+	
+
 	
 	
 	

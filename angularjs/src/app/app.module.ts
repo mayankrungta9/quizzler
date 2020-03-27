@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, ErrorHandler, Injectable } from '@angular/core';
-
+import { HttpClientService,UserData } from './service/httpclient.service';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { QuizComponent } from './quizzler/ts/quizzler.component';
@@ -24,9 +24,13 @@ import { map, catchError } from 'rxjs/operators';
 import { Observable, ObservableInput, of } from 'rxjs';
 import { CrosswordComponent } from './crossword/crossword.component';
 import { CatchHeroComponent } from './catch-hero/catch-hero.component';
-import { SocialLoginModule, AuthServiceConfig, FacebookLoginProvider } from 'angularx-social-login';
+import { SocialLoginModule, AuthServiceConfig,GoogleLoginProvider, FacebookLoginProvider } from 'angularx-social-login';
 import { NgImageSliderModule } from 'ng-image-slider';
 const config = new AuthServiceConfig([
+ {
+    id: GoogleLoginProvider.PROVIDER_ID,
+    provider: new GoogleLoginProvider("191762920271-tgfla09sh9tk8eulqt7i2u6vu6sv193m.apps.googleusercontent.com")
+  },
   {
     id: FacebookLoginProvider.PROVIDER_ID,
     provider: new FacebookLoginProvider('235888204232671')
@@ -80,7 +84,7 @@ function load(http: HttpClient, config: ConfigService): (() => Promise<boolean>)
     HttpClientModule,
     FormsModule,NoopAnimationsModule,MatDialogModule,NgImageSliderModule,MatCardModule
   ],
-  providers: [
+  providers: [UserData,
     {provide:DIALOG_DATA,useValue:{ }},
     {
       provide: APP_INITIALIZER,

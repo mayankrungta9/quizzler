@@ -2,7 +2,7 @@
 import { Component, OnInit,ViewChild } from '@angular/core';
 import { AuthService, FacebookLoginProvider, SocialUser } from 'angularx-social-login';
 @Component({
-  selector: 'app-root',
+  selector: 'fb',
   templateUrl: '../html/fb.component.html',
   
 })
@@ -22,7 +22,7 @@ ngOnInit() {
   this.authService.authState.subscribe((user) => {
     this.user = user;
     this.loggedIn = (user != null);
-    console.log(this.user);
+    //console.log(this.user);
   });
 }
 }
