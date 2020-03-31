@@ -7,7 +7,7 @@ import {
 } from 'amazon-cognito-identity-js';
 import { success } from './success-component';
 import { MatDialog } from '@angular/material/dialog';
-import { LoginComponent } from './login.component';
+import { GameOver } from './gameOver-component';
 
 @Component({
   selector: 'test',
@@ -32,10 +32,11 @@ userCurrentLevel: number;
   ) { }
 
   ngOnInit() {
-	//  this.dialog.open(LoginComponent,{
- // height: '75%',
+	  this.httpClientService.level=0;
+	 // this.dialog.open(GameOver,{
+  //height: '60%',
  // width: '98%',
-//	  });
+	//  });
     if (localStorage.getItem('name') != null) {
     this.userName = localStorage.getItem('name');
       } else {

@@ -12,4 +12,5 @@ export const DIALOG_DATA = new InjectionToken('DIALOG_DATA');
     constructor(@Inject(MAT_DIALOG_DATA) data: any) {
   this.coins = data;
     }
+	
   }

@@ -15,7 +15,8 @@
 				<div *ngFor="let liveclass of liveClassesArray " class={{liveclass}} style="display:inline-block">
 				</div>
 			</div>
-			<div id='currentStatus' class="currentStatus"> {{index+1}}/{{totalQuestion}}</div>			
+			<div id='currentStatus' class="currentStatus"> {{index+1}}/{{totalQuestion}}</div>	
+			
 			<div id="timer" class="timer-div">
 				{{timeLeft}}
 			</div>
@@ -23,39 +24,37 @@
 		</div>
 
 
-		<div id="middle-section"  [ngClass]="{'middle-section':!isemojiBoxVisible}"
-			[ngClass]="{'upper-part-audio': isAudio,'upper-part-text': !isAudio }">
+		<div id="middle-section"  
+			[ngClass]="{'middle-section':!isemojiBoxVisible,'upper-part-audio': isAudio,'upper-part-text': !isAudio }">
 		
 			<div *ngIf="quizes[index]?.type=='image'"  [ngClass]="{'ques-img':!isemojiBoxVisible , 'ques-emoji':isemojiBoxVisible }">
 				<img src={{quizes[index].url}} alt="HTML5 Icon"  #imagesTemp style="width: 100%;border-radius: 16px;			height: 100%;">
 			</div>
-			<div *ngIf="quizes[index].type=='audio' && index==0" style="text-align: center;">
+			<div *ngIf="quizes[index].type=='audio' " style="text-align: center; margin-top:48%">
 
-				<audio autoplay loop [ngClass]="{'hide' : !flag,'show' : flag}">
+				<audio  loop  id="audioSelector">
 					<source src={{quizes[0].url}}>
 					Your browser does not support HTML5 video.
 				</audio>
-				<video loop #videoPlayer1 [ngClass]="{'hide' : flag,'show' : !flag}">
-					<source src={{videoSource1}} type="video/mp4">
-					Your browser does not support HTML5 video.
-				</video>
-
+				<button id='audioPlay' (click)='playAudio()' [ngClass]="{'hideButton':ifAudioAutoPlay}"> play </button>
+				<button id='audioPlay' (click)='pauseAudio()' [ngClass]="{'hideButton':!ifAudioAutoPlay}"> pause </button>
 
 			</div>
 
 			<div *ngIf="quizes[index].type=='video'" style="text-align: center;"class="ques-img"  >
 
-				<video loop #videoPlayer [ngClass]="{'hide' : !flag,'show' : flag}" style="object-fit: cover;border-radius: 16px;			">
+				<video loop #videoPlayer  [ngClass]="{'hide' : !flag,'show' : flag}" style="object-fit: cover;border-radius: 16px;			">
 					<source src={{videoSource}} type="video/mp4">
 					Your browser does not support HTML5 video.
 				</video>
-				<video loop #videoPlayer1 [ngClass]="{'hide' : flag,'show' : !flag}" style="object-fit: cover;border-radius: 16px;"	>
+				<video loop #videoPlayer1  [ngClass]="{'hide' : flag,'show' : !flag}" style="object-fit: cover;border-radius: 16px;"	>
 
 			
 					<source src={{videoSource1}} type="video/mp4">
 					Your browser does not support HTML5 video.
 				</video>
-
+				<button id='audioPlay' style="position: relative;    top: -18%;"(click)='playVideoMedia()' [ngClass]="{'hideButton':ifAudioAutoPlay}"> play </button>
+				<button id='audioPlay' style="position: relative;    top: -18%;" (click)='pauseVideoMedia()' [ngClass]="{'hideButton':!ifAudioAutoPlay}"> pause </button>
 
 			</div>
 

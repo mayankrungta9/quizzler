@@ -66,7 +66,7 @@ this.isloggedIn=true;
   login(){
 	  this.openLoginDialog();
 	 
-  }
+  } 
 
  logout(){
  this.authService.signOut();

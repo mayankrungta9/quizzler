@@ -5,7 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { QuizComponent } from './quizzler/ts/quizzler.component';
 import { LoginComponent } from './quizzler/ts/login.component';
-import { fb  } from './quizzler/ts/fb.component';
+
 import {MatCardModule} from '@angular/material/card'
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
@@ -71,7 +71,7 @@ function load(http: HttpClient, config: ConfigService): (() => Promise<boolean>)
 @NgModule({
   declarations: [
     AppComponent,
-    QuizComponent,fb,
+    QuizComponent,
         HeaderComponent,ShowCategory,
     FooterComponent,LoginComponent,success,GameOver,saveMe,reportQues , ButtonControlDirective, CrosswordComponent, CatchHeroComponent,
   ],

@@ -29,6 +29,7 @@ export class QuizComponent implements OnInit {
 	private userData:UserData,
   ) {  }
   subscriptions: Subscription[] = [];
+  ifAudioAutoPlay=true;
   audio = new Audio();
   @ViewChild('videoPlayer') videoplayer: ElementRef;
   @ViewChild('videoPlayer1') videoplayer1: ElementRef;
@@ -61,7 +62,7 @@ totalQuestion:number=AppSettings.totalQuestion
   coins = 0;
   testing = false;
   result: String;
-  level: number;
+  
   buttonCss: Number[] = [0, 0, 0, 0];
   userName: string;
   categoryId: number;
@@ -89,8 +90,8 @@ isMovingPictureDivVisible = false;
 	
 	console.log(this.userData.coins);
     this.categoryId = +this.activatedrouter.snapshot.paramMap.get('categoryId');
-    this.level = +this.activatedrouter.snapshot.paramMap.get('level');
-    this.userCategoryData = new UserCategoryData(this.userName, this.categoryId, this.level);
+    this.httpClientService.level = +this.activatedrouter.snapshot.paramMap.get('level');
+    this.userCategoryData = new UserCategoryData(this.userName, this.categoryId, this.httpClientService.level);
     if (this.categoryId == 1 || this.categoryId === 2   ) {
       this.isOptionButtonVisible = true;
     } else if (this.categoryId == AppSettings.catchHeroCategoryId    ) {
@@ -124,14 +125,15 @@ openLoginDialog() {
   this.dialog.open(LoginComponent,{
   height: '75%',
   width: '95%',
+  disableClose: true,
 	  }).afterClosed().subscribe(response => {
     if (response != null) {
       this.userData.cloneUserData(response);
 	 
-	  console.log(this.userData.userId );
+	  
     this.userCategoryData.userId=response.userId;
-	this.saveUserProgress(); // need to comment later
-     // this.openSuccessDialog();
+	
+      this.openSuccessDialog();
     } else {
       console.log("sorry wrong credential");
     }
@@ -141,6 +143,9 @@ openLoginDialog() {
    
     this.dialog.open(success, {
       data: this.coins,
+	  height: '50%',
+  width: '95%',
+  disableClose: true,
     }).afterClosed().subscribe(response => {
       this.saveUserProgress();
       if (response == 'continue') {
@@ -155,8 +160,11 @@ openLoginDialog() {
   openGameOverDialog() {
     this.dialog.open(GameOver, {
       data: this.coins,
+	  height: '50%',
+  width: '95%',
     }).afterClosed().subscribe(response => {
-      if (response === 'continue') {
+		this.saveUserProgress();
+      if (response === 're-play') {
         setTimeout(() => {
           this.loadQuiz();
         }, 1000);
@@ -169,7 +177,7 @@ openLoginDialog() {
   openSaveMeDialog() {
     this.dialog.open(saveMe).afterClosed().subscribe(response => {
       if (response == 'yes') {
-        this.coins -= 100;
+        this.coins -= 200;
         setTimeout(() => {
           this.next();
         }, 1000);
@@ -180,6 +188,7 @@ openLoginDialog() {
     });
   }
   private loadQuiz() {
+	  this.index=0;
     this.buttonCss = [0, 0, 0, 0];
     this.audio.src = '../assets/audio/error.mp3';
     this.audio.load();
@@ -198,23 +207,66 @@ openLoginDialog() {
     this.questionAudio.pause();
     this.subscriptions.forEach(s => s.unsubscribe());
   }
+  
+  
+  
+  
   handleSuccessfulResponse(response) {
     this.quizes = response;
+	console.log(this.quizes[this.index].type);
     if (this.quizes[this.index].categoryId === AppSettings.catchHeroCategoryId) { this.prepareCelebrityOption(this.quizes[this.index]); }
     if (this.quizes[this.index].categoryId === AppSettings.emojiCategoryId) { this.setEmojiButtonOption(); }
-    if (this.quizes[this.index].type === 'audio') { this.isAudio = true; }
-    if (this.quizes[this.index].type === 'video') {
+    if (this.quizes[this.index].type === 'audio') { 
+
+	this.isAudio = true;console.log(this.isAudio); 
+	this.questionAudio.src = this.quizes[this.index ].url;
+      this.questionAudio.loop = true;
+      this.questionAudio.load();
+	   
+		
+		var promise=this.questionAudio.play();
+		this.checkIfMediaPlay(promise);
+		}
+     
+   if (this.quizes[this.index].type === 'video') {
       this.videoSource = this.quizes[this.index].url;
       this.videoSource1 = this.quizes[this.index + 1].url;
       setTimeout(() => {
         this.videoplayer.nativeElement.load();
-        this.playVideo();
+		
+        var promise=this.playVideo();
+		this.checkIfMediaPlay(promise);
         this.loadNextInBackground();
       }, 100);
     } else {
       this.loadNextInBackground();
     }
 	
+  }
+  checkIfMediaPlay(promise){
+	   setTimeout(()=>{
+		if (promise !== undefined) {
+  promise.then(_ => {
+     console.log('autoplay');
+	 this.ifAudioAutoPlay=true;
+  }).catch(error => {
+   
+   this.ifAudioAutoPlay=false;
+  });
+}
+   
+   
+  },100);
+   }
+  playAudio(){
+	  console.log('button clicked');
+	  this.questionAudio.play();
+	  this.ifAudioAutoPlay=true;
+  }
+  pauseAudio(){
+	  console.log('button clicked');
+	  this.questionAudio.pause();
+	  this.ifAudioAutoPlay=false;
   }
   prepareCelebrityOption(quiz: Quizes) {
     this.imageObject = this.catchHero.prepareOption(quiz);
@@ -368,18 +420,26 @@ wrongAnswer(selectedAnswer) {
 }
    saveUserProgress() {
     console.log(this.userName);
-    this.level += 1;
-    this.userCategoryData.level = this.level;
+    this.httpClientService.level += 1;
+    this.userCategoryData.level = this.httpClientService.level;
 this.userData.coins+=this.coins;
+this.coins=0;
     this.httpClientService.saveUserCategoryLevel(this.userCategoryData).subscribe();
     this.httpClientService.saveUserCoins(this.userData.userId, this.userData.coins).subscribe(	response=>this.userData=response
 	);
   }
   
   next() {
-	  if (this.index+1>= AppSettings.totalQuestion) {
+	   this.index++;
+	   var type = this.quizes[this.index].type;
+	   this.isAudio = false;
+	  if (this.index>= AppSettings.totalQuestion) {
       //this.isanimatedGifVaisible = true;   
-        console.log(this.userName);
+        if(type=='video'){
+		this.pauseVideoMedia();}
+		  if(type=='audio'){
+	this.pauseAudio();}
+		
       if(this.userName==null || this.userName==''){
         this.openLoginDialog();
       }
@@ -389,8 +449,8 @@ this.userData.coins+=this.coins;
       } 
 	  }
 	  else {
-    this.isAudio = false;
-    this.index++;
+    
+   
     if (this.categoryId === AppSettings.emojiCategoryId) {  this.setEmojiButtonOption(); }
     if (this.categoryId === AppSettings.catchHeroCategoryId) {
        this.prepareCelebrityOption(this.quizes[this.index]);
@@ -401,7 +461,7 @@ this.userData.coins+=this.coins;
        , 500);
       }
     setTimeout(() => {
-      const type = this.quizes[this.index].type;
+     
       console.log(type);
       if (this.quizes[this.index].type === 'image') {
         this.imagesTemp.nativeElement.src = this.imgArray.src;
@@ -451,15 +511,34 @@ this.userData.coins+=this.coins;
   }
   playSound(): void {
     this.questionAudio = this.tempAudio;
-    this.questionAudio.play();
+   var promise= this.questionAudio.play();
+	 this.checkIfMediaPlay(promise);
   }
   playVideo(): void {
     this.flag = !this.flag;
+	var promise;
     if (this.flag) {
+     promise= this.videoplayer.nativeElement.play();
+    } else {
+      promise=this.videoplayer1.nativeElement.play();
+    }
+	this.checkIfMediaPlay(promise);
+  }
+  playVideoMedia(){
+	  if (this.flag) {
       this.videoplayer.nativeElement.play();
     } else {
       this.videoplayer1.nativeElement.play();
     }
+	this.ifAudioAutoPlay=true;
+  }
+  pauseVideoMedia(){
+	  if (this.flag) {
+      this.videoplayer.nativeElement.pause();
+    } else {
+      this.videoplayer1.nativeElement.pause();
+    }
+	this.ifAudioAutoPlay=false;
   }
   startTimer() {
     this.interval = setInterval(() => {

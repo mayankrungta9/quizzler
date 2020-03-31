@@ -136,6 +136,12 @@ iframe {
   border-radius: 43px;
 
 }
+.hideButton{
+	display:none;
+}
+.showButton{
+	display:block;
+}
 .hide{
   width: 0px;
   height:0px;
@@ -251,7 +257,7 @@ iframe {
 .upper-part-audio{
   
   background-image:  url('/assets/images/bg.gif') ;
-  background-repeat: no-repeat;
+  background-repeat:repeat-x;
   margin-left: 8%;
 		
 }

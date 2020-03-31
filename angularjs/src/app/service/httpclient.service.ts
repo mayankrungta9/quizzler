@@ -18,7 +18,9 @@ export class Category {
   categoryId: number;
   categoryName: string;
   url: string;
-  level:number
+  level:8442
+  443
+  
 
 }
 export class Quizes {
@@ -109,7 +111,7 @@ export class HttpClientService {
     })
   };
   baseServicePath: string =environment.baseUrl;
-  
+  level=0;
   userCategoryData: UserCategoryData;
   constructor(
     private httpClient: HttpClient
@@ -184,7 +186,7 @@ var userCoins = new UserCoins(userId,coins );
   }
    
   loadCategory() {
-
+console.log(this.baseServicePath ); 
     return this.httpClient.get<Category[]>(this.baseServicePath + 'getCategory').pipe(
 
       catchError(this.handleError)
