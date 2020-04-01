@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: com.synechron.Day01DbApplicationTests
 -------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 35.422 s - in com.synechron.Day01DbApplicationTests
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 48.107 s - in com.synechron.Day01DbApplicationTests
