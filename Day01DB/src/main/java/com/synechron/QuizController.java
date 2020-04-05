@@ -67,9 +67,9 @@ public class QuizController {
 		Collections.shuffle(quizList);
 		return quizList;
 	}
-
-	@GetMapping(path = "/getCategory", produces = "application/json")
 	//@Cacheable("category")
+	@GetMapping(path = "/getCategory" ,produces = "application/json")
+	
 	public List<Category> getCategoryAll() throws InterruptedException {
 		List<Category> categoryList = categoryDao.findAll();
 		

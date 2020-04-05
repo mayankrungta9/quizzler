@@ -18,8 +18,8 @@ export class Category {
   categoryId: number;
   categoryName: string;
   url: string;
-  level:8442
-  443
+  level:number
+
   
 
 }
@@ -141,6 +141,7 @@ export class HttpClientService {
     }
 
     else {
+		 console.log(error);
       throw error;
   }
   }

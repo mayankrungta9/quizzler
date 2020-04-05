@@ -20,7 +20,7 @@ import { LoginComponent } from './login.component';
   styleUrls: ['./quizzler.component.css'],
   host: { 'window:beforeunload': 'test' },
 })
-export class QuizComponent implements OnInit {
+export class QuizComponent implements OnInit implements AfterViewInit {
   constructor(
     private httpClientService: HttpClientService,
     public activatedrouter: ActivatedRoute,
@@ -31,6 +31,7 @@ export class QuizComponent implements OnInit {
   subscriptions: Subscription[] = [];
   ifAudioAutoPlay=true;
   audio = new Audio();
+  correctAnswerAudio=new Audio();
   @ViewChild('videoPlayer') videoplayer: ElementRef;
   @ViewChild('videoPlayer1') videoplayer1: ElementRef;
   @ViewChild('imagesTemp') imagesTemp: ElementRef;
@@ -62,7 +63,7 @@ totalQuestion:number=AppSettings.totalQuestion
   coins = 0;
   testing = false;
   result: String;
-  
+  levelCleared=false;
   buttonCss: Number[] = [0, 0, 0, 0];
   userName: string;
   categoryId: number;
@@ -82,9 +83,12 @@ isMovingPictureDivVisible = false;
    @ViewChild("myInput0") private _inputElement: ElementRef;
   
   
-  
+  ngAfterViewInit() {
+	console.log("quiz loaded");
+    
+  }
   ngOnInit() {
-
+console.log("init loaded");
     this.userName = this.userData.userId;
 	console.log(this.userData);
 	
@@ -140,17 +144,20 @@ openLoginDialog() {
   });
 }
   openSuccessDialog() {
-   
+   this.levelCleared=true;
     this.dialog.open(success, {
       data: this.coins,
 	  height: '50%',
   width: '95%',
   disableClose: true,
     }).afterClosed().subscribe(response => {
+		this.levelCleared=false;
+		this.quizes=[];
       this.saveUserProgress();
       if (response == 'continue') {
         setTimeout(() => {
           this.loadQuiz();
+		 //this.router.navigate(['quiz', this.userData.userId, this.categoryId,  this.httpClientService.level]);
         }, 1000);
       } else {
         this.router.navigate(['/showCategory/' + this.userName]);
@@ -192,6 +199,9 @@ openLoginDialog() {
     this.buttonCss = [0, 0, 0, 0];
     this.audio.src = '../assets/audio/error.mp3';
     this.audio.load();
+	 this.correctAnswerAudio.src = '../assets/audio/correct-answer.mp3';
+    this.correctAnswerAudio.load();
+	
     this.subscriptions.push(this.httpClientService.
       loadQuizes(this.userCategoryData).subscribe(response =>
         this.handleSuccessfulResponse(response), (error: any) => {
@@ -241,7 +251,7 @@ openLoginDialog() {
     } else {
       this.loadNextInBackground();
     }
-	
+	console.log("end handleSuccessfulResponse");
   }
   checkIfMediaPlay(promise){
 	   setTimeout(()=>{
@@ -321,11 +331,17 @@ openLoginDialog() {
   }
   onSelectAnswer(selectedAnswer): void {
 	  //this.userData.coins=560;
-    this.questionAudio.pause();
+	  var type=this.quizes[this.index].type;
+   // this.questionAudio.pause();
+	if(type=='video'){
+		this.pauseVideoMedia();}
+		  if(type=='audio'){
+	this.pauseAudio();}
     this.pauseTimer();
     const correctAnswer: string = this.quizes[this.index].answer;
 
     if (selectedAnswer == correctAnswer) {
+		
       this.whenAnswerIsCorrect(selectedAnswer);
     } else {
 
@@ -334,7 +350,7 @@ openLoginDialog() {
   }
   private whenAnswerIsCorrect(selectedAnswer: any) {
 
-
+this.correctAnswerAudio.play();
     
     this.buttonCss[selectedAnswer - 1] = 1;
     this.coins += 100;
@@ -431,9 +447,10 @@ this.coins=0;
   
   next() {
 	   this.index++;
-	   var type = this.quizes[this.index].type;
+	   
 	   this.isAudio = false;
 	  if (this.index>= AppSettings.totalQuestion) {
+		  var type = this.quizes[this.index-1].type;
       //this.isanimatedGifVaisible = true;   
         if(type=='video'){
 		this.pauseVideoMedia();}
@@ -449,7 +466,7 @@ this.coins=0;
       } 
 	  }
 	  else {
-    
+      var type = this.quizes[this.index].type;
    
     if (this.categoryId === AppSettings.emojiCategoryId) {  this.setEmojiButtonOption(); }
     if (this.categoryId === AppSettings.catchHeroCategoryId) {
@@ -483,7 +500,8 @@ this.coins=0;
 	  }
   }
   private loadNextInBackground() {
-    const type = this.quizes[this.index + 1].type;
+	  if (this.index+1< AppSettings.totalQuestion){
+    const type = this.quizes[this.index + 1].type; 
     if (type === 'audio') {
       this.tempAudio = new Audio();
       this.tempAudio.src = this.quizes[this.index + 1].url;
@@ -500,7 +518,7 @@ this.coins=0;
         this.videoplayer.nativeElement.load();
       }
     }
-  }
+  }}
   private applyAnimationOnButton() {
     this.buttonAnimationCss1 = 'animated  bounceOutRight delay-2s';
     this.buttonAnimationCss2 = 'animated  bounceOutRight delay-2s';

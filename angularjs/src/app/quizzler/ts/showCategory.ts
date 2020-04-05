@@ -1,21 +1,21 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClientService, Category} from '../../service/httpclient.service';
+import { HttpClientService, Category,UserData} from '../../service/httpclient.service';
 
 import { Router, ActivatedRoute } from '@angular/router';
 import {
 
 } from 'amazon-cognito-identity-js';
-import { success } from './success-component';
-import { MatDialog } from '@angular/material/dialog';
-import { GameOver } from './gameOver-component';
 
+import { MatDialog } from '@angular/material/dialog';
+import { LoginComponent } from './login.component';
+import { saveMe } from './saveMe.component';
 @Component({
   selector: 'test',
   templateUrl: '../html/showCategory.html',
   styleUrls: ['./quizzler.component.css']
 })
 
-export class ShowCategory implements OnInit {
+export class ShowCategory implements OnInit implements AfterViewInit{
 
   categories: Category;
   level = Array(0);
@@ -23,25 +23,19 @@ export class ShowCategory implements OnInit {
 categoryId: number;
 iscategoryvisible = true;
 userCurrentLevel: number;
+isLoaderVisible=true;
   constructor(
     public  router: Router ,
     public  activatedrouter: ActivatedRoute ,
     private httpClientService: HttpClientService,
     private dialog: MatDialog,
+	private userData:UserData,
 
   ) { }
 
   ngOnInit() {
-	  this.httpClientService.level=0;
-	 // this.dialog.open(GameOver,{
-  //height: '60%',
- // width: '98%',
-	//  });
-    if (localStorage.getItem('name') != null) {
-    this.userName = localStorage.getItem('name');
-      } else {
-        this.userName = 'Guest';
-      }
+	  //this.dialog.open(saveMe);
+   
 
     this.httpClientService.loadCategory().subscribe(
      response => this.handleSuccessfulResponse(response),
@@ -49,8 +43,17 @@ userCurrentLevel: number;
 
 
   }
-
+ngAfterViewInit() {
+	
+    
+  }
    loadQuiz(level) {
+if(this.userData.userId==null || this.userData.userId===''){
+		this.userName='Guest';
+	}
+	else {
+		this.userName=this.userData.userId;
+	}
      if(level <= this.userCurrentLevel){
        this.router.navigate(['quiz', this.userName, this.categoryId, level]);
       }
@@ -60,7 +63,12 @@ userCurrentLevel: number;
       }
      
   private selectCategory(category: Category) {
-    console.log(category);
+    if(this.userData.userId==null || this.userData.userId===''){
+		this.userName='Guest';
+	}
+	else {
+		this.userName=this.userData.userId;
+	}
     this.httpClientService.loadCategoryLevel(this.userName, category.categoryId).subscribe(userCategoryData => {
       this.userCurrentLevel = userCategoryData.level;
       this.categoryId = category.categoryId;
@@ -70,10 +78,15 @@ userCurrentLevel: number;
   }
     handleSuccessfulResponse(response) {
     this.categories = response;
-
+this.isLoaderVisible=false;
   }
 
-
+loadData() {
+    this.isLoaderVisible = true;
+    setTimeout(() => {
+      this.isLoaderVisible = false;
+    }, 5000);
+  }
 
 }
 

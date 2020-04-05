@@ -8,7 +8,9 @@
 
 
 </head>
+<div style="height:100%" *ngIf="!levelCleared">
 <div class="wrap-login100" *ngIf="quizes.length>0; else loading">
+	<embed *ngIf="undefined != quizes[index] && quizes[index]?.type=='image'" src="/assets/audio/background.mp3" loop="true" autostart="true" width="0" height="0" >
 	<div id="upper-part"  [ngClass]="{'upper-part':!isemojiBoxVisible , 'upper-part-emoji':isemojiBoxVisible }">
 		<div id="heartTimer" style="width:100%">
 			<div id='heart-img' class="heart-img-div" style="display:inline-block;">
@@ -27,10 +29,10 @@
 		<div id="middle-section"  
 			[ngClass]="{'middle-section':!isemojiBoxVisible,'upper-part-audio': isAudio,'upper-part-text': !isAudio }">
 		
-			<div *ngIf="quizes[index]?.type=='image'"  [ngClass]="{'ques-img':!isemojiBoxVisible , 'ques-emoji':isemojiBoxVisible }">
+			<div *ngIf="undefined != quizes[index] && quizes[index]?.type=='image'"  [ngClass]="{'ques-img':!isemojiBoxVisible , 'ques-emoji':isemojiBoxVisible }">
 				<img src={{quizes[index].url}} alt="HTML5 Icon"  #imagesTemp style="width: 100%;border-radius: 16px;			height: 100%;">
 			</div>
-			<div *ngIf="quizes[index].type=='audio' " style="text-align: center; margin-top:48%">
+			<div *ngIf="quizes[index]?.type=='audio' " style="text-align: center; margin-top:48%">
 
 				<audio  loop  id="audioSelector">
 					<source src={{quizes[0].url}}>
@@ -41,7 +43,7 @@
 
 			</div>
 
-			<div *ngIf="quizes[index].type=='video'" style="text-align: center;"class="ques-img"  >
+			<div *ngIf="quizes[index]?.type=='video'" style="text-align: center;"class="ques-img"  >
 
 				<video loop #videoPlayer  [ngClass]="{'hide' : !flag,'show' : flag}" style="object-fit: cover;border-radius: 16px;			">
 					<source src={{videoSource}} type="video/mp4">
@@ -64,7 +66,7 @@
 		</div>
 
 	</div>
-	<div id="question" class="text-center  " style="height:50%">
+	<div  *ngIf="quizes[index]!=null" id="question" class="text-center  " style="height:50%">
 		<div *ngIf="isOptionButtonVisible" style="height:100%">
 			<button appButtonControl class=" {{buttonAnimationCss1}} button-size button.horizTranslate "
 				[disabled]="buttonCss[0]=='2'"
@@ -113,5 +115,11 @@
 	</div>
 </div>
 <ng-template #loading>
-	Loading.............
+	<div class="overlay" >
+<div class="center">
+	<mat-progress-spinner  mode="indeterminate" color="accent" ></mat-progress-spinner>
+	</div>
+
+</div>
 </ng-template>
+</div>

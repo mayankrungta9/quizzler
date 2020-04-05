@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router,ActivatedRoute } from '@angular/router';
 import { HttpClientService,UserData } from '../service/httpclient.service';
-import { AuthService, FacebookLoginProvider, SocialUser } from 'angularx-social-login';
+
 import { MatDialog } from '@angular/material/dialog';
 import { LoginComponent } from '../quizzler/ts/login.component';
 @Component({
@@ -20,7 +20,7 @@ export class HeaderComponent  {
     public  activatedrouter: ActivatedRoute ,
     private httpClientService:HttpClientService,
 	private userData:UserData,
-	private authService: AuthService
+	
   ) { }
   ngOnInit() {
    console.log(this.userData);
@@ -69,7 +69,7 @@ this.isloggedIn=true;
   } 
 
  logout(){
- this.authService.signOut();
+  
  this.isloggedIn=false;
  this.userData.createUserData( '','','',0);
     localStorage.removeItem("userId");

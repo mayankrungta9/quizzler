@@ -1,16 +1,16 @@
 <header >
-  <div  style="width:100%">
+  <div class=" bg-color">
   <div style="float:right">
-				<div class="coin-img" style="display:inline-block;float:right"></div>
+				<div class="coin-img" style="display:inline-block;float:right;"></div>
 				<div style="margin-right:-8px;float:right;color:white">
 					{{userData.coins}}
 				</div>
 			</div>
-<div  class="bg-color">
+<div  >
  Hi! <span>{{userData.first_name!='' ?userData.first_name:userData.userId!=''?userData.userId:'Guest' }} </span> 
  
  <span *ngIf="httpClientService.level==0">
- <a *ngIf="userData.userId!='' && userData.userId!=null"(click)="logout()" style="float:right;margin-right:33%;" >
+ <a *ngIf="userData.userId!='' && userData.userId!=null"(click)="logout()" style="float:right;margin-right:25%;" >
   Logout
 </a>
 <a *ngIf="userData.userId=='' || userData.userId==null "(click)="login()" style="float:right;margin-right:33%;" >

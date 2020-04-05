@@ -5,7 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { QuizComponent } from './quizzler/ts/quizzler.component';
 import { LoginComponent } from './quizzler/ts/login.component';
-
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations'; 
 import {MatCardModule} from '@angular/material/card'
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
@@ -14,7 +14,7 @@ import { FooterComponent } from './footer/footer.component';
 import { ShowCategory } from './quizzler/ts/showCategory';
 import { success, DIALOG_DATA } from './quizzler/ts/success-component';
 import { GameOver } from './quizzler/ts/gameOver-component';
-import {NoopAnimationsModule} from '@angular/platform-browser/animations';
+
 import { MatDialogModule } from '@angular/material/dialog';
 import {saveMe} from './quizzler/ts/saveMe.component';
 import { ButtonControlDirective } from './button-control.directive';
@@ -24,21 +24,11 @@ import { map, catchError } from 'rxjs/operators';
 import { Observable, ObservableInput, of } from 'rxjs';
 import { CrosswordComponent } from './crossword/crossword.component';
 import { CatchHeroComponent } from './catch-hero/catch-hero.component';
-import { SocialLoginModule, AuthServiceConfig,GoogleLoginProvider, FacebookLoginProvider } from 'angularx-social-login';
 import { NgImageSliderModule } from 'ng-image-slider';
-const config = new AuthServiceConfig([
- {
-    id: GoogleLoginProvider.PROVIDER_ID,
-    provider: new GoogleLoginProvider("191762920271-tgfla09sh9tk8eulqt7i2u6vu6sv193m.apps.googleusercontent.com")
-  },
-  {
-    id: FacebookLoginProvider.PROVIDER_ID,
-    provider: new FacebookLoginProvider('235888204232671')
-  }
-]);
-export function provideConfig() {
-  return config;
-}
+
+
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -69,7 +59,7 @@ function load(http: HttpClient, config: ConfigService): (() => Promise<boolean>)
   };
 }
 @NgModule({
-  declarations: [
+  declarations: [ 
     AppComponent,
     QuizComponent,
         HeaderComponent,ShowCategory,
@@ -79,13 +69,14 @@ function load(http: HttpClient, config: ConfigService): (() => Promise<boolean>)
     saveMe,reportQues
   ],
   imports: [
-    BrowserModule,SocialLoginModule,
+    BrowserModule,MatProgressSpinnerModule,BrowserAnimationsModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule,NoopAnimationsModule,MatDialogModule,NgImageSliderModule,MatCardModule
+    FormsModule,MatDialogModule,NgImageSliderModule,MatCardModule
   ],
   providers: [UserData,
     {provide:DIALOG_DATA,useValue:{ }},
+	 
     {
       provide: APP_INITIALIZER,
       useFactory: load,
@@ -95,8 +86,7 @@ function load(http: HttpClient, config: ConfigService): (() => Promise<boolean>)
       ],
       multi: true
     },
-	{ provide: AuthServiceConfig,
-    useFactory: provideConfig},
+	
   ],
   bootstrap: [AppComponent]
 })

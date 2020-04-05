@@ -13,6 +13,7 @@ const routes: Routes = [
 
   { path:'login', component: LoginComponent},
   { path:'', component: ShowCategory},
+  { path:'home/test', component: ShowCategory},
   { path:'quiz/:userName/:categoryId/:level', component: QuizComponent},
   { path:'showCategory/:userName', component: ShowCategory},
   { path:'success', component: success},

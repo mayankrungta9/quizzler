@@ -1,7 +1,7 @@
 import { Component, OnInit,ViewChild } from '@angular/core';
 import { HttpClientService, User, UserData } from '../../service/httpclient.service';
 import { Router, ActivatedRoute } from '@angular/router';
-import { AuthService, FacebookLoginProvider, GoogleLoginProvider,SocialUser } from 'angularx-social-login';
+
 import {
 
   AuthenticationDetails,
@@ -26,49 +26,17 @@ export class LoginComponent implements OnInit {
  isChecked= true;
  ifOnFocus=false;
 flag=false; 
- socialUser: SocialUser;
+ 
  public errorMessage: String;
   constructor(
     public  router: Router ,
     public activateRoute: ActivatedRoute,
     public httpClientService: HttpClientService,
     public dialogRef: MatDialogRef<LoginComponent>,
-	private authService: AuthService,
+	
 	private userData:UserData,
   ) { }
-signInWithFB(): void {
-	this.signWithSocial(FacebookLoginProvider.PROVIDER_ID);
-  
-}
-signWithSocial(socialProviderId){
-	 this.authService.signIn(socialProviderId).then(socialUser => {
-		 
-		
-		  
-		  if(null != socialUser){
-		this.socialUser = socialUser;
-     
-	 localStorage.setItem('userId',socialUser.email);
-	 this.userData.createUserData( socialUser.email,socialUser.firstName,socialUser.lastName,0);
-	  this.httpClientService.saveUser( this.userData).subscribe(response => {
-		   this.userData.cloneUserData(response);
-		   this.dialogRef.close(response);
-	  });// if user is login again then need to find out what to do
-    console.log(this.socialUser);
-		 
-		  }
-		 
-		 
-  });
-}
-signInWithGoogle(): void {
-	
-   this. signWithSocial(GoogleLoginProvider.PROVIDER_ID);
-	
-}
-signOut(): void {
-  this.authService.signOut();
-}
+
   ngOnInit() {
 
 	

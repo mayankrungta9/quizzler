@@ -1,5 +1,7 @@
 .bg-color{
     background: #6f1f6c;
-  
-   color:white;
+    padding-left: 2%;
+    color: white;
+    /* padding-bottom: 1%; */
+    padding-top: 2%;;
 }

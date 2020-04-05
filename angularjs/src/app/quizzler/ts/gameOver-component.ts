@@ -11,4 +11,4 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
      coins:string;
     constructor(@Inject(MAT_DIALOG_DATA) data: any) {
   this.coins = data;
-  }}   
+  }}   	
