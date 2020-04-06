@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,AfterViewInit } from '@angular/core';
 import { HttpClientService, Category,UserData} from '../../service/httpclient.service';
 
 import { Router, ActivatedRoute } from '@angular/router';
@@ -15,7 +15,7 @@ import { saveMe } from './saveMe.component';
   styleUrls: ['./quizzler.component.css']
 })
 
-export class ShowCategory implements OnInit implements AfterViewInit{
+export class ShowCategory implements OnInit, AfterViewInit{
 
   categories: Category;
   level = Array(0);
@@ -58,7 +58,7 @@ if(this.userData.userId==null || this.userData.userId===''){
        this.router.navigate(['quiz', this.userName, this.categoryId, level]);
       }
     else {
-    alert('level is locked');
+    alert('level is locked ');
     }
       }
      

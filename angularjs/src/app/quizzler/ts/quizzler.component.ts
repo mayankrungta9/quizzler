@@ -1,4 +1,4 @@
-import { Component, OnInit, HostListener, ElementRef, ViewChild } from '@angular/core';
+import { Component, OnInit,AfterViewInit, HostListener, ElementRef, ViewChild } from '@angular/core';
 import { HttpClientService, Quizes, UserData, UserCategoryData } from '../../service/httpclient.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AppError } from '../../common/app.error';
@@ -20,7 +20,7 @@ import { LoginComponent } from './login.component';
   styleUrls: ['./quizzler.component.css'],
   host: { 'window:beforeunload': 'test' },
 })
-export class QuizComponent implements OnInit implements AfterViewInit {
+export class QuizComponent implements OnInit, AfterViewInit {
   constructor(
     private httpClientService: HttpClientService,
     public activatedrouter: ActivatedRoute,

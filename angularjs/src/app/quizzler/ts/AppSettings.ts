@@ -9,4 +9,4 @@ export class AppSettings {
   public static emojiCategoryId = 4;
   public static catchHeroCategoryId=3;
  
-}
+}     
