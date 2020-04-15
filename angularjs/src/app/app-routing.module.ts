@@ -20,6 +20,7 @@ const routes: Routes = [
   { path:'GameOver', component: GameOver},
   { path:'crossword', component: CrosswordComponent},
   { path:'catchHero', component: CatchHeroComponent},
+  { path:'showLiveQuizes', loadChildren:'./liveQuiz/liveQuiz.module#liveQuizModule' },
 ];
 
 @NgModule({
@@ -27,3 +28,4 @@ const routes: Routes = [
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
+ 

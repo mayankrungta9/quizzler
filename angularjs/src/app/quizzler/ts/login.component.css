@@ -73,12 +73,15 @@
     font-size: 13px;
 }
 .input{
-	height: 90%;
+	    
     background: none;
     color: black;
     font-size: 18px;
-	
-	width:75%;
+    width: 75%;
+   
+    top: -27%;
+  
+    position: relative;
 }
 .social-login-text{
 text-align: left;

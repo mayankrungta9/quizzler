@@ -19,9 +19,18 @@ export class Category {
   categoryName: string;
   url: string;
   level:number
+}
 
-  
-
+export class LiveQuizCategory{
+	id: number;
+  quizName: string;
+  type: number;
+  entryfee:number;
+   winningAmt: number;
+  winningType:number;
+  start_date:Date;
+  end_date:Date;
+  status:number;
 }
 export class Quizes {
   constructor(
@@ -64,6 +73,8 @@ export class UserData {
   }
 }
 
+
+
 export class UserCoins {
   constructor(
     public userId: string,
@@ -73,6 +84,15 @@ export class UserCoins {
   ) { }
 }
 
+export class LiveQuizPoints {
+  constructor(
+    public userId: string,
+	public quizId:number,
+    public points: number,
+    
+	
+  ) { }
+}
 
 export class UserCategoryData {
 	
@@ -125,6 +145,14 @@ export class HttpClientService {
       catchError(this.handleError)
     );
   }
+  
+  loadLiveQuizes(id: number) {
+
+    return this.httpClient.get<Quizes[]>(this.baseServicePath + 'getLiveQuiz/'+id).pipe(
+
+      catchError(this.handleError)
+    );
+  }
   loadCategoryLevel(userName: string, categoryId: number) {
 
     return this.httpClient.post<UserCategoryData>(this.baseServicePath + 'getCategoryLevel/' + userName + '/' + categoryId, null, this.httpOptions).pipe(
@@ -158,7 +186,22 @@ export class HttpClientService {
     );
 
   }
+  
+  saveLiveQuizPoints(liveQuizPoints: LiveQuizPoints) {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
 
+      })
+    };
+    return this.httpClient.post<UserData>(this.baseServicePath + 'saveliveQuizPoints', liveQuizPoints, httpOptions).pipe(
+
+      catchError(this.handleError)
+    );
+
+  }
+  
+  
   saveUserCategoryLevel(userCategoryData: UserCategoryData) {
 
 
@@ -189,6 +232,14 @@ var userCoins = new UserCoins(userId,coins );
   loadCategory() {
 console.log(this.baseServicePath ); 
     return this.httpClient.get<Category[]>(this.baseServicePath + 'getCategory').pipe(
+
+      catchError(this.handleError)
+    );
+  }
+  
+   loadLiveQuizCategory() {
+console.log(this.baseServicePath ); 
+    return this.httpClient.get<LiveQuizCategory[]>(this.baseServicePath + 'getActiveLiveQuiz').pipe(
 
       catchError(this.handleError)
     );

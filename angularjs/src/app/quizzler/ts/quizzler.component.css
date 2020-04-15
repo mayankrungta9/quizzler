@@ -23,7 +23,7 @@ input:focus {
   }
   .heart {
 	
-	animation: beat 1s infinite alternate;
+	animation: beat .25s infinite alternate;
 	transform-origin: center;
 }
 

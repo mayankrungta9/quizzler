@@ -9,17 +9,7 @@ import { Quizes } from "../service/httpclient.service";
 export class CatchHeroComponent implements OnInit {
   constructor() { }
   
-  prepareOption(quiz: Quizes ): object[] {
- 
-    var imageObject = [
-      {thumbImage: quiz.option1,},
-       {thumbImage: quiz.option2,},
-       {thumbImage: quiz.option3,},
-        {thumbImage: quiz.option4,},
-    ];
-
-    return imageObject;
-  }
+  
 
   ngOnInit() {
   }

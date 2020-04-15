@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+	<title>Login V3</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="icon" type="image/png" href="/assets/images/icons/favicon.ico"/>
+
+	<link rel="stylesheet" type="text/css" href="/assets/css/util.css">
+	<link rel="stylesheet" type="text/css" href="/assets/css/main.css">
+
+</head>
+<body >
+
+<div class="overlay" *ngIf="isLoaderVisible">
+<div class="center">
+	<mat-progress-spinner  mode="indeterminate" color="accent" ></mat-progress-spinner>
+	</div>
+
+</div>
+			<div class="categoryBackground" *ngIf="!isLoaderVisible">         
+
+				
+				<div *ngIf="iscategoryvisible" style = "height:95%;margin-top:2%;">
+				<div  class ="liveQuiz-categoryDiv"  *ngFor="let category of categories" (click)=selectCategory(category)>
+					<div>
+					<div class="liveQuiz-liveDiv">
+					<span class="liveQuiz-timeSpan" >(end at:{{category.end_date | date}} )</span>
+					<span style="font-size:59">.</span><span style="font-size:18">Live</span>
+					
+					</div>
+					
+					</div>
+					<div style="height:100%;width:34%;float:left">
+					<div class="liveQuiz-categoryCircleDiv ">
+					<img *ngIf="category.type==1" class ="liveQuiz-categoryImg" src="../../../assets/images/movie.png">
+					<img *ngIf="category.type==2"class ="liveQuiz-categoryImg" src="../../../assets/images/guessActor.png">
+					<img *ngIf="category.type==3"class ="liveQuiz-categoryImg" src="../../../assets/images/actress.png">
+					<img *ngIf="category.type==4"class ="liveQuiz-categoryImg" src="../../../assets/images/emoji.png">
+					<img *ngIf="category.type==5"class ="liveQuiz-categoryImg" src="../../../assets/images/songs.png">
+					</div>
+					<div class="liveQuiz-userPlayed"> 
+						<span style="font-size:59">.</span><span style="font-size:18">Users Played:</span>
+						
+						<span>{{category.totalUsersPlayed }}</span>
+						
+					
+						</div>
+					</div>
+											
+						<div class='liveQuiz-prizeMoneyDiv'> 
+						<span>PRIZE:<img class="liveQuiz-coin"src="../../../assets/images/golden_coin.png">
+						<span>{{category.winningAmt |  KPipeCurrency}}</span>
+						</span>	
+					
+						</div>
+					<div class='liveQuiz-EntryFeeDiv'> 
+						<span>Entry:<img class="liveQuiz-coin"src="../../../assets/images/golden_coin.png">
+						<span>{{category.entryfee |  KPipeCurrency}}</span>
+						</span>	
+					
+						</div>
+						
+						<div class='liveQuiz-EntryFeeDiv'> 
+						<span>Entry:<img class="liveQuiz-coin"src="../../../assets/images/golden_coin.png">
+						<span>{{category.entryfee |  KPipeCurrency}}</span>
+						</span>	
+					
+						</div>
+						
+					
+				</div>
+				</div>	
+				
+				
+		
+			</div>
+		
+
+</body>
+</html>

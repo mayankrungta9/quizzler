@@ -1,0 +1,19 @@
+
+<div style="height:100%;width:100%">
+<div class="overlay" *ngIf="isLoaderVisible">
+<div class="center">
+	<mat-progress-spinner  mode="indeterminate" color="accent" ></mat-progress-spinner>
+	</div>
+
+</div>
+		<div *ngFor="let rank of prizeRankBoard " class="prizeMatrix-row">
+		<span style="float: left;font-weight: bold;    margin-left: 8%;"> Rank:&nbsp;{{rank.start_rank}}&nbsp;-&nbsp; {{rank.end_rank}}</span>
+		
+		<div style="float: right;font-weight: bold;    margin-left: 8%;">
+				<img src="/assets/images/coins-black.png" alt="HTML5 Icon" style="width:40%;    "  >
+				<span style="font-size:17px;position: relative;    top: -6px;">{{rank.prizeMoney}}</span>
+			</div>
+		
+	
+		</div>
+</div>

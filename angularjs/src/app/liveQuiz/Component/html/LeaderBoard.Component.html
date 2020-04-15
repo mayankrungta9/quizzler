@@ -1,0 +1,19 @@
+
+<div style="height:100%;width:100%;overflow: scroll;">
+<div class="overlay" *ngIf="isLoaderVisible">
+<div class="center">
+	<mat-progress-spinner  mode="indeterminate" color="accent" ></mat-progress-spinner>
+	</div>
+
+</div>
+<span style="float: left;font-weight: bold;    margin-left: 8%;">Player</span>
+<span style="font-size:17px;font-weight: bold;">Points</span>
+		<span style="font-size:17px;position: relative;    top: -6px;">{{liveQuizPoint.points}}</span>
+		<div *ngFor="let liveQuizPoint of liveQuizPoints " class="prizeMatrix-row">
+		<span style="float: left;font-weight: bold;    margin-left: 8%;">{{liveQuizPoint.userId}}</span>
+		<span style="font-size:17px;font-weight: bold;">{{liveQuizPoint.points}}</span>
+		
+		
+	
+		</div>
+</div>

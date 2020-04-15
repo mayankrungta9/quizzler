@@ -1,0 +1,117 @@
+.leaderboard-button{
+	height: 100%;
+    margin-top: 2%;
+    width: 48%;
+    background: #fafafa;
+   
+    
+    text-align: center;
+    padding-top: 3%;
+}
+.leaderboard-content{
+	    height: 80%;
+    margin-top: 2%;
+    width: 100%;
+    background: #fafafa;
+    text-align: center;
+    padding-top: 3%;
+    
+}
+
+.leaderboard-wrapper{
+	height: 90%;
+	 margin-top: 2%;
+	 width: 92%;
+	     margin-left: 4%;
+}
+
+.prizeMatrix-row{
+	   width: 90%;
+    background: #f5f5f5;
+    height: 9%;
+    padding-top: 3%;
+    margin-left: 4%;
+    margin-top: 4%;
+}
+.liveQuiz-categoryDiv {
+   width: 96%;
+    margin-left: 2%;
+    height: 24%;
+    border-radius: 18px;
+    overflow: hidden;
+    padding: 2% 10px 5px 11px;
+    background: linear-gradient(90deg, rgb(192, 66, 214), rgb(103, 58, 183));
+    color: white;
+    border: 1px solid rgb(214, 24, 207);
+    margin-bottom: 3%;
+}
+.liveQuiz-categoryCircleDiv {
+height: 90%;
+    width: 100%;
+    border: solid 1px;
+    border-radius: 50%;
+    padding-left: 3%;
+    padding-top: 1%;
+    padding-bottom: 1%;
+    float:left;
+    background: #f44336;
+border-color: black;}
+
+.liveQuiz-categoryImg{
+	    height: 91%;
+    width: 91%;
+}
+
+.liveQuiz-prizeMoneyDiv{
+	background: #5b0ce7;
+    height: 37%;
+    width: 40%;
+    
+    margin-left: 2%;
+    margin-top: 6%;
+    
+    float: left;
+	color: #ffca00;
+    font-weight: bold;
+    font-size: 18px;
+    padding: 4% 2% 2% 2%;
+}
+
+.liveQuiz-coin{
+	height: 67%;
+    width: 18%;
+	margin-right: 3px;
+}
+.liveQuiz-liveDiv{
+	float: right;
+    color: #79e71d;
+    font-weight: bold;
+}
+.liveQuiz-timeSpan{
+	position: relative;
+    top: 17px;
+    color: white;
+    left: 25%;
+    font-size: 14px;
+}
+.liveQuiz-EntryFeeDiv{
+	height: 20%;
+    float: right;
+    position: relative;
+    top: 20%;
+    left: 17%;
+}
+
+.liveQuizPlayButton{
+	height: 7%;
+    background: #1fe61c;
+    border: none;
+    text-align: center;
+    font-size: 22px;
+    padding-top: 2%;
+    font-weight: bold;
+}
+.liveQuiz-userPlayed{
+	 color: #79e71d;
+	 font-weight: bold;
+	}

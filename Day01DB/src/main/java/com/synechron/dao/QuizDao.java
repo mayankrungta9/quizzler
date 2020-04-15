@@ -10,7 +10,7 @@ public interface QuizDao extends JpaRepository<Quiz, Integer>{
 
 	List<Quiz> findAllById(int id);
 	List<Quiz> findAllByCategoryIdAndLevel(int categoryId, int level);
-	
+	List<Quiz> findAllByCategoryId(int categoryId);
 }
 
 
