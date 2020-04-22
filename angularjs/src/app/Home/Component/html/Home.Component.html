@@ -1,0 +1,30 @@
+<head>
+	<title>Login V3</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link rel="stylesheet" type="text/css" href="/assets/css/util.css">
+	<link rel="stylesheet" type="text/css" href="/assets/css/main.css">
+
+
+</head>
+	
+<div style="height:100%;width:100%;overflow: scroll;">
+
+  <div class="home-menu-div"> 
+  <div class="home-menu-category " [ngClass]="{'home-menu-category-selected':category == 'liveQuiz'}"(click)="category='liveQuiz'">
+  Live Quiz
+  </div>
+  
+  <div class="home-menu-category" [ngClass]="{'home-menu-category-selected':category == 'games'}" (click)="category='games'">
+  Games
+  </div>
+  <div class="home-menu-category" [ngClass]="{'home-menu-category-selected':category == 'quiz'}"
+  (click)="category='quiz'">
+  Quiz
+  </div>
+  </div>
+  <ShowLiveQuizes *ngIf="category=='liveQuiz'"></ShowLiveQuizes>
+  <showCategory *ngIf="category=='quiz'"></showCategory>
+  <GameComponent *ngIf="category=='games'"></GameComponent>
+</div>

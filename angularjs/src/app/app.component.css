@@ -1,7 +1,8 @@
 .header{
     height:10%;
+	overflow:hidden;
 }
 .router-outlet{
     height:90%;
-	
+	overflow:hidden;
 }

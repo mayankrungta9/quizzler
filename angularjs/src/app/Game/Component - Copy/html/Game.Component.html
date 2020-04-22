@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+	<title>Login V3</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="icon" type="image/png" href="/assets/images/icons/favicon.ico"/>
+
+	<link rel="stylesheet" type="text/css" href="/assets/css/util.css">
+	<link rel="stylesheet" type="text/css" href="/assets/css/main.css">
+
+</head>
+<body >
+
+<div class="overlay" *ngIf="isLoaderVisible">
+<div class="center">
+	<mat-progress-spinner  mode="indeterminate" color="accent" ></mat-progress-spinner>
+	</div>
+
+</div>
+
+<div class='game-wrapper'>
+			<div *ngFor="let data of celebGameData let i = index"   class="game-dataDiv " [ngStyle]="{'height':height+'%', 'width':width+'%'}" >
+			
+			
+		<div class="flip-card" >
+		  <div class="flip-card-inner " id={{i}} (click)="flipCard($event,i,data.id)">
+			<div class="flip-card-front">
+			  <img src="gamebg.jpg" class="game-image">
+			</div>
+			<div class=" flip-card-back ">
+			  <img src={{data.url}} alt="Avatar" style="width:100%;height:100%;" class="game-image white-border"id='game-img{{i}}'>
+			</div>
+			
+			
+		  </div>
+		</div>		
+	</div>
+	</div>	
+
+</body>
+</html>

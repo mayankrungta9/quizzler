@@ -6,7 +6,7 @@ import {  UserData} from '../../../service/httpclient.service';
 import { LiveQuizService, LiveQuizCategory} from '../../../service/liveQuiz.service';
 import { MatDialog } from '@angular/material/dialog';
 @Component({
-  selector: 'LoginComponent',
+  selector: 'ShowLiveQuizes',
   templateUrl: '../html/ShowLiveQuizes.Component.html',
   styleUrls: ['../css/LiveQuiz.css']
 })

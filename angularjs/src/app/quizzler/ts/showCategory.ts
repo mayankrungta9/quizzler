@@ -10,7 +10,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { LoginComponent } from './login.component';
 import { saveMe } from './saveMe.component';
 @Component({
-  selector: 'test',
+  selector: 'showCategory',
   templateUrl: '../html/showCategory.html',
   styleUrls: ['./quizzler.component.css']
 })

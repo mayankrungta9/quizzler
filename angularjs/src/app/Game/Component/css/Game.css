@@ -1,0 +1,18 @@
+
+
+.div1{
+	
+	border:2px solid white;
+	
+	background:black;
+	float:left;
+}
+
+.div2:hover{
+	
+	background:red;
+}
+
+.background{
+background:red;
+}

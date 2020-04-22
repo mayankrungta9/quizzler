@@ -24,6 +24,6 @@ import { currencyPipe } from '../common/currencyPipe';
     LiveQuizRoutingModule,MatProgressSpinnerModule,CommonModule,
   ],
   
-  
+  exports:[ShowLiveQuizes]
 })
 export class liveQuizModule {}

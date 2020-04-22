@@ -6,8 +6,8 @@ import { Ranking } from './Component/ts/Ranking.Component';
 const routes: Routes = [
 
  
-  { path:'showCategory', component: ShowLiveQuizes},
-  { path:'showRanking/:quizId/:categoryId', component: Ranking}
+  { path:'showLiveQuizes/showCategory', component: ShowLiveQuizes},
+  { path:'showLiveQuizes/showRanking/:quizId/:categoryId', component: Ranking}
  
 ];
 

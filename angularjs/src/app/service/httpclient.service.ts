@@ -14,6 +14,12 @@ export class User {
   email: string;
 }
 
+export class CelebMemGameDto{
+	id:string;
+	url:number;
+	
+}
+
 export class Category {
   categoryId: number;
   categoryName: string;
@@ -236,7 +242,13 @@ console.log(this.baseServicePath );
       catchError(this.handleError)
     );
   }
-  
+   loadGame(size) {
+
+    return this.httpClient.get<CelebMemGameDto[]>(this.baseServicePath + 'getCelebGameImage/'+size).pipe(
+
+      catchError(this.handleError)
+    );
+  }
    loadLiveQuizCategory() {
 console.log(this.baseServicePath ); 
     return this.httpClient.get<LiveQuizCategory[]>(this.baseServicePath + 'getActiveLiveQuiz').pipe(
