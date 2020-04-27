@@ -1,27 +1,38 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-
-	<title>Login V3</title>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="icon" type="image/png" href="/assets/images/icons/favicon.ico"/>
-
-	<link rel="stylesheet" type="text/css" href="/assets/css/util.css">
+<link rel="stylesheet" type="text/css" href="/assets/css/util.css">
 	<link rel="stylesheet" type="text/css" href="/assets/css/main.css">
+<div  style="    height: 100%;
+width: 100%;
+overflow: hidden;
+padding: 10%; "> 
+	<div class="focussed_div">
+		
+			<div style="height:20%;float:right">
+		<mat-progress-spinner *ngIf="showSpinner" mode="determinate" value={{progress}} color="warn" diameter="70" ></mat-progress-spinner>
+	</div>
+	</div>
+	<div (touchmove) ="mouseMove($event) "id="game-wrapper" (touchstart) ="mouseEnter($event) " 
+	(touchend)="mouseRemoved($event)" style="
+	height: 60%;
+    width: 100%;
+	">
 
-</head>
-<body >
 
-
-
-
+	
 			
-			<div (touchmove) ="mouseEnter($event) " style="height:80%;width:90%;">
-			<div *ngFor="let data of gameData let i = index" id={{i}} [ngStyle]="{'height':height+'%', 'width':width+'%'}" class='div1'></div>
-	</div>	
+			<div *ngFor="let data of gameData let i = index" id={{i}} [ngStyle]="{'height':height+'px', 'width':width+'%'}" class='div1'
+			>
+				<div id=line-{{i}} class='line'[ngStyle]="{
+					'position':'relative','top': div_height/2+'px','left': div_width/2+'px'
+				}"></div>
+				
+				<img  *ngIf= "i==startPosition && isCharacterVisible" src="../../../assets/images/super_hero.png" class="super-hero">
+				<img  *ngIf= "i==target && isCharacterVisible" src="../../../assets/images/girl.png" class="super-hero">
+				<img  *ngIf= "checkForObstacle(i) && isObstacleVisible" src="../../../assets/images/fire.png" class="super-hero">
+
+			</div>
+			<img  *ngIf="result=='fail'" src="../../../assets/images/cross.png" class="game_result_img">
+			<img  *ngIf="result=='pass'"  src="../../../assets/images/right.png" class="game_result_img">
+		</div>	  
 	
-	<div style="height:5%;width:5%;color:white" >{{points}}</div>
+	</div>
 	
-</body>
-</html>

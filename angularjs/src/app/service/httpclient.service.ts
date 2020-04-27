@@ -20,6 +20,16 @@ export class CelebMemGameDto{
 	
 }
 
+export class PathFinderDto{
+  obstaclePosArray:number[];
+  pathArray:number[];
+  sourceUrl:string;
+  targetUrl:string;
+  obstacleUrl:string;
+  row:number;
+  column:number;
+}
+
 export class Category {
   categoryId: number;
   categoryName: string;
@@ -155,6 +165,14 @@ export class HttpClientService {
   loadLiveQuizes(id: number) {
 
     return this.httpClient.get<Quizes[]>(this.baseServicePath + 'getLiveQuiz/'+id).pipe(
+
+      catchError(this.handleError)
+    );
+  }
+
+  loadPathFinderData(level: number) {
+
+    return this.httpClient.get<PathFinderDto[]>(this.baseServicePath + 'getPathFinderGameData/'+level).pipe(
 
       catchError(this.handleError)
     );

@@ -54,6 +54,7 @@ if(this.userData.userId==null || this.userData.userId===''){
 	else {
 		this.userName=this.userData.userId;
 	}
+	 this.router.navigate(['quiz', this.userName, this.categoryId, level]);
      if(level <= this.userCurrentLevel){
        this.router.navigate(['quiz', this.userName, this.categoryId, level]);
       }
