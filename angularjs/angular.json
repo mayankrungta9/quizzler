@@ -86,7 +86,7 @@
             "browserTarget": "employee-management:build"
           },
           "configurations": {
-            "prod": {
+            "production": {
               "browserTarget": "employee-management:build:production"
             }
           }

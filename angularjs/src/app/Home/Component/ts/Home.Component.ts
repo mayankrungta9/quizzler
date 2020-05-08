@@ -13,7 +13,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
 	 
 isLoaderVisible=true;
 category='games'
-
+type="quiz"
 constructor(        
       
 	

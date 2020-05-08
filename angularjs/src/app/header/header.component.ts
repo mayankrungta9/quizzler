@@ -18,8 +18,8 @@ export class HeaderComponent  {
     public  router: Router ,
 	 private dialog: MatDialog,
     public  activatedrouter: ActivatedRoute ,
-    private httpClientService:HttpClientService,
-	private userData:UserData,
+    public httpClientService:HttpClientService,
+    public userData:UserData,
 	
   ) { }
   ngOnInit() {

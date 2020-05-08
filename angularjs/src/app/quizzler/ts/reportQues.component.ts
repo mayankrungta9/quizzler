@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 @Component({
-    selector: 'save-Me',
+    selector: 'questionReported',
     templateUrl: '../html/reportQues.component.html',
     
   })

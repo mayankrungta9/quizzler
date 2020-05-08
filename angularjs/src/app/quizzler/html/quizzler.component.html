@@ -30,7 +30,7 @@
 			</div>
 		<div id="middle-section"  
 			[ngClass]="{'middle-section':!isemojiBoxVisible,'upper-part-audio': isAudio,'upper-part-text': !isAudio }">
-		
+			<button (click)="openQuestionReportedDialogue()" style="color:white"> question report </button>
 			<div *ngIf="undefined != quizes[index] && quizes[index]?.type=='image'"  [ngClass]="{'ques-img':!isemojiBoxVisible , 'ques-emoji':isemojiBoxVisible }">
 				<img src={{quizes[index].url}} alt="HTML5 Icon"  #imagesTemp style="width: 100%;border-radius: 16px;			height: 100%;">
 			</div>

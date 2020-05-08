@@ -1,0 +1,106 @@
+
+
+.div1{
+	
+	border:1px solid white;
+	
+	
+	float:left;
+	box-shadow: -1px 0px 3px 5px;
+}
+
+.div_bg1{
+	background:#f39508;
+}
+.div_bg2{
+	background:green;
+}
+
+.div2:hover{
+	
+	background:red;
+}
+
+.spinner-text{    
+	float: left;
+    margin-left: 9%;
+    margin-top: 7%;
+    font-weight: bold;
+    color: white;
+    font-size: 25px;
+}
+.background{
+background:red;
+}
+.reset{
+	all:unset
+}
+.super-hero{
+	height: 100%;
+    width: 91%;
+}
+.game_next{
+    color: white;
+    height: 10%;
+    width: 30%;
+    background: red;
+    font-size: 20px;
+}
+.line{
+	
+   
+    color:white;
+    
+    
+	}
+.line-bottom{
+	
+	border-left: 6px dashed white;
+	float:left;
+}
+
+
+.line-right{
+	
+	border-top: 6px dashed white;
+	float:left;
+}
+
+.game_result_img{    height: 30%;
+    position: absolute;
+    left: 25%;
+	top: 25%;
+}
+.focussed_div{
+	height: 13%;
+    width: 80%;
+    
+    margin-left: -10%;
+}
+	
+:host ::ng-deep .mat-progress-spinner circle, .mat-spinner circle {   
+    stroke: #e6d31d;
+}
+	.next_replay{
+        height: 10%;
+    width: 100%;
+    color:white;
+    }
+    .next{
+        float: right;
+    }
+    .replay{
+        float:left;
+    }
+    .next_replay_button{
+        width: 47%;
+        border: 2px solid;
+        margin-right: 3%;
+        border-radius: 12px;
+        padding: 5%;
+        text-align: center;
+        background: #120ee0;
+        color: white;
+        font-size: 22px;
+        font-weight: bold;
+    }

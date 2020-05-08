@@ -25,6 +25,6 @@
   </div>
   </div>
   <ShowLiveQuizes *ngIf="category=='liveQuiz'"></ShowLiveQuizes>
-  <showCategory *ngIf="category=='quiz'"></showCategory>
-  <GameComponent *ngIf="category=='games'"></GameComponent>
+  <showCategory *ngIf="category=='quiz'" [type]="category" ></showCategory>
+  <showCategory *ngIf="category=='games'" [type]="category"></showCategory>
 </div>

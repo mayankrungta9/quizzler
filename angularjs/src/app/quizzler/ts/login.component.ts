@@ -26,7 +26,8 @@ export class LoginComponent implements OnInit {
  isChecked= true;
  ifOnFocus=false;
 flag=false; 
- 
+signInWithFB;
+signInWithGoogle;
  public errorMessage: String;
   constructor(
     public  router: Router ,

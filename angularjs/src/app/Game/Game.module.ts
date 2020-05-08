@@ -5,8 +5,10 @@ import { NgModule, ErrorHandler, Injectable } from '@angular/core';
 import { HttpClientService, LiveQuizCategory,UserData} from '../service/httpclient.service';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { CommonModule } from "@angular/common";
-import { GameComponent } from './Component/ts/Game.Component';
+import { GameComponent } from './Game.Component';
 import { GameRoutingModule } from './Game-routing.module';
+import {FindPathGameComponent} from './Component/ts/FindPathGame.Component';
+import {FindPairGameComponent} from './Component/ts/FindPairGame.Component';
 
 @Injectable({
   providedIn: 'root'
@@ -15,13 +17,14 @@ import { GameRoutingModule } from './Game-routing.module';
 
 @NgModule({
   declarations: [ 
-  GameComponent
+    FindPathGameComponent,FindPairGameComponent,
+    GameComponent
   ],
   
   imports: [
     GameRoutingModule,MatProgressSpinnerModule,CommonModule,
   ],
   
-  exports:[GameComponent]
+  exports:[FindPathGameComponent,FindPairGameComponent]
 })
 export class GameModule {}

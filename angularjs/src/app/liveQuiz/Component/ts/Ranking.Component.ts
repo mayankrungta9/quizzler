@@ -17,6 +17,7 @@ export class Ranking implements OnInit, AfterViewInit {
   categoryId:number;
 isPrizeMatrix:boolean=false;
 userName="";
+isLoaderVisible=false;
 constructor(       
 public activatedrouter: ActivatedRoute,
 	

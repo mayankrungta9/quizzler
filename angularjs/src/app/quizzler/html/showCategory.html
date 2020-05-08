@@ -23,7 +23,7 @@
 
 				<embed src="/assets/audio/background.mp3" loop="true" autostart="true" width="0" height="0" >
 				<div *ngIf="iscategoryvisible" style = "height:95%;margin-top:2%;">
-				<div  class ="categoryDiv" *ngFor="let category of categories" (click)=selectCategory(category)>
+				<div  class ="categoryDiv" *ngFor="let category of categories" buttonClickSound (click)=selectCategory(category)>
 					<div >
 						<div style = "font-size: 16px;color:white;float:left;"> {{category.categoryName}}</div>					
 						

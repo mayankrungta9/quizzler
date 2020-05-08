@@ -1,0 +1,1 @@
+(window.webpackJsonp=window.webpackJsonp||[]).push([[5],{MRkP:function(n,o,e){"use strict";e.r(o),e.d(o,"GameModule",function(){return r});var t=e("CcnG"),r=function(){function n(){}return n.ngInjectableDef=t.T({factory:function(){return new n},token:n,providedIn:"root"}),n}()}}]);

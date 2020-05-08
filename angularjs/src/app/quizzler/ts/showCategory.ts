@@ -1,4 +1,4 @@
-import { Component, OnInit,AfterViewInit } from '@angular/core';
+import { Component, OnInit,AfterViewInit,Input } from '@angular/core';
 import { HttpClientService, Category,UserData} from '../../service/httpclient.service';
 
 import { Router, ActivatedRoute } from '@angular/router';
@@ -24,6 +24,7 @@ categoryId: number;
 iscategoryvisible = true;
 userCurrentLevel: number;
 isLoaderVisible=true;
+@Input('type') type: string;
   constructor(
     public  router: Router ,
     public  activatedrouter: ActivatedRoute ,
@@ -35,9 +36,9 @@ isLoaderVisible=true;
 
   ngOnInit() {
 	  //this.dialog.open(saveMe);
-   
+   console.log(this.type);
 
-    this.httpClientService.loadCategory().subscribe(
+    this.httpClientService.loadCategory(this.type).subscribe(
      response => this.handleSuccessfulResponse(response),
     );
 
@@ -53,10 +54,15 @@ if(this.userData.userId==null || this.userData.userId===''){
 	}
 	else {
 		this.userName=this.userData.userId;
-	}
-	 this.router.navigate(['quiz', this.userName, this.categoryId, level]);
+  }
+  
+	 //this.router.navigate(['quiz', this.userName, this.categoryId, level]);
      if(level <= this.userCurrentLevel){
+       if(this.type=='quiz')
        this.router.navigate(['quiz', this.userName, this.categoryId, level]);
+       else if(this.type=='games'){
+        this.router.navigate(['games', this.userName, this.categoryId, level]);
+       }
       }
     else {
     alert('level is locked ');

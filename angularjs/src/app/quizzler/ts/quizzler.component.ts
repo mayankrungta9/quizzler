@@ -81,6 +81,7 @@ isMovingPictureDivVisible = false;
    isemojiBoxVisible = false;
    isLiveQuiz=false;
    quizId=0;
+   remainingLives=AppSettings.remainingLives
    @ViewChild("myInput0") private _inputElement: ElementRef;
   
   
@@ -91,10 +92,7 @@ isMovingPictureDivVisible = false;
   ngOnInit() {
 console.log("Quizler component loaded");
     this.userName = this.userData.userId;
-	console.log(this.userData);
 	
-	console.log(this.userData.coins);
-    
     this.httpClientService.level = +this.activatedrouter.snapshot.paramMap.get('level');
 	if(this.httpClientService.level == -1){
 		this.isLiveQuiz=true;
@@ -217,7 +215,8 @@ openOfflineQuizDialog(){
   }
 
   openSaveMeDialog() {
-    this.dialog.open(saveMe).afterClosed().subscribe(response => {
+    this.dialog.open(saveMe,{ height: '50%',
+    width: '95%',}).afterClosed().subscribe(response => {
       if (response == 'yes') {
         this.coins -= 200;
         setTimeout(() => {
@@ -230,7 +229,8 @@ openOfflineQuizDialog(){
     });
   }
   private loadQuiz() {
-	  this.index=0;
+    this.index=0;
+    this.remainingLives=AppSettings.remainingLives;
     this.buttonCss = [0, 0, 0, 0];
     this.audio.src = '../assets/audio/error.mp3';
     this.audio.load();
@@ -407,17 +407,17 @@ this.correctAnswerAudio.play();
   
 wrongAnswer(selectedAnswer) {
     const correctAnswer: string = this.quizes[this.index].answer;
-    this.liveClassesArray[AppSettings.remainingLives] = 'heart-img-blank';
+    this.liveClassesArray[this.remainingLives] = 'heart-img-blank';
     this.audio.play();
     this.coins -= 50;
-    if (AppSettings.remainingLives < 0) {
+    if (this.remainingLives < 0) {
       this.openSaveMeDialog();
     } else {
       if (selectedAnswer != 0) {
         this.buttonCss[selectedAnswer - 1] = 2;
       }
 	if(!this.isLiveQuiz){
-      AppSettings.remainingLives--;
+      this.remainingLives--;
 							}
       // this.buttonCss[correctAnswer - 1] = 1;
       setTimeout(() => {

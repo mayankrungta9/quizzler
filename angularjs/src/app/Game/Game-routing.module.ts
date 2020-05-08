@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { GameComponent } from './Component/ts/Game.Component';
+import { GameComponent } from './Game.Component';
 
 const routes: Routes = [
 
  
-  { path:'playHeroGame', component: GameComponent},
+  { path:'games/:userName/:categoryId/:level', component: GameComponent},
   //{ path:'showLiveQuizes/showRanking/:quizId/:categoryId', component: Ranking}
  
 ];

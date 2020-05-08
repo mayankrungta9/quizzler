@@ -20,6 +20,12 @@ export class CelebMemGameDto{
 	
 }
 
+export class CelebMemGameAndLevelDto{
+  row:number;
+  column:number;
+  celebMemAndGameDto:CelebMemGameDto;
+	
+}
 export class PathFinderDto{
   obstaclePosArray:number[];
   pathArray:number[];
@@ -35,6 +41,7 @@ export class Category {
   categoryName: string;
   url: string;
   level:number
+  type:string
 }
 
 export class LiveQuizCategory{
@@ -243,9 +250,9 @@ var userCoins = new UserCoins(userId,coins );
       catchError(this.handleError)
     );
   }
-  
+     
   reportQuestion(qid: number, comments: string) {
-    var questionreported = new QuestionReported(qid, comments);
+    var questionreported = new QuestionReported(qid, comments) ;
   
     return this.httpClient.post<QuestionReported>(this.baseServicePath + 'reportQuestion', questionreported, this.httpOptions).pipe(
 
@@ -253,9 +260,9 @@ var userCoins = new UserCoins(userId,coins );
     );
   }
    
-  loadCategory() {
+  loadCategory(type:string) { 
 console.log(this.baseServicePath ); 
-    return this.httpClient.get<Category[]>(this.baseServicePath + 'getCategory').pipe(
+    return this.httpClient.get<Category[]>(this.baseServicePath + 'getCategory/'+type).pipe(
 
       catchError(this.handleError)
     );
