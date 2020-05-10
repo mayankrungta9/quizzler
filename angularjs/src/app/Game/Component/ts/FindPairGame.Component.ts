@@ -140,12 +140,12 @@ ngOnInit() {
 		
 	
 		for (var i = 0; i < this.totalImage*2; i++) {
-			var x = document.getElementById("game-img"+i).complete;
-			if(!x){
+			var x = <HTMLImageElement>document.getElementById("game-img"+i)
+			if(!x.complete){
 				console.log("game-img"+i);
 			}
 			
-			isAllImageLoaded=isAllImageLoaded && x;
+			isAllImageLoaded=isAllImageLoaded && x.complete;
 			
 		}
 if(isAllImageLoaded){

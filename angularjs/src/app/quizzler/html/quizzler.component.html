@@ -32,7 +32,7 @@
 			[ngClass]="{'middle-section':!isemojiBoxVisible,'upper-part-audio': isAudio,'upper-part-text': !isAudio }">
 			<button (click)="openQuestionReportedDialogue()" style="color:white"> question report </button>
 			<div *ngIf="undefined != quizes[index] && quizes[index]?.type=='image'"  [ngClass]="{'ques-img':!isemojiBoxVisible , 'ques-emoji':isemojiBoxVisible }">
-				<img src={{quizes[index].url}} alt="HTML5 Icon"  #imagesTemp style="width: 100%;border-radius: 16px;			height: 100%;">
+				<img  alt="HTML5 Icon"  #imagesTemp style="width: 100%;border-radius: 16px;			height: 100%;">
 			</div>
 			<div *ngIf="quizes[index]?.type=='audio' " style="text-align: center; margin-top:48%">
 
@@ -107,16 +107,16 @@
 		
 			<div *ngIf="isMovingPictureDivVisible" style="height:100%; width:100%;text-align:center;margin-top: -4%;">
 			<div class="catchCelebImg {{buttonAnimationCss1}}" id="imageDiv1">
-			<img src="{{quizes[index].option1}}"(click)="checkAnswer(1)" style="    width: 100%; height:100%; border-radius: 10px;">
+			<img (click)="checkAnswer(1)"  #option1 style="    width: 100%; height:100%; border-radius: 10px;">
 			</div>
 			<div class="catchCelebImg {{buttonAnimationCss2}}" id="imageDiv2">
-			<img src="{{quizes[index].option2}}" (click)="checkAnswer(2)" style="    width: 100%;height:100%;   border-radius: 10px;">
+			<img  (click)="checkAnswer(2)" #option2 style="    width: 100%;height:100%;   border-radius: 10px;">
 			</div>
 			<div class="catchCelebImg {{buttonAnimationCss1}}"  id="imageDiv3">
-			<img src="{{quizes[index].option3}}" (click)="checkAnswer(3)" style="    width: 100%; height:100%;  border-radius: 10px;">
+			<img  (click)="checkAnswer(3)" #option3 style="    width: 100%; height:100%;  border-radius: 10px;">
 			</div>
 			<div class="catchCelebImg {{buttonAnimationCss2}}" id="imageDiv4">
-			<img src="{{quizes[index].option4}}" (click)="checkAnswer(4)" style="    width: 100%;height:100%;   border-radius: 10px;">
+			<img  (click)="checkAnswer(4)" #option4 style="    width: 100%;height:100%;   border-radius: 10px;">
 			</div>
 		
 

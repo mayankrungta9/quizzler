@@ -33,6 +33,7 @@ import { liveQuizModule } from './liveQuiz/liveQuiz.module';
 import { TimeoutInterceptor, DEFAULT_TIMEOUT } from './service/TimeoutInterceptor';
 import { GameModule } from './Game/Game.module';
 import { ButtonClickDirectiveDirective } from './button-click-directive.directive';
+import { profilePage } from './quizzler/ts/profilePage';
 
 @Injectable({
   providedIn: 'root'
@@ -41,7 +42,7 @@ import { ButtonClickDirectiveDirective } from './button-click-directive.directiv
 
 @NgModule({
   declarations: [ 
-    AppComponent,reportQues,
+    AppComponent,reportQues,profilePage,
     
         HeaderComponent,HomeComponent,
     FooterComponent,LoginComponent,saveMe,success,ShowCategory,GameOver,CatchHeroComponent,CrosswordComponent,QuizComponent, ButtonClickDirectiveDirective

@@ -13,6 +13,7 @@ import { CatchHeroComponent } from './catch-hero/catch-hero.component';
 import { ShowCategory } from './quizzler/ts/showCategory';
 import { success, DIALOG_DATA } from './quizzler/ts/success-component';
 import { QuizComponent } from './quizzler/ts/quizzler.component';
+import { profilePage } from './quizzler/ts/profilePage';
 
 const routes: Routes = [
 
@@ -27,6 +28,7 @@ const routes: Routes = [
   { path:'crossword', component: CrosswordComponent},
   { path:'catchHero', component: CatchHeroComponent},
   { path:'catchHero', component: CatchHeroComponent},
+  { path:'profile', component: profilePage},
  // { path:'games/:userName/:categoryId/:level', loadChildren: () => import('./Game/Game.module').then(m => m.GameModule) },
   //{ path:'games/:userName/:categoryId/:level', loadChildren:  './Game/Game.module#GameModule' },
 ];

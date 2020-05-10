@@ -36,6 +36,10 @@ export class QuizComponent implements OnInit, AfterViewInit {
   @ViewChild('videoPlayer') videoplayer: ElementRef;
   @ViewChild('videoPlayer1') videoplayer1: ElementRef;
   @ViewChild('imagesTemp') imagesTemp: ElementRef;
+  @ViewChild('option1') option1: ElementRef;
+  @ViewChild('option2') option2: ElementRef;
+  @ViewChild('option3') option3: ElementRef;
+  @ViewChild('option4') option4: ElementRef;
  catchHero = new CatchHeroComponent();
   questionAudio = new Audio();
   isanimatedGifVaisible = false;
@@ -43,6 +47,10 @@ export class QuizComponent implements OnInit, AfterViewInit {
   videoSource = '';
   videoSource1 = '';
   imgArray = new Image();
+  option1Temp=new Image();
+  option2Temp=new Image();
+  option3Temp=new Image();
+  option4Temp=new Image();
   audioFlag = true;
   timeLeft: number = AppSettings.totalTimeLeft;
   interval;
@@ -81,6 +89,7 @@ isMovingPictureDivVisible = false;
    isemojiBoxVisible = false;
    isLiveQuiz=false;
    quizId=0;
+   imageOption=false;
    remainingLives=AppSettings.remainingLives
    @ViewChild("myInput0") private _inputElement: ElementRef;
   
@@ -109,10 +118,12 @@ console.log("Quizler component loaded");
       this.isOptionButtonVisible = true;
   } else if (this.categoryId == AppSettings.catchHeroCategoryId  || this.categoryId == AppSettings.catchActressCategoryId   ) {
       this.isMovingPictureDivVisible = true;
+     
           } else if (this.categoryId == AppSettings.emojiCategoryId   ) {
            
             this.isemojiBoxVisible = true;
     }
+   
     this.loadQuiz();
      this.startTimer();
 	
@@ -275,7 +286,8 @@ openOfflineQuizDialog(){
     if (this.quizes[this.index].categoryId === AppSettings.emojiCategoryId) { this.setEmojiButtonOption(); }
     if (this.quizes[this.index].type === 'audio') { 
 
-	this.isAudio = true;console.log(this.isAudio); 
+  this.isAudio = true;
+  console.log(this.isAudio); 
 	this.questionAudio.src = this.quizes[this.index ].url;
       this.questionAudio.loop = true;
       this.questionAudio.load();
@@ -285,7 +297,7 @@ openOfflineQuizDialog(){
 		this.checkIfMediaPlay(promise);
 		}
      
-   if (this.quizes[this.index].type === 'video') {
+   else if (this.quizes[this.index].type === 'video') {
       this.videoSource = this.quizes[this.index].url;
       this.videoSource1 = this.quizes[this.index + 1].url;
       setTimeout(() => {
@@ -295,8 +307,24 @@ openOfflineQuizDialog(){
 		this.checkIfMediaPlay(promise);
         this.loadNextInBackground();
       }, 100);
-    } else {
-      this.loadNextInBackground();
+    } 
+    
+    else if (this.quizes[this.index].type === 'image'){
+      setTimeout(() => {
+        this.imagesTemp.nativeElement.src =  this.quizes[this.index].url;
+        this.loadNextInBackground();
+      }, 500);
+     
+    }
+    if (this.isMovingPictureDivVisible){
+      setTimeout(() => {
+        this.option1.nativeElement.src =  this.quizes[this.index].option1;
+        this.option2.nativeElement.src =  this.quizes[this.index].option2;
+        this.option3.nativeElement.src =  this.quizes[this.index].option3;
+        this.option4.nativeElement.src =  this.quizes[this.index].option4;
+        this.loadNextInBackground();
+      }, 500);
+      
     }
 	console.log("end handleSuccessfulResponse");
   }
@@ -529,7 +557,13 @@ this.coins=0;
       }
     setTimeout(() => {
      
-      console.log(type);
+    if(this.isMovingPictureDivVisible){
+      this.option1.nativeElement.src=this.option1Temp.src;
+      this.option2.nativeElement.src=this.option2Temp.src;
+      this.option3.nativeElement.src=this.option3Temp.src;
+      this.option4.nativeElement.src=this.option4Temp.src;
+    }
+
       if (this.quizes[this.index].type === 'image') {
         this.imagesTemp.nativeElement.src = this.imgArray.src;
       }
@@ -552,6 +586,13 @@ if(!this.isLiveQuiz){
 	  }
   }
   private loadNextInBackground() {
+    if (this.isMovingPictureDivVisible) {
+      console.log(this.option1);
+      this.option1Temp.src = this.quizes[this.index + 1].option1;
+      this.option2Temp.src = this.quizes[this.index + 1].option2;
+      this.option3Temp.src = this.quizes[this.index + 1].option3;
+      this.option4Temp.src = this.quizes[this.index + 1].option4;
+    }
 	  if (this.index+1< this.totalQuestion){
     const type = this.quizes[this.index + 1].type; 
     if (type === 'audio') {
@@ -561,7 +602,9 @@ if(!this.isLiveQuiz){
       this.tempAudio.load();
     } else if (type === 'image') {
       this.imgArray.src = this.quizes[this.index + 1].url;
-    } else if (type === 'video') {
+    }
+     
+    else if (type === 'video') {
       if (this.flag) {
         this.videoSource1 = this.quizes[this.index + 1].url;
         this.videoplayer1.nativeElement.load();

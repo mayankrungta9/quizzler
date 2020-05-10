@@ -1,0 +1,73 @@
+
+.field_label{
+  border: none;
+  float: left;
+  width: 30%;
+  background: #6f1f6c;
+  
+  border-color: white;
+  
+  padding-bottom: 2%;
+  color: white;
+  font-size: 20px;
+}
+
+.fieldDiv{
+  float: left;
+  width: 100%;
+  margin-bottom: 5%;
+}
+
+.profileWrapper{
+ 
+  width: 100%;
+  padding-top: 1%;
+  padding-left: 5%;
+  
+  
+}
+
+.inputClass{
+  background: #6f1f6c;
+
+  border-bottom: solid 2px;
+  border-color: white;
+  width: 60%;
+  padding-bottom: 2%;
+}
+.input-text{
+  color: white;
+  font-size: 20px;
+}
+.profile-button{
+  width: 30%;
+    height: 50px;
+    border: solid;
+    margin-right: 7%;
+    margin-left: 5%;
+    margin-top: 2%;
+    color: white;
+    border-radius: 15px;
+    font-size: 19px;
+    font-weight: bold;
+
+}
+.profile-top{
+  height: 10%;
+  padding-left: 37%;
+  margin-bottom: 4%;
+  padding-top: 5%;
+}
+.profile-initial-circle{
+  background: linear-gradient(90deg, rgb(192, 66, 214), rgb(103, 58, 183));
+    height: 60px;
+    width: 60px;
+    border: solid white 0px;
+    border-radius: 50%;
+    text-align: center;
+    padding-top: 6%;
+    font-size: 24px;
+    vertical-align: center;
+    color: white;
+    font-weight: bold;
+}
