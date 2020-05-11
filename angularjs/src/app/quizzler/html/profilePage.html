@@ -20,26 +20,26 @@
 					</div>
 						</div>
 				<div class='fieldDiv'>
-					<div class="field_label">UserId:</div> <input type = 'text' disabled class="inputClass input-text"  value='mayankrungta9'>
+					<div class="field_label">UserId:</div> <input type = 'text' disabled class="inputClass input-text"  [(ngModel)]='user.userId'>
 		</div>
 		<div class='fieldDiv'>
-			<div class="field_label">	Password:</div> <input type = 'text' class="inputClass input-text"  value='mayank123'>
+			<div class="field_label">	Password:</div> <input type = 'text' class="inputClass input-text"   [(ngModel)]='user.Password'>
 		</div>
 		<div class='fieldDiv'>
-			<div  class="field_label">	Name:</div> <input type = 'text' class="inputClass input-text" value="Mayank" >
+			<div  class="field_label">	Name:</div> <input type = 'text' class="inputClass input-text"  [(ngModel)]='user.first_name' >
 		</div>
 		<div class='fieldDiv'>
-			<div class="field_label">	Email: </div><input type = 'text' class="inputClass input-text" value="mayankrungta9@gmail.com">
+			<div class="field_label">	Email: </div><input type = 'text' class="inputClass input-text"  [(ngModel)]='user.email'>
 		</div>
 		<div class='fieldDiv'>
-			<div class="field_label">	Phone Number:</div> <input type = 'text' class="inputClass input-text" value="8287164661">
+			<div class="field_label">	Phone Number:</div> <input type = 'text' class="inputClass input-text"  [(ngModel)]='user.phone'>
 		</div>
 		
 			
 <button  class="profile-button" style="float:left;background:RED ;"> Cancel</button>
 			
 			
-			<button  class="profile-button" style="background: green;">Update</button>
+			<button  class="profile-button" (click) ="updateUser()"style="background: green;">Update</button>
 						
 			</div>
 		

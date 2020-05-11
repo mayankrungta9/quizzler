@@ -105,7 +105,8 @@ ngOnInit() {
 	this.userData.coins+=this.coins;
 	this.coins=0;
 		this.httpClientService.saveUserCategoryLevel(this.userCategoryData).subscribe();
-		this.httpClientService.saveUserCoins(this.userData.userId, this.userData.coins).subscribe(	response=>this.userData=response
+		
+		this.httpClientService.updateUser(this.userData, 'updateUser').subscribe(	response=>this.userData=response
 		);
 	  }
 	ngAfterViewInit(){

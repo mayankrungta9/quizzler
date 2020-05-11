@@ -17,6 +17,18 @@ public class Category {
 	
 	private String categoryName;
 	
+@Column(name = "type")
+	
+	private String type;
+
+	public String getType() {
+	return type;
+}
+
+public void setType(String type) {
+	this.type = type;
+}
+
 	@Column(name = "url")
 	
 	private String url;

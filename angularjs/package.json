@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve   --port 4200 --host 192.168.0.106 --disableHostCheck   ",
+    "start": "ng serve --port 443  --host 192.168.0.106 --disableHostCheck --ssl --ssl-key ssl/private.key --ssl-cert ssl/certificate.crt ",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
@@ -22,6 +22,7 @@
     "@angular/platform-browser-dynamic": "~7.2.0",
     "@angular/router": "~7.2.0",
     "amazon-cognito-identity-js": "^3.2.2",
+    "angularx-social-login": "^1.2.7",
     "animate.css": "^3.7.2",
     "aws-sdk": "~2.610.0",
     "core-js": "^2.5.4",
@@ -29,7 +30,7 @@
     "ng-image-slider": "^2.4.1",
     "rxjs": "~6.3.3",
     "tslib": "^1.9.0",
-    "zone.js": "~0.10.3"
+    "zone.js": "~0.8.26"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^0.13.4",

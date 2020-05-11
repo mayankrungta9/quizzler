@@ -25,7 +25,7 @@ iscategoryvisible = true;
 userCurrentLevel: number;
 isLoaderVisible=true;
 @Input('type') type: string;
-  constructor(
+  constructor( 
     public  router: Router ,
     public  activatedrouter: ActivatedRoute ,
     private httpClientService: HttpClientService,

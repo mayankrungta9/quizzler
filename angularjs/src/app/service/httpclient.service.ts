@@ -75,24 +75,33 @@ export class UserData {
 	 public userId: string="";
     public first_name: string="";
     public last_name: string="";
-	public coins:number=0;
+  public coins:number=0;
+  public email:string="";
+  public phone:string="";
+  public password:string="";
   constructor(
    
   ) { 
   
   }
-  public createUserData(userId,first_name,last_name,coins){
+  public createUserData(userId,first_name,last_name,email,phone,password,coins){
 	  this.userId=userId;
 	  this.first_name=first_name;
 	  this.last_name=last_name;
-	  this.coins=coins;
+    this.coins=coins;
+    this.email=email;
+    this.password=password;
+    this.phone=phone;
   }
   
    public cloneUserData(response){
 	  this.userId=response.userId;
 	  this.first_name=response.first_name;
 	  this.last_name=response.last_name;
-	  this.coins=response.coins;
+    this.coins=response.coins;
+    this.email=response.email;
+    this.password=response.password;
+    this.phone=response.phone;
   }
 }
 
@@ -204,14 +213,14 @@ export class HttpClientService {
       throw error;
   }
   }
-  saveUser(user: UserData) {
+  updateUser(user: UserData,action:string) {
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
 
       })
     };
-    return this.httpClient.post<UserData>(this.baseServicePath + 'saveUser', user, httpOptions).pipe(
+    return this.httpClient.post<UserData>(this.baseServicePath +action, user, httpOptions).pipe(
 
       catchError(this.handleError)
     );
@@ -242,14 +251,7 @@ export class HttpClientService {
     );
   }
 
-saveUserCoins(userId,coins ) {
 
-var userCoins = new UserCoins(userId,coins );
-    return this.httpClient.post<UserData>(this.baseServicePath + 'updateUserCoins', userCoins, this.httpOptions).pipe(
-
-      catchError(this.handleError)
-    );
-  }
      
   reportQuestion(qid: number, comments: string) {
     var questionreported = new QuestionReported(qid, comments) ;

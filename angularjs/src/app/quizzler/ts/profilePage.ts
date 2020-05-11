@@ -15,7 +15,7 @@ import {
 
 export class profilePage implements OnInit, AfterViewInit{
 
- 
+  user=new UserData();
   constructor(
     public  router: Router ,
     public  activatedrouter: ActivatedRoute ,
@@ -26,16 +26,27 @@ export class profilePage implements OnInit, AfterViewInit{
   ) { }
 
   ngOnInit() {
-	 
-
-   console.log('test');
+    
 
   }
 ngAfterViewInit() {
-	
+	setTimeout(()=>{
     
+    this.user.cloneUserData(this.userData)
+    
+    
+  },2000);
   }
-   
+  updateUser(){
+    this.httpClientService.updateUser(this.user,'updateUser').subscribe(response=>{
+if(null!==response){
+  this.userData.cloneUserData(this.user);
+}
+else{
+  console.log('update failed')
+}
+    });
+  }
   }
 
 

@@ -1,5 +1,5 @@
 
-import { NgModule, ErrorHandler, Injectable } from '@angular/core';
+import { NgModule, ErrorHandler, Injectable, APP_INITIALIZER } from '@angular/core';
 import { HttpClientService,UserData } from './service/httpclient.service';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -34,12 +34,52 @@ import { TimeoutInterceptor, DEFAULT_TIMEOUT } from './service/TimeoutIntercepto
 import { GameModule } from './Game/Game.module';
 import { ButtonClickDirectiveDirective } from './button-click-directive.directive';
 import { profilePage } from './quizzler/ts/profilePage';
-
+import { Observable, ObservableInput, of } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
+import {  DIALOG_DATA } from './quizzler/ts/success-component';
+import { SocialLoginModule, AuthServiceConfig } from "angularx-social-login";
+import { GoogleLoginProvider, FacebookLoginProvider } from "angularx-social-login";
+ 
+let config = new AuthServiceConfig([
+ 
+   {
+     id: FacebookLoginProvider.PROVIDER_ID,
+     provider: new FacebookLoginProvider('235888204232671')
+   }
+ ]);
+ export function provideConfig() {
+   return config;
+ }
 @Injectable({
   providedIn: 'root'
 })
 
-
+export class ConfigService {
+  baseUrl: string;
+  constructor() { }
+}
+function load(http: HttpClient, config: ConfigService): (() => Promise<boolean>) {
+  return (): Promise<boolean> => {
+    return new Promise<boolean>((resolve: (a: boolean) => void): void => {
+       http.get('./assets/config.json')
+         .pipe(
+           map((x: ConfigService) => {
+             config.baseUrl = x.baseUrl;
+             console.log(config.baseUrl);
+             resolve(true);
+           }),
+           catchError((x: { status: number }, caught: Observable<void>): ObservableInput<{}> => {
+             if (x.status !== 404) {
+               resolve(false);
+             }
+             config.baseUrl = 'http://localhost:8080/api';
+             resolve(true);
+             return of({});
+           })
+         ).subscribe();
+    });
+  };
+}
 @NgModule({
   declarations: [ 
     AppComponent,reportQues,profilePage,
@@ -52,17 +92,24 @@ import { profilePage } from './quizzler/ts/profilePage';
     
   ],
   imports: [
-    MatProgressSpinnerModule,BrowserAnimationsModule, 
+    MatProgressSpinnerModule,BrowserAnimationsModule, SocialLoginModule,
     AppRoutingModule,GameModule,
     HttpClientModule,
     FormsModule,MatDialogModule,MatCardModule,liveQuizModule
   ],
   providers: [UserData,
+    {provide:DIALOG_DATA,useValue:{ }},
    
-	 
+	
     
     [{ provide: HTTP_INTERCEPTORS, useClass: TimeoutInterceptor, multi: true }],
-    [{ provide: DEFAULT_TIMEOUT, useValue: 30000 }]
+    [{ provide: DEFAULT_TIMEOUT, useValue: 30000 }],
+    [
+      {
+        provide: AuthServiceConfig,
+        useFactory: provideConfig
+      }
+    ],
   ],
   bootstrap: [AppComponent]
 })
