@@ -5,6 +5,7 @@ import { HttpClientService, PathFinderDto, UserCategoryData, UserData} from '../
 import { MatDialog } from '@angular/material/dialog';
 import { success } from '../../../quizzler/ts/success-component';
 import { GameOver } from '../../../quizzler/ts/gameOver-component';
+import { LoginComponent } from '../../../quizzler/ts/login.component';
 @Component({
   selector: 'FindPathGameComponent',
   templateUrl: '../html/FindPathGame.Component.html',
@@ -24,6 +25,8 @@ export class FindPathGameComponent implements OnInit, AfterViewInit {
 	 card2=-1;
 	 cardId1=-1;
 	 cardId2=-1;
+	 bgArray=["rgb(249, 201, 56)","#226e71","#4d428c"];
+	 divBgArray=["#4d428c","#F3A712","#6b686b"];
 	 height=0;
 	 width=0;
 	 row=0;
@@ -49,7 +52,7 @@ export class FindPathGameComponent implements OnInit, AfterViewInit {
 	  progress=0;	
 	  showSpinner=true;
 	  levelCompleted=false;
-	  divBgColor='green';
+	  
 	  level=0;
 	  totalQuestion=0;
 	  rightAnswer=0;
@@ -62,6 +65,8 @@ export class FindPathGameComponent implements OnInit, AfterViewInit {
 	  userName="";
 	  coins=0;
 	  audio = new Audio();
+	  currentUnlockedLevel =0;
+	  header_height=0;
 constructor(       
    private httpClientService: HttpClientService,
    public activatedrouter: ActivatedRoute,
@@ -70,12 +75,14 @@ constructor(
 	private dialog: MatDialog,
   ) { }
 ngOnInit() {
+	this.header_height=window.screen.height/10;
 	this.audio.src = "../../../assets/audio/click.mp3";
 	this.audio.load();
 	this.audio.play();
-	
+	this.httpClientService.onHomePage=false;
 	this.httpClientService.level = +this.activatedrouter.snapshot.paramMap.get('level');
 	this.level=this.httpClientService.level;
+	this.currentUnlockedLevel = +this.activatedrouter.snapshot.paramMap.get('currentUnlockedLevel');
 	
 	this.userName = this.userData.userId;
 	 this.loadLevel();
@@ -94,7 +101,9 @@ return this.obstacle.filter(x=>x==index).length >0 ?true :false;
 		
 	this.userData.coins+=this.coins;
 	this.coins=0;
+	if(this.level+1 >this.currentUnlockedLevel){
 		this.httpClientService.saveUserCategoryLevel(this.userCategoryData).subscribe();
+	}
 		this.httpClientService.updateUser(this.userData, 'updateUser').subscribe(	response=>this.userData=response
 		);
 	  }
@@ -110,13 +119,7 @@ ngAfterViewInit(){
 		this.isObstacleVisible=true
 		this.showSpinner=true;
 		this.timeCounter=5;
-		if(this.gameLevelIndex%2==0){
-			this.divBgColor="green"
-		}
-		else {
-	
-			this.divBgColor="#f39508";
-		}
+		
 		this.progress=0;
 		this.resetStyle();
 		this.isCharacterVisible=false;
@@ -135,7 +138,7 @@ ngAfterViewInit(){
 			clearInterval(this.interval);
 			this.progress=0;
 			this.showSpinner=false;
-		},1000);
+		},5000);
 		this.result="";
 		this.pathFinderDto=this.pathFinderDtoArray[this.gameLevelIndex++]
 		
@@ -154,7 +157,7 @@ ngAfterViewInit(){
 			this.div_height=document.getElementById('1').offsetWidth;
 			this.div_width=document.getElementById('1').offsetWidth
 			var element =<HTMLElement> document.getElementById('game-wrapper');
-			this.start_pos_y=element.offsetTop;
+			this.start_pos_y=element.offsetTop+this.header_height;
 			this.start_pos_x=element.offsetLeft;
 			
 		},100);	
@@ -172,7 +175,7 @@ ngAfterViewInit(){
 	
   }
   mouseEnter(event){
-
+if(!this.showSpinner){
 	var x = event.touches[0].clientX;
 	var y = event.touches[0].clientY;
 	var x_pos=x-this.start_pos_x;
@@ -181,6 +184,7 @@ ngAfterViewInit(){
   var y_index=Math. trunc(y_pos/this.div_height);
   var y_start=Math.trunc(this.startPosition/this.column);
   var x_start =this.startPosition%this.column;
+
 
 		if(x_index==x_start && y_index==y_start)
 		{
@@ -194,7 +198,7 @@ ngAfterViewInit(){
 		this.bottomMove=y_index;
 		this.leftMove=x_index;
 	
-		
+	}
   }
   mouseRemoved(event){
 	
@@ -206,7 +210,7 @@ ngAfterViewInit(){
 	 
 		setTimeout(() => {
 		this.resetStyle();
-	}, 500);
+	}, 100);
 }
 
 
@@ -225,7 +229,7 @@ ngAfterViewInit(){
 			htmlCollection = document.getElementsByClassName('div1');
 			for (var i = 0; i < htmlCollection.length; i++) {
 				var element = <HTMLElement>htmlCollection.item(i);
-				element.style.background = this.divBgColor;
+				element.style.background = this.divBgArray[this.gameLevelIndex-1];
 			}
 		
 	}
@@ -279,7 +283,14 @@ this.isObstacleVisible=true;
 			this.saveUserProgress();
 			if(this.rightAnswer>=this.totalQuestion/2)
 			{
-				this.openSuccessDailog();
+				if(this.userData.userId==null || this.userData.userId==''){
+					this.openLoginDialog();
+				  }
+				  else {
+					this.openSuccessDailog();
+					
+				  } 
+				
 			}
 			else {
 				
@@ -292,7 +303,26 @@ this.openGameOverDialog();
 	   	   this.setBackgroundWrapper(x_index, y_index);
 }
    }
-   
+   openLoginDialog() {
+
+	this.dialog.open(LoginComponent,{
+	height: '75%',
+	width: '95%',
+	disableClose: true,
+		}).afterClosed().subscribe(response => {
+	  if (response != null) {
+		this.userData.cloneUserData(response);
+	   
+		
+	  this.userCategoryData.userId=response.userId;
+	  
+	  this.openSuccessDailog();
+	  
+	  } else {
+		console.log("sorry wrong credential");
+	  }
+	});
+  }
    openGameOverDialog() {
     this.dialog.open(GameOver, {
       data: this.coins,
@@ -360,7 +390,7 @@ openSuccessDailog(){
 		
 		if(this.route[this.index-1] === id )
 		{
-			document.getElementById(this.route[this.index]  + "").style.background = this.divBgColor;
+			document.getElementById(this.route[this.index]  + "").style.background = this.divBgArray[this.gameLevelIndex-1];
 			if(isHorizontal){
 				var temp=this.lastElement.pop();
 				temp.classList.remove('line-right');

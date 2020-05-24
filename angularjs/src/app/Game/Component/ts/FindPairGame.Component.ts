@@ -6,6 +6,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { success } from '../../../quizzler/ts/success-component';
 import { GameOver } from '../../../quizzler/ts/gameOver-component';
 import { ButtonClickDirectiveDirective } from '../../../button-click-directive.directive';
+import { LoginComponent } from '../../../quizzler/ts/login.component';
 @Component({
   selector: 'FindPairGameComponent',
   templateUrl: '../html/FindPairGame.Component.html',
@@ -34,9 +35,9 @@ export class FindPairGameComponent implements OnInit, AfterViewInit {
 level=0;
 isLoaderVisible=true;
 progress=100;
-timeCounter=10;
+timeCounter=0;
 bonusTimer=3;
-displayTimer=0
+displayTimer=0;
 interval;
 gameInterval;
 totalImage=0;
@@ -45,9 +46,13 @@ levelCleared=false;
 gameWrapperWidth=0;
 gameData;
 index=0;
+bgArray=["#f9c938","#226e71","#6f1f6c"];
+cardImgArray=["card-bg1.jpg","card-bg2.jpg","card-bg3.jpg"];
 correctSubLevel=0;
 totalSubLevel=2;
+timeUp=false;
 audio = new Audio();
+currentUnlockedLevel:number;
 constructor(       
    private httpClientService: HttpClientService,
 	public  activatedrouter: ActivatedRoute ,
@@ -57,6 +62,9 @@ constructor(
   ) { }
 ngOnInit() {
 	this.audio.src = "../../../assets/audio/click.mp3";
+	this.httpClientService.onHomePage=false;
+	//this.openGameOverDialog();	
+	//this.openSuccessDailog();
 	this.audio.load();
 	this.gameData=[
 		{"id":1,"url":"../../../assets/images/temp/image1.png"},
@@ -72,6 +80,7 @@ ngOnInit() {
 	];
 	this.userName = this.userData.userId;
 	this.httpClientService.level = +this.activatedrouter.snapshot.paramMap.get('level');
+	this.currentUnlockedLevel = +this.activatedrouter.snapshot.paramMap.get('currentUnlockedLevel');
 	this.level=this.httpClientService.level;
 	
 	 this.loadGameData();
@@ -104,7 +113,9 @@ ngOnInit() {
 		
 	this.userData.coins+=this.coins;
 	this.coins=0;
+	if(this.level+1 >this.currentUnlockedLevel){
 		this.httpClientService.saveUserCategoryLevel(this.userCategoryData).subscribe();
+	}
 		
 		this.httpClientService.updateUser(this.userData, 'updateUser').subscribe(	response=>this.userData=response
 		);
@@ -122,6 +133,7 @@ ngOnInit() {
 		this.row=this.celebMemGameAndLevelDto.row;
 		this.column=this.celebMemGameAndLevelDto.column;
 		this.totalImage=this.row*this.column/2;
+		this.timeCounter=this.celebMemGameAndLevelDto.time;
 		//this.height=(98-this.row*2-3)/this.row;
 		var widthPer=(100-this.column*2-1)/this.column;
 		this.width= Math.floor(this.gameWrapperWidth*widthPer/100);
@@ -168,7 +180,7 @@ else{
 	 
   }
   startBonusTimer(){
-	  console.log("in startbonustimer");
+	  
 	this.interval= setInterval(() =>{
 		this.progress-=100/(this.bonusTimer*10)
 		if(this.progress % 20 ==0){
@@ -183,12 +195,12 @@ else{
   }
 
   startGameTimer(){
-	  console.log('in startGame time');
+	 
 	  var totalTimeInMilli=this.timeCounter*1000;
 	  var timeDecreaseInMilli=100;
 	  var timePercentDecrease=timeDecreaseInMilli*100/totalTimeInMilli;
 	  var progressDecrease=100*timePercentDecrease/100;
-	  console.log(progressDecrease);
+	  
 	  
 	 this.gameInterval= setInterval(() =>{
 		this.progress-=progressDecrease;
@@ -201,14 +213,17 @@ else{
 			
 			
 			//this.openGameOverDialog();
-			this.loadNextTask();
+			clearInterval(this.gameInterval);
+			this.timeUp=true;
+			setTimeout(()=>this.loadNextTask(),1000);
+			
 		}
 	}, timeDecreaseInMilli);
 	
   }
 
 	private increaseProgress() {
-		var timeIncrease = 5;
+		var timeIncrease = 3;
 		var bonusPercent = timeIncrease * 100 / this.timeCounter;
 		console.log(bonusPercent);
 		this.progress += bonusPercent;
@@ -234,15 +249,34 @@ openGameOverDialog() {
       }
     });
   }
+  openLoginDialog() {
 
+	this.dialog.open(LoginComponent,{
+	height: '75%',
+	width: '95%',
+	disableClose: true,
+		}).afterClosed().subscribe(response => {
+	  if (response != null) {
+		this.userData.cloneUserData(response);
+	   
+		
+	  this.userCategoryData.userId=response.userId;
+	  
+	  this.openSuccessDailog();
+	  
+	  } else {
+		console.log("sorry wrong credential");
+	  }
+	});
+  }
 openSuccessDailog(){
 	
-	
+
 	
 	var self=this;
     this.dialog.open(success, {
       data: self.coins,
-	  height: '50%',
+	  height: '60%',
   width: '95%',
   disableClose: true,
     }).afterClosed().subscribe(response => {
@@ -306,14 +340,15 @@ if(!myElement.classList.contains('transform')){
 		  this.flipCards++;
 		  if(this.flipCards==this.totalImage){
 			  this.correctSubLevel++;
+			 setTimeout(()=>{ this.loadNextTask();},1000);
 			 
-			  this.loadNextTask();
 		  }
   }
 }
 }
 	loadNextTask() {
 		clearInterval(this.gameInterval);
+		this.timeUp=false;
 		this.isLoaderVisible=true;
 		this.index++;
 		this.flipCards=0;	
@@ -328,7 +363,13 @@ if(!myElement.classList.contains('transform')){
 			this.coins=this.correctSubLevel*this.totalImage*10
 			this.saveUserProgress();
 			if(this.correctSubLevel>=this.totalSubLevel){
-				this.openSuccessDailog();
+				if(this.userData.userId==null || this.userData.userId==''){
+					this.openLoginDialog();
+				  }
+				  else {
+					this.openSuccessDailog();
+					
+				  } 
 			}
 			else {
 				this.openGameOverDialog();
@@ -341,7 +382,5 @@ if(!myElement.classList.contains('transform')){
 			this.loadNextLevel();
 		}
 	}
-
-
 
 }

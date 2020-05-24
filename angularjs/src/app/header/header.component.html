@@ -1,25 +1,27 @@
-<header >
+<header class="header">
   <div class=" bg-color">
-  <div style="float:right">
+  <div *ngIf="false" style="float:right">
 				<div class="coin-img" style="display:inline-block;float:right;"></div>
 				<div style="margin-right:-8px;float:right;color:white">
 					{{userData.coins}}
 				</div>
 			</div>
+
+    
+
 <div  >
- Hi! <span>{{userData.first_name!='' ?userData.first_name:userData.userId!=''?userData.userId:'Guest' }} </span> 
- 
- <span *ngIf="httpClientService.level==0">
- <a *ngIf="userData.userId!='' && userData.userId!=null"(click)="logout()" style="float:right;margin-right:25%;" >
-  Logout
-</a>
-<a *ngIf="userData.userId=='' || userData.userId==null "(click)="login()" style="float:right;margin-right:33%;" >
-  Login
-</a>
-</span>
-
-<span *ngIf="httpClientService.level>0" style="float:right;margin-right:33%;"> Level {{httpClientService.level}}</span>
-
+<div *ngIf="httpClientService.onHomePage">
+<img src="../assets/images/profile.png" style=" margin-top: -4%;
+height: 85px;
+margin-left: -5px;">
+  <span style="    position: absolute;
+    top: 3%;
+    color: black;
+    font-size: 18px;
+    font-weight: bold;" (click)="redirectToUserProfile()">{{userData.first_name!='' ?userData.first_name:userData.userId!=''?userData.userId:'Guest' }} </span> 
+ </div>
+ <img *ngIf="!httpClientService.onHomePage" (click)="redirectToHome()"src="../assets/images/home.png" style=" width: 15%;">
+ <span class="level-text" *ngIf="!httpClientService.onHomePage" > LEVEL {{httpClientService.level}}</span>
 </div>
   
     

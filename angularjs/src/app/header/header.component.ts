@@ -4,6 +4,8 @@ import { HttpClientService,UserData } from '../service/httpclient.service';
 import { AuthService, FacebookLoginProvider, SocialUser } from 'angularx-social-login';
 import { MatDialog } from '@angular/material/dialog';
 import { LoginComponent } from '../quizzler/ts/login.component';
+import { CategoryCompleted } from '../quizzler/ts/categoryCompleted';
+import { saveMe } from '../quizzler/ts/saveMe.component';
 
 @Component({
   selector: 'app-header',
@@ -37,10 +39,25 @@ export class HeaderComponent  {
 		this.setUserData()
 	 }
     
-	//this.login();
+	//this.categoryCompleted();
 	
    
   }
+  categoryCompleted(){
+    this.dialog.open(saveMe,{
+      height: '50%',
+      width: '85%',
+        }).afterClosed().subscribe(response => {
+        if (response != null) {
+        console.log(response);
+           this.userData.cloneUserData(response);
+    this.isloggedIn=true; 
+        } else {
+          console.log("sorry wrong credential");
+        }
+      });
+  }
+
   setUserData(){
 	   this.httpClientService.loadUserData(this.userData.userId).subscribe(response=>{
 		   this.userData.cloneUserData(response);
@@ -68,7 +85,12 @@ this.isloggedIn=true;
 	  this.openLoginDialog();
 	 
   } 
-
+  redirectToUserProfile(){
+    this.router.navigate(['profile']);
+  }
+  redirectToHome(){
+    this.router.navigate(['home']);
+  }
  logout(){
   
  this.isloggedIn=false;

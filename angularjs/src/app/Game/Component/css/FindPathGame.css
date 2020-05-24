@@ -7,8 +7,12 @@
 	
 	float:left;
 	box-shadow: -1px 0px 3px 5px;
+    
 }
-
+/*F3A712
+424242
+#4b2b75
+*/
 .div_bg1{
 	background:#f39508;
 }
@@ -21,14 +25,7 @@
 	background:red;
 }
 
-.spinner-text{    
-	float: left;
-    margin-left: 9%;
-    margin-top: 7%;
-    font-weight: bold;
-    color: white;
-    font-size: 25px;
-}
+
 .background{
 background:red;
 }
@@ -72,10 +69,10 @@ background:red;
 	top: 25%;
 }
 .focussed_div{
-	height: 13%;
+	height: 17%;
     width: 80%;
     
-    margin-left: -10%;
+    
 }
 	
 :host ::ng-deep .mat-progress-spinner circle, .mat-spinner circle {   
@@ -104,3 +101,15 @@ background:red;
         font-size: 22px;
         font-weight: bold;
     }
+    :host ::ng-deep .mat-progress-spinner circle, .mat-spinner circle {   
+        stroke: #0d052f;
+      }
+      .game-wrapper{
+        height: 100%;
+        width: 100%;
+        overflow: hidden;
+       
+        padding-left: 4%;
+        padding-right: 4%;
+        
+      }

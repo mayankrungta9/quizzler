@@ -8,29 +8,29 @@
 
 
 </head>
-<div style="height:100%" *ngIf="!levelCleared">
+<div style="height:100%" *ngIf="!levelCleared && !isanimatedGifVaisible">
 <div class="wrap-login100" *ngIf="quizes.length>0; else loading">
-	<embed *ngIf="undefined != quizes[index] && quizes[index]?.type=='image'" src="/assets/audio/background.mp3" loop="true" autostart="true" width="0" height="0" >
+	<div *ngIf="!isLoaderVisible && !isemojiBoxVisible" class="spinner-position">
+	
+		<span  class="spinner-text">{{timeLeft}}</span>
+	<mat-progress-spinner  mode="determinate" value={{progress}} color="warn" diameter="70" >
+	
+	</mat-progress-spinner>
+	</div>
+	<embed *ngIf="undefined != quizes[index] && quizes[index]?.type=='image' && false" src="/assets/audio/background.mp3" loop="true" autostart="true" width="0" height="0" >
 	<div id="upper-part"  [ngClass]="{'upper-part':!isemojiBoxVisible , 'upper-part-emoji':isemojiBoxVisible }">
-		<div id="heartTimer" style="width:100%" *ngIf="!isLiveQuiz">
-			<div id='heart-img'  class="heart-img-div" style="display:inline-block;">
-				<div *ngFor="let liveclass of liveClassesArray " class={{liveclass}} style="display:inline-block">
-				</div>
+		
+		<div id='heart-img' *ngIf="!isLiveQuiz" class="heart-img-div" style="display:inline-block;">
+			<div *ngFor="let liveclass of liveClassesArray " class={{liveclass}} style="display:inline-block">
 			</div>
-			<div id='currentStatus' class="currentStatus"> {{index+1}}/{{totalQuestion}}</div>	
-			
-			<div id="timer" class="timer-div">
-				{{timeLeft}}
-			</div>
-			
 		</div>
-
-<div id="timer" class="timer-div" *ngIf="isLiveQuiz">
+		<div id='currentStatus' class="currentStatus"> {{index+1}}/{{totalQuestion}}</div>	
+		<div id="timer" class="timer-div" *ngIf="isLiveQuiz">
 				{{timeLeft}}
-			</div>
+		</div>
 		<div id="middle-section"  
 			[ngClass]="{'middle-section':!isemojiBoxVisible,'upper-part-audio': isAudio,'upper-part-text': !isAudio }">
-			<button (click)="openQuestionReportedDialogue()" style="color:white"> question report </button>
+			<button *ngIf="false"(click)="openQuestionReportedDialogue()" style="color:white"> question report </button>
 			<div *ngIf="undefined != quizes[index] && quizes[index]?.type=='image'"  [ngClass]="{'ques-img':!isemojiBoxVisible , 'ques-emoji':isemojiBoxVisible }">
 				<img  alt="HTML5 Icon"  #imagesTemp style="width: 100%;border-radius: 16px;			height: 100%;">
 			</div>
@@ -63,8 +63,7 @@
 			</div>
 
 			
-			<img src="/assets/images/sample.gif" alt="HTML5 Icon" *ngIf="isanimatedGifVaisible"
-				style="height:90%;width:80%">
+			
 		</div>
 
 	</div>
@@ -72,7 +71,7 @@
 		<div *ngIf="isOptionButtonVisible" style="height:100%">
 			<button appButtonControl class=" {{buttonAnimationCss1}} button-size button.horizTranslate "
 				[disabled]="buttonCss[0]=='2'"
-				[ngClass]="{'  button-color ': buttonCss[0]=='0',' btn-success-correct': buttonCss[0]=='1','btn-danger-wrong': buttonCss[0]=='2' }"
+				[ngClass]="{'  button-color ': buttonCss[0]=='0','btn-success-correct': buttonCss[0]=='1','btn-danger-wrong': buttonCss[0]=='2' }"
 				(click)="onSelectAnswer(1)"> {{quizes[index].option1}}</button>
 
 
@@ -105,7 +104,7 @@
 			</div>
 		</div>
 		
-			<div *ngIf="isMovingPictureDivVisible" style="height:100%; width:100%;text-align:center;margin-top: -4%;">
+			<div *ngIf="isMovingPictureDivVisible" style="height:100%; width:100%;text-align:center;">
 			<div class="catchCelebImg {{buttonAnimationCss1}}" id="imageDiv1">
 			<img (click)="checkAnswer(1)"  #option1 style="    width: 100%; height:100%; border-radius: 10px;">
 			</div>
@@ -133,3 +132,5 @@
 </div>
 </ng-template>
 </div>
+<img src="/assets/images/gif/happy3.gif" alt="HTML5 Icon" *ngIf="isanimatedGifVaisible"
+				style="height:90%;width:80%">

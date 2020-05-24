@@ -14,6 +14,7 @@ import { ShowCategory } from './quizzler/ts/showCategory';
 import { success, DIALOG_DATA } from './quizzler/ts/success-component';
 import { QuizComponent } from './quizzler/ts/quizzler.component';
 import { profilePage } from './quizzler/ts/profilePage';
+import { ShowLevel } from './quizzler/ts/showLevel';
 
 const routes: Routes = [
 
@@ -21,7 +22,7 @@ const routes: Routes = [
   { path:'', component: HomeComponent},
   { path:'home', component: HomeComponent},
    { path:'home/test', component: ShowCategory},
-  { path:'quiz/:userName/:categoryId/:level', component: QuizComponent},
+  { path:'quiz/:userName/:categoryId/:level/:currentUnlockedLevel/:totalLevel', component: QuizComponent},
   { path:'showCategory/:userName', component: ShowCategory},
   { path:'success', component: success},
   { path:'GameOver', component: GameOver},
@@ -29,6 +30,7 @@ const routes: Routes = [
   { path:'catchHero', component: CatchHeroComponent},
   { path:'catchHero', component: CatchHeroComponent},
   { path:'profile', component: profilePage},
+  {path:'showLevel/:categoryId/:totalLevel/:type/:categoryName',component:ShowLevel}
  // { path:'games/:userName/:categoryId/:level', loadChildren: () => import('./Game/Game.module').then(m => m.GameModule) },
   //{ path:'games/:userName/:categoryId/:level', loadChildren:  './Game/Game.module#GameModule' },
 ];

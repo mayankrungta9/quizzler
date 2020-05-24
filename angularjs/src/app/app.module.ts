@@ -14,7 +14,7 @@ import { FooterComponent } from './footer/footer.component';
 import { HomeComponent } from './Home/Component/ts/Home.Component';
 
 import { MatDialogModule } from '@angular/material/dialog';
-
+import { ShowLevel } from './quizzler/ts/showLevel';
 
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { QuizComponent } from './quizzler/ts/quizzler.component';
@@ -39,6 +39,7 @@ import { catchError, map } from 'rxjs/operators';
 import {  DIALOG_DATA } from './quizzler/ts/success-component';
 import { SocialLoginModule, AuthServiceConfig } from "angularx-social-login";
 import { GoogleLoginProvider, FacebookLoginProvider } from "angularx-social-login";
+import { CategoryCompleted } from './quizzler/ts/categoryCompleted';
  
 let config = new AuthServiceConfig([
  
@@ -82,13 +83,13 @@ function load(http: HttpClient, config: ConfigService): (() => Promise<boolean>)
 }
 @NgModule({
   declarations: [ 
-    AppComponent,reportQues,profilePage,
+    AppComponent,reportQues,profilePage,ShowLevel,CategoryCompleted,
     
         HeaderComponent,HomeComponent,
     FooterComponent,LoginComponent,saveMe,success,ShowCategory,GameOver,CatchHeroComponent,CrosswordComponent,QuizComponent, ButtonClickDirectiveDirective
   ],
   entryComponents:[
-    reportQues,saveMe
+    reportQues,saveMe,CategoryCompleted
     
   ],
   imports: [

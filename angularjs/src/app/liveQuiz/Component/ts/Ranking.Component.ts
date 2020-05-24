@@ -40,7 +40,7 @@ ngOnInit() {
 	else {
 		this.userName=this.userData.userId;
 	}
-	  this.router.navigate(['quiz', this.userName, this.quizId+","+this.categoryId, -1]);
+	  this.router.navigate(['quiz', this.userName, this.quizId+","+this.categoryId, -1,-1 ]);
   }
   onswitchBoard(i:number){
 	  if(i==1)

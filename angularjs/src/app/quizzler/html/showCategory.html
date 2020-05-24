@@ -21,29 +21,26 @@
 </div>
 			<div class="categoryBackground" *ngIf="!isLoaderVisible">         
 
-				<embed src="/assets/audio/background.mp3" loop="true" autostart="true" width="0" height="0" >
+				<embed *ngIf="false" src="/assets/audio/background.mp3" loop="true" autostart="true" width="0" height="0" >
+
 				<div *ngIf="iscategoryvisible" style = "height:95%;margin-top:2%;">
 				<div  class ="categoryDiv" *ngFor="let category of categories" buttonClickSound (click)=selectCategory(category)>
-					<div >
-						<div style = "font-size: 16px;color:white;float:left;"> {{category.categoryName}}</div>					
+					<div style="height: 100%;">
+						<div style = "font-size: 22spx;
+						color: white;
+						float: left;
+						margin-top: 10%;
+						margin-left:5%;"> {{category.categoryName}}</div>					
 						
-						<img src={{category.url}}  style = "float:right;margin-top:-7px;" >
+						<img src={{category.url}}  style = "float: right;
+						/* margin-top: -29px; */
+						height: 95%;
+						width: 30%;" >
 						
 					</div>
 				</div>
 				</div>	
-				<div *ngIf="!iscategoryvisible"  style = "height:95%">
-					<div   *ngFor="let lev of level let i = index;" class ="levelDiv" (click)=loadQuiz(i+1);>
-						Level {{i+1}}
-						<div *ngIf="i+1<=userCurrentLevel">
-						<img src="/assets/images/play.png"   class="play-image">
-					</div>
-					<div *ngIf="i+1>userCurrentLevel">
-						<img src="/assets/images/lock.png"   >
-					</div>
-					</div>
-				
-				</div>
+			
 				
 		
 			</div>

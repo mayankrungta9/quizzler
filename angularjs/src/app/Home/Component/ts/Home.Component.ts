@@ -2,6 +2,7 @@ import { Component, OnInit,ViewChild,AfterViewInit,Input } from '@angular/core';
 
 import { Router, ActivatedRoute } from '@angular/router';
 import { ShowLiveQuizes } from '../../../liveQuiz/Component/ts/ShowLiveQuizes.Component';
+import { HttpClientService } from '../../../service/httpclient.service';
 
 @Component({
   selector: 'homeComponent',
@@ -16,12 +17,12 @@ category='games'
 type="quiz"
 constructor(        
       
-	
+  private httpClientService: HttpClientService,
 	public  router: Router ,
 	
   ) { }
 ngOnInit() {
- 
+  this.httpClientService.onHomePage=true;
 
 	}
 	ngAfterViewInit(){}

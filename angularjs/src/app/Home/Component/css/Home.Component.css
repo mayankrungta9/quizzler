@@ -1,7 +1,7 @@
 
-.home-menu-div{    background: #c042d6;
+.home-menu-div{    background: #380da2;
    
-    margin-top: 3%;
+    margin-top: 3px;
 	    height: 8%;
 	}
 	
@@ -18,5 +18,5 @@
 }
 	
 	.home-menu-category-selected{
-		background:#f44336;
+		background:#819ab5;
 	}

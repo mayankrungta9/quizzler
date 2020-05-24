@@ -31,3 +31,25 @@ input:focus {
 @keyframes beat{
 	to { transform: scale(1.1); }
 }
+:host ::ng-deep .mat-progress-spinner circle, .mat-spinner circle {   
+  stroke: #0d052f;
+}
+.level-image-div{
+  height:9%;
+  margin-bottom: 8%;
+}
+.level-image{
+  height: 100%;
+  padding-top: 5%;
+    border: 3px solid #0c0c0c;
+    margin-left: 13%;
+    margin-right: 13%;
+    border-radius: 34px;
+    background: #F3A712;
+    font-weight: bold;
+    color: #171616;
+    padding-left: 13%;
+    
+    font-family: inherit;
+    font-size: 21px;
+}

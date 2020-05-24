@@ -14,16 +14,18 @@
 	
 
 			<div class='profileWrapper'>
+				<div class="back" (click)="back()">Back</div>
 				<div class="profile-top">
 					<div class="profile-initial-circle"> 
 					M
 					</div>
 						</div>
+						
 				<div class='fieldDiv'>
 					<div class="field_label">UserId:</div> <input type = 'text' disabled class="inputClass input-text"  [(ngModel)]='user.userId'>
 		</div>
 		<div class='fieldDiv'>
-			<div class="field_label">	Password:</div> <input type = 'text' class="inputClass input-text"   [(ngModel)]='user.Password'>
+			<div class="field_label">	Password:</div> <input type = 'text' class="inputClass input-text"   [(ngModel)]='user.password'>
 		</div>
 		<div class='fieldDiv'>
 			<div  class="field_label">	Name:</div> <input type = 'text' class="inputClass input-text"  [(ngModel)]='user.first_name' >
@@ -36,7 +38,7 @@
 		</div>
 		
 			
-<button  class="profile-button" style="float:left;background:RED ;"> Cancel</button>
+<button  class="profile-button" style="float:left;background:RED ;" (click)="cancelUpdate()"> Cancel</button>
 			
 			
 			<button  class="profile-button" (click) ="updateUser()"style="background: green;">Update</button>

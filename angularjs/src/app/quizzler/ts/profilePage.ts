@@ -2,10 +2,8 @@ import { Component, OnInit,AfterViewInit,Input } from '@angular/core';
 import { HttpClientService, Category,UserData} from '../../service/httpclient.service';
 
 import { Router, ActivatedRoute } from '@angular/router';
-import {
 
-} from 'amazon-cognito-identity-js';
-
+import {Location} from '@angular/common';
 
 @Component({
   selector: 'profilePage',
@@ -20,6 +18,7 @@ export class profilePage implements OnInit, AfterViewInit{
     public  router: Router ,
     public  activatedrouter: ActivatedRoute ,
     private httpClientService: HttpClientService,
+    private _location: Location,
     
 	private userData:UserData,
 
@@ -32,10 +31,14 @@ export class profilePage implements OnInit, AfterViewInit{
 ngAfterViewInit() {
 	setTimeout(()=>{
     
-    this.user.cloneUserData(this.userData)
+    this.user.cloneUserData(this.userData) 
     
     
   },2000);
+  }
+  cancelUpdate(){
+
+    this.back();
   }
   updateUser(){
     this.httpClientService.updateUser(this.user,'updateUser').subscribe(response=>{
@@ -46,7 +49,12 @@ else{
   console.log('update failed')
 }
     });
+    this.back();
   }
+ back(){
+  this._location.back();
+}
+
   }
 
 

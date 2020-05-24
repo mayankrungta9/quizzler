@@ -23,6 +23,7 @@ export class CelebMemGameDto{
 export class CelebMemGameAndLevelDto{
   row:number;
   column:number;
+  time:number;
   celebMemAndGameDto:CelebMemGameDto;
 	
 }
@@ -156,6 +157,7 @@ export class SelectedAnswer {
   providedIn: 'root'
 })
 export class HttpClientService {
+  onHomePage=true;
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',

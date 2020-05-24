@@ -40,7 +40,8 @@
     border-radius: 18px;
     overflow: hidden;
     padding: 2% 10px 5px 11px;
-    background: linear-gradient(90deg, rgb(192, 66, 214), rgb(103, 58, 183));
+    /*background: linear-gradient(90deg, rgb(192, 66, 214), rgb(103, 58, 183));*/
+    background: linear-gradient(#033579, #077ab9);
     color: white;
     border: 1px solid rgb(214, 24, 207);
     margin-bottom: 3%;
@@ -50,7 +51,7 @@ height: 90%;
     width: 100%;
     border: solid 1px;
     border-radius: 50%;
-    padding-left: 3%;
+    padding-left: 7%;
     padding-top: 1%;
     padding-bottom: 1%;
     float:left;
@@ -63,7 +64,7 @@ border-color: black;}
 }
 
 .liveQuiz-prizeMoneyDiv{
-	background: #5b0ce7;
+	background: #da8317;
     height: 37%;
     width: 40%;
     
@@ -71,7 +72,7 @@ border-color: black;}
     margin-top: 6%;
     
     float: left;
-	color: #ffca00;
+	color: #1b1b16;
     font-weight: bold;
     font-size: 18px;
     padding: 4% 2% 2% 2%;

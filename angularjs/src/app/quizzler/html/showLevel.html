@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+	<title>Login V3</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="icon" type="image/png" href="/assets/images/icons/favicon.ico"/>
+
+	<link rel="stylesheet" type="text/css" href="/assets/css/util.css">
+	<link rel="stylesheet" type="text/css" href="/assets/css/main.css">
+
+</head>
+<body >
+
+<div class="overlay" *ngIf="isLoaderVisible">
+<div class="center">
+	<mat-progress-spinner  mode="indeterminate" color="accent" ></mat-progress-spinner>
+	</div>
+
+</div>
+			<div class="categoryBackground" *ngIf="!isLoaderVisible">         
+
+				<embed *ngIf="false" src="/assets/audio/background.mp3" loop="true" autostart="true" width="0" height="0" >
+					
+				<div  style = "height:95%;width:100%">
+					<div class="level-image-div">
+<div class="level-image">{{categoryName}}</div>
+					</div>
+					<div   *ngFor="let lev of level let i = index;" class ="levelDiv" (click)=loadQuiz(i+1);>
+						Level {{i+1}}
+						<div *ngIf="i+1<=userCurrentLevel" style="height:100%">
+						<img src="/assets/images/play.png"   class="play-image">
+					</div>
+					<div *ngIf="i+1>userCurrentLevel" style="height:100%">
+						<img src="/assets/images/lock.png" class="lock-image"   >
+					</div>
+					</div>
+				
+				</div>
+				
+		
+			</div>
+		
+
+</body>
+</html>

@@ -11,20 +11,28 @@
 	<link rel="stylesheet" type="text/css" href="/assets/css/main.css">
 
 </head>
-<body >
+
+<!--226e71-->
+<body [ngStyle]="{'background':bgArray[index]}"> 
 
 <div class="overlay" *ngIf="isLoaderVisible">
 <div class="center">
-	<mat-progress-spinner  mode="indeterminate" color="accent" ></mat-progress-spinner>
+	<mat-progress-spinner  mode="determinate" color="accent" ></mat-progress-spinner>
 	</div>
 
 </div>
 
-<div *ngIf="!isLoaderVisible" style="height:15%;    margin-top: 4%;">
+
+<div *ngIf="!isLoaderVisible" class="spinner-position">
+	
 	<span  class="spinner-text">{{displayTimer}}</span>
-<mat-progress-spinner mode="determinate" value={{progress}} color="warn" diameter="80" >
+<mat-progress-spinner  mode="determinate" value={{progress}} color="warn" diameter="70" >
 
 </mat-progress-spinner>
+</div>
+
+<div class='timeup' *ngIf="timeUp" >
+<span>TIME UP</span>	
 </div>
 <div class='game-wrapper' id="game-wrapper"  *ngIf="!levelCleared">
 			<div *ngFor="let data of celebGameDataObj let i = index"   class="game-dataDiv " [ngStyle]="{'height':height+'px', 'width':width+'px'}" >
@@ -33,7 +41,7 @@
 		<div [ngClass]="{'flip-card':!isLoaderVisible}" id="flip-card">
 		  <div class="flip-card-inner transform" id={{i}}  (click)="flipCard($event,i,data.id)">
 			<div class="flip-card-front">
-				<img src="../../../../assets/images/bg4.jpg" class="game-image">
+				<img src="../../../../assets/images/{{cardImgArray[index]}}" class="game-image">
 			</div>
 			<div class=" flip-card-back " id="flip-card-back">
 			  <!--<img src={{data.url}} alt="Avatar" style="width:100%;height:100%;" class="game-image white-border"id='game-img{{i}}'>

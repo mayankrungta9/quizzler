@@ -108,3 +108,25 @@ min-height:100px;
     width: auto;
 color:black;
 }
+
+.skipLoginDiv{
+    float:left;
+    color: blue;
+    font-size: 24px;
+    font-weight: bold;
+    margin-top: 2%;
+    text-align: center;
+
+
+}
+.blinking{
+    animation:blinkingText 1.2s infinite;
+    color: blue;
+}
+@keyframes blinkingText{
+    0%{     color: blue;    }
+    49%{    color: blue; }
+    60%{    color: transparent; }
+    99%{    color:transparent;  }
+    100%{   color:blue;    }
+}
