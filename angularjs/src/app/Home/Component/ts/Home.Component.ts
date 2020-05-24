@@ -13,10 +13,10 @@ import { HttpClientService } from '../../../service/httpclient.service';
 export class HomeComponent implements OnInit, AfterViewInit {
 	 
 isLoaderVisible=true;
-category='games'
+category='quiz'
 type="quiz"
 constructor(        
-      
+       
   private httpClientService: HttpClientService,
 	public  router: Router ,
 	

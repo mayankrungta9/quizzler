@@ -171,6 +171,7 @@ public class QuizController {
 	int column = celebMemGameLevel.getColumn();
 	int row = celebMemGameLevel.getRow();
 	int size= column*row/2;	
+	int time = celebMemGameLevel.getTime();
 	ArrayList<ArrayList<CelebMemGameDto>> celebMemGameDtoList =new ArrayList<ArrayList<CelebMemGameDto> >();
 	
 	
@@ -192,7 +193,7 @@ public class QuizController {
 		}
 		
 		
-		return new CelebMemGameAndLevelDto(celebMemGameDtoList,row,column);
+		return new CelebMemGameAndLevelDto(celebMemGameDtoList,row,column,time);
 	}
 
 	@GetMapping(path = "/getRankDistribution/{quizId}", produces = "application/json")

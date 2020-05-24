@@ -41,7 +41,7 @@ categoryName="";
     this.type = this.activatedrouter.snapshot.paramMap.get('type');
     this.categoryName = this.activatedrouter.snapshot.paramMap.get('categoryName');
     this.selectCategory();
-    this.httpClientService.onHomePage=true;
+    this.httpClientService.onHomePage=false;
 
 
   }
@@ -59,8 +59,8 @@ if(this.userData.userId==null || this.userData.userId===''){
   }
   console.log(this.userCurrentLevel);
    //this.router.navigate(['quiz', this.userName, this.categoryId, level]);
-   this.router.navigate(['quiz', this.userName, this.categoryId, level, this.userCurrentLevel, this.totalLevel]);
-     if(level <= this.userCurrentLevel){
+  // this.router.navigate(['games', this.userName, this.categoryId, level, this.userCurrentLevel, this.totalLevel]);
+   if(level <= this.userCurrentLevel || true){
       console.log(this.type);
        if(this.type=='quiz'){ 
         console.log('quiz');

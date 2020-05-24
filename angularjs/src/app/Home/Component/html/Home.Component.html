@@ -12,17 +12,19 @@
 <div style="height:100%;width:100%;overflow: scroll;">
 
   <div class="home-menu-div"> 
+    <div class="home-menu-category" [ngClass]="{'home-menu-category-selected':category == 'quiz'}"
+    (click)="category='quiz'">
+    Quiz
+    </div>
+    <div class="home-menu-category" [ngClass]="{'home-menu-category-selected':category == 'games'}" (click)="category='games'">
+      Games
+      </div>
   <div class="home-menu-category " [ngClass]="{'home-menu-category-selected':category == 'liveQuiz'}"(click)="category='liveQuiz'">
   Live Quiz
   </div>
   
-  <div class="home-menu-category" [ngClass]="{'home-menu-category-selected':category == 'games'}" (click)="category='games'">
-  Games
-  </div>
-  <div class="home-menu-category" [ngClass]="{'home-menu-category-selected':category == 'quiz'}"
-  (click)="category='quiz'">
-  Quiz
-  </div>
+  
+ 
   </div>
   <ShowLiveQuizes *ngIf="category=='liveQuiz'"></ShowLiveQuizes>
   <showCategory *ngIf="category=='quiz'" [type]="category" ></showCategory>

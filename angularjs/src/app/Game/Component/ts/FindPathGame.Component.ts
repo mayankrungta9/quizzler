@@ -190,7 +190,7 @@ if(!this.showSpinner){
 		{
 			
 			this.startMoveFlag=true;
-			document.getElementById((x_index+(y_index*this.column))+"").style.background='#6751e4';
+			document.getElementById((x_index+(y_index*this.column))+"").style.background='rgb(241,100,56)';
 			this.route.push(this.startPosition);
 			this.index=0;
 		}
@@ -419,8 +419,8 @@ openSuccessDailog(){
 		}
 		else {
 			this.index++;
-			document.getElementById(id + "").style.background = "#6751e4";
-			//document.getElementById(id + "").style.background = "linear-gradient(90deg, rgb(192, 66, 214), rgb(103, 58, 183))";
+			document.getElementById(id + "").style.background = "rgb(241,100,56)";
+			//document.getElementById(id + "").style.background = "linear-,radient(90deg, rgb(192, 66, 214), rgb(103, 58, 183))";
 			this.route.push((x_index + (y_index * this.column)));
 			
 				

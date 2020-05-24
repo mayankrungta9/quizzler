@@ -19,6 +19,17 @@ public class CelebMemGameLevel {
 	@Column(name = "column")
 	private int column;
 
+	@Column(name = "time")
+	private int time;
+	
+	public int getTime() {
+		return time;
+	}
+
+	public void setTime(int time) {
+		this.time = time;
+	}
+
 	public int getLevel() {
 		return level;
 	}

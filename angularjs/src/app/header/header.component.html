@@ -10,7 +10,7 @@
     
 
 <div  >
-<div *ngIf="httpClientService.onHomePage">
+<div *ngIf="httpClientService.onHomePage" (click)="redirectToUserProfile()">
 <img src="../assets/images/profile.png" style=" margin-top: -4%;
 height: 85px;
 margin-left: -5px;">
@@ -18,7 +18,7 @@ margin-left: -5px;">
     top: 3%;
     color: black;
     font-size: 18px;
-    font-weight: bold;" (click)="redirectToUserProfile()">{{userData.first_name!='' ?userData.first_name:userData.userId!=''?userData.userId:'Guest' }} </span> 
+    font-weight: bold;" >{{userData.first_name!='' ?userData.first_name:userData.userId!=''?userData.userId:'Guest' }} </span> 
  </div>
  <img *ngIf="!httpClientService.onHomePage" (click)="redirectToHome()"src="../assets/images/home.png" style=" width: 15%;">
  <span class="level-text" *ngIf="!httpClientService.onHomePage" > LEVEL {{httpClientService.level}}</span>

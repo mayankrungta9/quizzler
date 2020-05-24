@@ -34,8 +34,8 @@
 <div class='timeup' *ngIf="timeUp" >
 <span>TIME UP</span>	
 </div>
-<div class='game-wrapper' id="game-wrapper"  *ngIf="!levelCleared">
-			<div *ngFor="let data of celebGameDataObj let i = index"   class="game-dataDiv " [ngStyle]="{'height':height+'px', 'width':width+'px'}" >
+<div class='game-wrapper' id="game-wrapper"  *ngIf="!levelCleared"  [ngClass]="{'padding-left10':column==2,'padding-left2':column!=2}">
+			<div *ngFor="let data of celebGameDataObj let i = index"  [ngClass]="{'margin-left10':column==2,'margin-leftpx':column!=2}" class="game-dataDiv " [ngStyle]="{'height':height+'px', 'width':width+'px'}" >
 			
 			
 		<div [ngClass]="{'flip-card':!isLoaderVisible}" id="flip-card">

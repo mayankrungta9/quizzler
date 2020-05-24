@@ -1,4 +1,4 @@
-import { Component, OnInit,ViewChild,AfterViewInit } from '@angular/core';
+import { Component, OnInit,ViewChild,AfterViewInit, HostListener } from '@angular/core';
 
 import { Router, ActivatedRoute } from '@angular/router';
 import { HttpClientService, CelebMemGameDto,CelebMemGameAndLevelDto, UserCategoryData, UserData} from '../../../service/httpclient.service';
@@ -60,6 +60,10 @@ constructor(
 	private userData:UserData,
 	private dialog: MatDialog,
   ) { }
+  @HostListener('window:popstate', ['$event'])
+   onPopState(event) {
+	clearInterval(this.gameInterval);
+   }
 ngOnInit() {
 	this.audio.src = "../../../assets/audio/click.mp3";
 	this.httpClientService.onHomePage=false;
@@ -135,7 +139,11 @@ ngOnInit() {
 		this.totalImage=this.row*this.column/2;
 		this.timeCounter=this.celebMemGameAndLevelDto.time;
 		//this.height=(98-this.row*2-3)/this.row;
-		var widthPer=(100-this.column*2-1)/this.column;
+var totalPer=100;
+		if(this.column==2){
+			totalPer=80;	
+		}
+		var widthPer=(totalPer-this.column*2-1)/this.column;
 		this.width= Math.floor(this.gameWrapperWidth*widthPer/100);
 		 this.height=this.width;
 	this.displayTimer=this.bonusTimer;
