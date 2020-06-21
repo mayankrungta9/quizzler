@@ -10,6 +10,9 @@ public class Service {
 	public static List <PrizeRankBoard> getRankDistribution(int prizePer, int winnerPer,
 			int totalMoney,int totalParticipant) {
 		
+		if (totalParticipant<=40) {
+			totalParticipant=40;
+		}
 		int distributionPer=prizePer/4;
 		int rankCounter=0;
 		double prizeDisForEachGrp=(totalMoney*distributionPer)/100;

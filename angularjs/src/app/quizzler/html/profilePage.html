@@ -14,7 +14,9 @@
 	
 
 			<div class='profileWrapper'>
-				<div class="back" (click)="back()">Back</div>
+				
+				<div class="back" (click)="login()" *ngIf="!isloggedIn">Login</div>
+				<div class="back" (click)="logout()" *ngIf="isloggedIn">Logout</div>
 				<div class="profile-top">
 					<div class="profile-initial-circle"> 
 					M

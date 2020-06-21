@@ -9,18 +9,20 @@
 
 </head>
 	
-<div style="height:100%;width:100%;overflow: scroll;">
+<div style="height:100%;width:100%;">
 
   <div class="home-menu-div"> 
     <div class="home-menu-category" [ngClass]="{'home-menu-category-selected':category == 'quiz'}"
-    (click)="category='quiz'">
-    Quiz
+    (click)="switchMenu('quiz')">
+    QUIZ
     </div>
-    <div class="home-menu-category" [ngClass]="{'home-menu-category-selected':category == 'games'}" (click)="category='games'">
-      Games
+    <div class="home-menu-category" [ngClass]="{'home-menu-category-selected':category == 'games'}"
+     (click)="switchMenu('games')">
+      GAMES
       </div>
-  <div class="home-menu-category " [ngClass]="{'home-menu-category-selected':category == 'liveQuiz'}"(click)="category='liveQuiz'">
-  Live Quiz
+  <div class="home-menu-category " [ngClass]="{'home-menu-category-selected':category == 'liveQuiz'}"
+  (click)="switchMenu('liveQuiz')">
+  LIVE QUIZ
   </div>
   
   

@@ -34,22 +34,46 @@ input:focus {
 :host ::ng-deep .mat-progress-spinner circle, .mat-spinner circle {   
   stroke: #0d052f;
 }
-.level-image-div{
-  height:9%;
-  margin-bottom: 8%;
+.level-image-span{
+ 
 }
+
 .level-image{
-  height: 100%;
-  padding-top: 5%;
-    border: 3px solid #0c0c0c;
-    margin-left: 13%;
-    margin-right: 13%;
-    border-radius: 34px;
-    background: #F3A712;
-    font-weight: bold;
-    color: #171616;
-    padding-left: 13%;
-    
-    font-family: inherit;
-    font-size: 21px;
+  border: 3px solid #0c0c0c;
+  border-radius: 34px;
+  background: #F3A712;
+  font-weight: bold;
+  color: #171616;
+  font-family: inherit;
+  font-size: 21px;
+  width: auto;
+  margin: auto;
+  display: table;
+  padding: 3% 6%;
+  margin-bottom: 4%;
+}
+.category-icon{
+  float: right;
+						margin-top: 2%; 
+						height: 80%;
+						width: 30%;
+}
+.emoji-hint{
+  background: wheat;
+  text-align: left;
+  line-height: 155%;
+  font-size: 20px;
+  font-weight: bold;
+  font-style: italic;
+  color: black;
+  display: table;
+  margin: 0 auto;
+  border: solid 2px;
+  border-radius: 10px;
+  padding: 7px;
+}
+
+.ani{
+  
+  animation-duration: 5s; /* don't forget to set a duration! */
 }

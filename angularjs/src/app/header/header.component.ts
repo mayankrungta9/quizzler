@@ -1,11 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { Router,ActivatedRoute } from '@angular/router';
 import { HttpClientService,UserData } from '../service/httpclient.service';
 import { AuthService, FacebookLoginProvider, SocialUser } from 'angularx-social-login';
-import { MatDialog } from '@angular/material/dialog';
+
 import { LoginComponent } from '../quizzler/ts/login.component';
 import { CategoryCompleted } from '../quizzler/ts/categoryCompleted';
 import { saveMe } from '../quizzler/ts/saveMe.component';
+import { DOCUMENT } from '@angular/common';
 
 @Component({
   selector: 'app-header',
@@ -19,9 +20,9 @@ export class HeaderComponent  {
   isloggedIn=false;
   constructor(
     public  router: Router ,
-    private dialog: MatDialog,
+    @Inject(DOCUMENT) private document: Document,
      public  activatedrouter: ActivatedRoute ,
-     private httpClientService:HttpClientService,
+     public httpClientService:HttpClientService,
    private userData:UserData,
    private authService: AuthService
   ) { }
@@ -43,20 +44,7 @@ export class HeaderComponent  {
 	
    
   }
-  categoryCompleted(){
-    this.dialog.open(saveMe,{
-      height: '50%',
-      width: '85%',
-        }).afterClosed().subscribe(response => {
-        if (response != null) {
-        console.log(response);
-           this.userData.cloneUserData(response);
-    this.isloggedIn=true; 
-        } else {
-          console.log("sorry wrong credential");
-        }
-      });
-  }
+  
 
   setUserData(){
 	   this.httpClientService.loadUserData(this.userData.userId).subscribe(response=>{
@@ -66,38 +54,14 @@ export class HeaderComponent  {
 	}
 	);
   }
-  openLoginDialog() {
-
-  this.dialog.open(LoginComponent,{
-  height: '75%',
-  width: '95%',
-	  }).afterClosed().subscribe(response => {
-    if (response != null) {
-		console.log(response);
-       this.userData.cloneUserData(response);
-this.isloggedIn=true; 
-    } else {
-      console.log("sorry wrong credential");
-    }
-  });
-}
-  login(){
-	  this.openLoginDialog();
-	 
-  } 
+  
+  
   redirectToUserProfile(){
     this.router.navigate(['profile']);
+    //this.document.location.href = 'https://play.google.com/store/apps/details?id=com.whatsapp';
   }
   redirectToHome(){
     this.router.navigate(['home']);
   }
- logout(){
-  
- this.isloggedIn=false;
- this.userData.createUserData( '','','','','','',0);
-    localStorage.removeItem("userId");
-	
-	this.userData.coins=0;
-    this.router.navigate(['']);
-  }
+
 }

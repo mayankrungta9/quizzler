@@ -4,7 +4,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 
 
 import { MatDialog } from '@angular/material/dialog';
-import {  UserData} from '../../../service/httpclient.service';
+import {  UserData, HttpClientService} from '../../../service/httpclient.service';
 @Component({
   selector: 'LoginComponent',
   templateUrl: '../html/Ranking.Component.html',
@@ -20,14 +20,14 @@ userName="";
 isLoaderVisible=false;
 constructor(       
 public activatedrouter: ActivatedRoute,
-	
+private httpClientService: HttpClientService,
 	public  router: Router ,
 	private userData:UserData,
   ) { }
 ngOnInit() {
  this.quizId=+this.activatedrouter.snapshot.paramMap.get('quizId');
  this.categoryId=+this.activatedrouter.snapshot.paramMap.get('categoryId');
-
+ this.httpClientService.onHomePage=false;
 	}
 	
   ngAfterViewInit(){
@@ -40,7 +40,7 @@ ngOnInit() {
 	else {
 		this.userName=this.userData.userId;
 	}
-	  this.router.navigate(['quiz', this.userName, this.quizId+","+this.categoryId, -1,-1 ]);
+	  this.router.navigate(['quiz', this.userName, this.quizId+","+this.categoryId, -1,-1,-1 ]);
   }
   onswitchBoard(i:number){
 	  if(i==1)

@@ -4,14 +4,27 @@
   
 }
 .header{
-  background: #F3A712;
+  background: #F5BD0F;
     padding-left: 2%;
     color: white;
     height: 10%;
-    padding-top: 2%;
+    padding-top: 5%;
     min-height: 70px;
    /* background: linear-gradient(90deg, rgb(103, 58, 183), rgb(103, 58, 183));
    */
+}
+.header-score{
+  float: right;
+    background: #c55bf3;
+    padding-left: 3%;
+    padding-top: 2%;
+    padding-bottom: 1%;
+    padding-right: 1%;
+    margin-right: 2%;
+   
+    font-size: 18px;
+    font-weight: bold;
+    border-radius: 20px;
 }
 .logout-level{
   float: right;
@@ -27,6 +40,13 @@
     /* background: #2c4d65;*/
 
     
+}
+.home-icon{
+  margin-top: 1%;
+    height: 82%;
+    margin-left: 0px;
+    width: 11%;
+
 }
 :host ::ng-deep .mat-progress-spinner circle, .mat-spinner circle {   
   stroke: #3A1772;

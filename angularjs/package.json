@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve --prod --port 443  --host 192.168.0.106 --disableHostCheck --ssl --ssl-key ssl/private.key --ssl-cert ssl/certificate.crt ",
+    "start": "ng serve --port 443  --host 192.168.0.102 --disableHostCheck --ssl --ssl-key ssl/private.key --ssl-cert ssl/certificate.crt ",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",

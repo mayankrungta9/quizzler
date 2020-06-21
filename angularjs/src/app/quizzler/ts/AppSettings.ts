@@ -3,8 +3,8 @@
 export class AppSettings {
   public static totalQuestion = 10;
 
-  public static totalTimeLeft = 900;
-   public static totalTimeLeftForLiveQuiz = 15;
+  public static totalTimeLeft = 20;
+   public static totalTimeLeftForLiveQuiz = 60;
   public static remainingLives = 2;
 
   public static emojiCategoryId = 4;

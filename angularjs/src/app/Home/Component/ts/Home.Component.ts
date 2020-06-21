@@ -13,8 +13,8 @@ import { HttpClientService } from '../../../service/httpclient.service';
 export class HomeComponent implements OnInit, AfterViewInit {
 	 
 isLoaderVisible=true;
-category='quiz'
-type="quiz"
+category=this.httpClientService.type;
+type=this.httpClientService.type;
 constructor(        
        
   private httpClientService: HttpClientService,
@@ -24,7 +24,14 @@ constructor(
 ngOnInit() {
   this.httpClientService.onHomePage=true;
 
-	}
+  }
+  switchMenu(currentCategory){
+   
+    this.httpClientService.type=currentCategory;
+    this.category=currentCategory;
+    this.type=currentCategory;
+  
+  }
 	ngAfterViewInit(){}
  handleSuccessfulResponse(response) {
     

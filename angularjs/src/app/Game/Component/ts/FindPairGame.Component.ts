@@ -7,6 +7,7 @@ import { success } from '../../../quizzler/ts/success-component';
 import { GameOver } from '../../../quizzler/ts/gameOver-component';
 import { ButtonClickDirectiveDirective } from '../../../button-click-directive.directive';
 import { LoginComponent } from '../../../quizzler/ts/login.component';
+import { CategoryCompleted } from '../../../quizzler/ts/categoryCompleted';
 @Component({
   selector: 'FindPairGameComponent',
   templateUrl: '../html/FindPairGame.Component.html',
@@ -36,7 +37,7 @@ level=0;
 isLoaderVisible=true;
 progress=100;
 timeCounter=0;
-bonusTimer=3;
+bonusTimer=5;
 displayTimer=0;
 interval;
 gameInterval;
@@ -51,8 +52,10 @@ cardImgArray=["card-bg1.jpg","card-bg2.jpg","card-bg3.jpg"];
 correctSubLevel=0;
 totalSubLevel=2;
 timeUp=false;
+showMemorizeCard=false;
 audio = new Audio();
 currentUnlockedLevel:number;
+	totalLevel: number;
 constructor(       
    private httpClientService: HttpClientService,
 	public  activatedrouter: ActivatedRoute ,
@@ -86,7 +89,7 @@ ngOnInit() {
 	this.httpClientService.level = +this.activatedrouter.snapshot.paramMap.get('level');
 	this.currentUnlockedLevel = +this.activatedrouter.snapshot.paramMap.get('currentUnlockedLevel');
 	this.level=this.httpClientService.level;
-	
+	this.totalLevel = +this.activatedrouter.snapshot.paramMap.get('totalLevel');
 	 this.loadGameData();
   
 	}
@@ -110,6 +113,8 @@ ngOnInit() {
 		}
 		this.displayTimer=this.timeCounter;
 		this.progress=100;
+		this.showMemorizeCard=false;
+
 		this.startGameTimer();
 	}
 	saveUserProgress() {
@@ -174,6 +179,7 @@ if(isAllImageLoaded){
 	clearInterval(interval);
 	this.isLoaderVisible=false;
 	this.startBonusTimer();	
+	this.showMemorizeCard=true;
 }
 else{
 	isAllImageLoaded=true;
@@ -277,9 +283,26 @@ openGameOverDialog() {
 	  }
 	});
   }
-openSuccessDailog(){
+  openSuccessDailog(){
+	if(this.totalLevel<=this.httpClientService.level){
+		this.openCategoryCompleteddialog();
+			}
+			else{
+				this.openSuccessNextLevelDialog();
+			}
 	
-
+	
+}
+openCategoryCompleteddialog() {
+  
+    this.dialog.open(CategoryCompleted, {
+      data: this.coins,
+	  height: '50%',
+  width: '95%',
+  disableClose: true,
+    });
+  }
+openSuccessNextLevelDialog(){
 	
 	var self=this;
     this.dialog.open(success, {

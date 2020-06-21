@@ -1,30 +1,40 @@
 <header class="header">
-  <div class=" bg-color">
-  <div *ngIf="false" style="float:right">
-				<div class="coin-img" style="display:inline-block;float:right;"></div>
-				<div style="margin-right:-8px;float:right;color:white">
-					{{userData.coins}}
-				</div>
-			</div>
+  <div class=" bg-color" style="height:100%">
+    <div  class="header-score">
+      <div class="coin-img" style="display:inline-block;float:right;"></div>
+      <div style="margin-right:-8px;float:right;color:white">
+        {{userData.coins}}
+      </div>
+    </div>
 
+
+
+
+
+        <img *ngIf="httpClientService.onHomePage" (click)="redirectToUserProfile()" src="../assets/images/profile.png"
+          class="home-icon">
+  <img *ngIf="!httpClientService.onHomePage" style="width: 15%;
+      width: 15%;
     
-
-<div  >
-<div *ngIf="httpClientService.onHomePage" (click)="redirectToUserProfile()">
-<img src="../assets/images/profile.png" style=" margin-top: -4%;
-height: 85px;
-margin-left: -5px;">
-  <span style="    position: absolute;
-    top: 3%;
-    color: black;
-    font-size: 18px;
-    font-weight: bold;" >{{userData.first_name!='' ?userData.first_name:userData.userId!=''?userData.userId:'Guest' }} </span> 
- </div>
- <img *ngIf="!httpClientService.onHomePage" (click)="redirectToHome()"src="../assets/images/home.png" style=" width: 15%;">
- <span class="level-text" *ngIf="!httpClientService.onHomePage" > LEVEL {{httpClientService.level}}</span>
-</div>
-  
+    /* height: 85px; */
+    margin-left: -5px;
+    width: 9%;
+    margin-left: 2px;
+    margin-right: 5px;
+    height: 82%;" (click)="redirectToHome()" src="../assets/images/home.png"
+>
+        <span style="       position: absolute;
+        top: 4%;
+        color: black;
+        font-size: 16px;
+        font-weight: bold;">{{userData.first_name!='' ?userData.first_name:userData.userId!=''?userData.userId:'Guest' }}
+        </span>
     
-</div>
+    
+      <span class="level-text" *ngIf="!httpClientService.onHomePage"> LEVEL {{httpClientService.level}}</span>
+   
 
-  </header>
+
+  </div>
+
+</header>

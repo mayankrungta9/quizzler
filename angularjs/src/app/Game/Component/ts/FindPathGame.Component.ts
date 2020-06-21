@@ -6,6 +6,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { success } from '../../../quizzler/ts/success-component';
 import { GameOver } from '../../../quizzler/ts/gameOver-component';
 import { LoginComponent } from '../../../quizzler/ts/login.component';
+import { CategoryCompleted } from '../../../quizzler/ts/categoryCompleted';
 @Component({
   selector: 'FindPathGameComponent',
   templateUrl: '../html/FindPathGame.Component.html',
@@ -67,6 +68,7 @@ export class FindPathGameComponent implements OnInit, AfterViewInit {
 	  audio = new Audio();
 	  currentUnlockedLevel =0;
 	  header_height=0;
+	totalLevel: number;
 constructor(       
    private httpClientService: HttpClientService,
    public activatedrouter: ActivatedRoute,
@@ -81,6 +83,7 @@ ngOnInit() {
 	this.audio.play();
 	this.httpClientService.onHomePage=false;
 	this.httpClientService.level = +this.activatedrouter.snapshot.paramMap.get('level');
+	this.totalLevel = +this.activatedrouter.snapshot.paramMap.get('totalLevel');
 	this.level=this.httpClientService.level;
 	this.currentUnlockedLevel = +this.activatedrouter.snapshot.paramMap.get('currentUnlockedLevel');
 	
@@ -342,28 +345,44 @@ this.openGameOverDialog();
   }
 
 openSuccessDailog(){
+	if(this.totalLevel<=this.httpClientService.level){
+		this.openCategoryCompleteddialog();
+			}
+			else{
+				this.openSuccessNextLevelDialog();
+			}
 	
 	
-	var self=this;
-    this.dialog.open(success, {
-      data: 100,
+}
+openCategoryCompleteddialog() {
+  
+    this.dialog.open(CategoryCompleted, {
+      data: this.coins,
 	  height: '50%',
   width: '95%',
   disableClose: true,
-    }).afterClosed().subscribe(response => {
-		
-      if (response == 'continue') {
-        setTimeout(() => {
-			
-			this.httpClientService.level +=1;
-			this.level=this.httpClientService.level;
-			this.loadLevel();
-        }, 1000);
-      } else {
-       this.router.navigate(['' ]);
-      }
     });
-}
+  }
+	private openSuccessNextLevelDialog() {
+		var self = this;
+		this.dialog.open(success, {
+			data: 100,
+			height: '50%',
+			width: '95%',
+			disableClose: true,
+		}).afterClosed().subscribe(response => {
+			if (response == 'continue') {
+				setTimeout(() => {
+					this.httpClientService.level += 1;
+					this.level = this.httpClientService.level;
+					this.loadLevel();
+				}, 1000);
+			}
+			else {
+				this.router.navigate(['']);
+			}
+		});
+	}
 
 	private setBackgroundWrapper(x_index: number, y_index: number) {
 		if (x_index - this.leftMove == 1  && x_index<this.column) {

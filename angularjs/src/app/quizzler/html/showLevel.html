@@ -24,8 +24,8 @@
 				<embed *ngIf="false" src="/assets/audio/background.mp3" loop="true" autostart="true" width="0" height="0" >
 					
 				<div  style = "height:95%;width:100%">
-					<div class="level-image-div">
-<div class="level-image">{{categoryName}}</div>
+					<div class="level-image">
+<span class ="level-image-span">{{categoryName}}</span>
 					</div>
 					<div   *ngFor="let lev of level let i = index;" class ="levelDiv" (click)=loadQuiz(i+1);>
 						Level {{i+1}}

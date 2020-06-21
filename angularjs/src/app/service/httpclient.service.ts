@@ -158,6 +158,7 @@ export class SelectedAnswer {
 })
 export class HttpClientService {
   onHomePage=true;
+  type="quiz";
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',

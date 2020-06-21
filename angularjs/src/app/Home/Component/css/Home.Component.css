@@ -1,22 +1,23 @@
 
-.home-menu-div{    background: #380da2;
+.home-menu-div{    background: black;
    
-    margin-top: 3px;
+   
 	    height: 8%;
 	}
 	
 	.home-menu-category{
 	      margin-right: 1%;
-    font-size: 23px;
+    font-size: 19px;
     width: 32%;
     float: left;
     height: 100%;
     color: white;
-    padding: 3%;
+    padding: 4%;
     font-style: italic;
     font-weight: bold;
 }
 	
 	.home-menu-category-selected{
-		background:#819ab5;
+		background: white;
+    color: black;
 	}

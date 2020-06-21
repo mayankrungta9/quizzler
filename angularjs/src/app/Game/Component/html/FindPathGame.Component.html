@@ -6,14 +6,28 @@
  background: #4d428c;-->
 
 
-	<div *ngIf="showSpinner" class="spinner-position">
 	
-		<span  class="spinner-text">{{timeCounter}}</span>
-	<mat-progress-spinner  mode="determinate" value={{progress}} color="warn" diameter="70" >
+	<div  style="height: 15%;
+    padding-top: 8%;
+    text-align: center;">
+		<span *ngIf="showSpinner " style="font-size: 24px;
+		font-weight: bold;
+		
+		font-style: italic;
+		
+		color: #0c0c0c;
+		
+		font-family: none;">
+		Memorize Obstacles
+		</span>
+		<div *ngIf="showSpinner " class="spinner-position">
 	
-	</mat-progress-spinner>
+			<span  class="spinner-text">{{timeCounter}}</span>
+		<mat-progress-spinner  mode="determinate" strokeWidth="4" value={{progress}}  diameter="60" >
+		
+		</mat-progress-spinner>
+		</div>
 	</div>
-	<div style="height:15%"></div>
 
 	<div (touchmove) ="mouseMove($event) "id="game-wrapper" (touchstart) ="mouseEnter($event) " 
 	(touchend)="mouseRemoved($event)" style="

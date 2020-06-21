@@ -41,7 +41,7 @@ categoryName="";
     this.type = this.activatedrouter.snapshot.paramMap.get('type');
     this.categoryName = this.activatedrouter.snapshot.paramMap.get('categoryName');
     this.selectCategory();
-    this.httpClientService.onHomePage=false;
+    this.httpClientService.onHomePage=true;
 
 
   }

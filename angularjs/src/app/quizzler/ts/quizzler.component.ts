@@ -14,21 +14,22 @@ import { NgImageSliderComponent } from 'ng-image-slider';
 import {AppSettings} from './AppSettings';
 import { LoginComponent } from './login.component';
 import { CategoryCompleted } from './categoryCompleted';
-
+import {  OnDestroy } from '@angular/core';
 @Component({
   selector: 'app-employee',
   templateUrl: '../html/quizzler.component.html',
   styleUrls: ['./quizzler.component.css'],
   host: { 'window:beforeunload': 'test' },
 })
-export class QuizComponent implements OnInit, AfterViewInit {
+export class QuizComponent implements OnInit,OnDestroy  {
   constructor(
     private httpClientService: HttpClientService,
     public activatedrouter: ActivatedRoute,
     public router: Router,
     private dialog: MatDialog,
 	private userData:UserData,
-	private renderer: Renderer2,
+  private renderer: Renderer2,
+ 
   ) {  }
   subscriptions: Subscription[] = [];
   ifAudioAutoPlay=true;
@@ -45,6 +46,7 @@ export class QuizComponent implements OnInit, AfterViewInit {
  catchHero = new CatchHeroComponent();
   questionAudio = new Audio();
   isanimatedGifVaisible = false;
+  isHintVisible=false;
   tempAudio = new Audio();
   videoSource = '';
   videoSource1 = '';
@@ -92,24 +94,55 @@ isMovingPictureDivVisible = false;
    isLiveQuiz=false;
    quizId=0;
    imageOption=false;
-   remainingLives=AppSettings.remainingLives
+   remainingLives=AppSettings.remainingLives;
+   isDisabled=true; 
+   description="Actor - Varun Dhawan, Actress - Anushka Sharma";
+   actor="Actor - Varun Dhawan";
+   actress="Actress - Anushka Sharma";
+    pausetoggle=true;
    @ViewChild("myInput0") private _inputElement: ElementRef;
   totalLevel=0;
-   @HostListener('window:popstate', ['$event'])
+   
+  @HostListener('window:popstate', ['$event'])
    onPopState(event) {
    this.pauseTimer();
    }
-  ngAfterViewInit() {
-	console.log("quiz loaded");
-    
+ 
+   @HostListener('window:visibilitychange', ['$event'])
+   onvisibilitychange(event) {
+     if(this.pausetoggle){
+      this.pause();
+      console.log("test");
+      this.pausetoggle=false;
+     }
+  else{
+    this.resume();
+    this.pausetoggle=true;
+  }
+   }
+
+  pause() {
+    this.pauseTimeAndAudio();
+    console.log('pause');
+  }
+  resume() {
+    this.resumeTimeAndAudio();
+    console.log('resume');
+  }
+
+ 
+  pasueEveryThing(self:any){
+    console.log('in blur')
+    self.pauseTimer();
   }
   ngOnInit() {
 
+    
 
     this.userName = this.userData.userId;
 	
     this.httpClientService.level = +this.activatedrouter.snapshot.paramMap.get('level');
-   
+    this.httpClientService.onHomePage=false;
    
 	if(this.httpClientService.level == -1){
 		this.isLiveQuiz=true;
@@ -119,7 +152,7 @@ isMovingPictureDivVisible = false;
 		this.categoryId=+temp[1];
 	}
 	else {
-    this.httpClientService.onHomePage=false;
+  
     this.categoryId = +this.activatedrouter.snapshot.paramMap.get('categoryId');
     this.totalLevel= +this.activatedrouter.snapshot.paramMap.get('totalLevel');
 	}
@@ -130,7 +163,7 @@ isMovingPictureDivVisible = false;
       this.isMovingPictureDivVisible = true;
      
           } else if (this.categoryId == AppSettings.emojiCategoryId   ) {
-           
+            this.isHintVisible=false;
             this.isemojiBoxVisible = true;
     }
    
@@ -139,8 +172,9 @@ isMovingPictureDivVisible = false;
      this.startTimer();
 	
   }
+
   checkAnswer(selectedAnswer) {
-	 
+	 this.isDisabled=true;
 	 this.pauseTimer();
 	 
 	 if(this.quizes[this.index].type=='audio'){
@@ -236,7 +270,7 @@ this.openCategoryCompleteddialog();
       data: this.coins,
 	  height: '50%',
   width: '95%',
-  disableClose: true,
+  disableClose: true, 
     });
   }
   openGameOverDialog() {
@@ -257,10 +291,11 @@ this.openCategoryCompleteddialog();
   }
 
   openSaveMeDialog() {
+   this.pauseTimer();
     this.dialog.open(saveMe,{ height: '50%',
     width: '95%',}).afterClosed().subscribe(response => {
       if (response == 'yes') {
-        this.coins -= 200;
+        this.coins -= 20;
         setTimeout(() => {
           this.next();
         }, 1000);
@@ -270,6 +305,7 @@ this.openCategoryCompleteddialog();
         this.openGameOverDialog();
       }
     });
+    
   }
   private loadQuiz() {
     this.liveClassesArray=['heart-img-filled', 'heart-img-filled', 'heart-img-filled'];
@@ -307,6 +343,8 @@ this.openCategoryCompleteddialog();
     this.quizes = [];
     this.questionAudio.pause();
     this.subscriptions.forEach(s => s.unsubscribe());
+    this.pauseTimer();
+    console.log('destro quiz');
   }
   
   
@@ -361,6 +399,7 @@ this.openCategoryCompleteddialog();
       
     }
 	console.log("end handleSuccessfulResponse");
+  this.isDisabled=false;
   }
   checkIfMediaPlay(promise){
 	   setTimeout(()=>{
@@ -403,7 +442,8 @@ this.openCategoryCompleteddialog();
 	 var tempArray=this.quizes[this.index].answer;
 	  this.quizes[this.index].answer=this.quizes[this.index].answer.replace(/ /g,"");
       this.emojiAnswerArray = this.quizes[this.index].answer.split("");
-	  
+   
+    
 	   var counter=1;
 	   
 	   
@@ -437,7 +477,7 @@ this.openCategoryCompleteddialog();
     this.result = result;
   }
   onSelectAnswer(selectedAnswer): void {
-	  
+	  this.isDisabled=true;
 	  var type=this.quizes[this.index].type;
    
 	this.pauseTimeAndAudio();
@@ -462,12 +502,22 @@ this.openCategoryCompleteddialog();
     this.pauseTimer();
   }
 
+  private resumeTimeAndAudio() {
+    var type=this.quizes[this.index].type;
+    if (type == 'video') {
+      this.playVideoMedia();
+    }
+    if (type == 'audio') {
+      this.playAudio();
+    }
+    this.startTimer();
+  }
   private whenAnswerIsCorrect(selectedAnswer: any) {
 
 this.correctAnswerAudio.play();
   
     this.buttonCss[selectedAnswer - 1] = 1;
-    this.coins += 100;
+    this.coins += 10;
     setTimeout(() => {
       this.next();
         
@@ -478,7 +528,7 @@ wrongAnswer(selectedAnswer) {
     
     this.liveClassesArray[this.remainingLives] = 'heart-img-blank';
     this.audio.play();
-    this.coins -= 50;
+    this.coins -= 5;
     if (this.remainingLives < 0) {
       this.openSaveMeDialog();
     } else {
@@ -575,7 +625,7 @@ this.coins=0;
   }
   next() { 
 	   this.index++;
-	   
+	   this.isDisabled=false;
 	   this.isAudio = false;
 	  if (this.index>= this.totalQuestion || (this.isLiveQuiz && this.timeLeft<=0)) {
 		  var type = this.quizes[this.index-1].type;
@@ -721,14 +771,16 @@ if(   !this.isemojiBoxVisible)
         this.timeLeft--;
         counter=0;
       }
-     else if(this.progress<=0){
+     else if(this.timeLeft==0){
+      this.isDisabled=true;
+       this.pauseTimeAndAudio();
        if(this.isLiveQuiz){
 this.openSuccessDialog();
        }
        else {this.wrongAnswer(0);}
         
-      //  this.pauseTimer();
-      this.pauseTimeAndAudio();
+       
+     
       }
     }, timeDecreaseInMilli);
   }
@@ -746,4 +798,5 @@ this.openSuccessDialog();
       );
     });
   }
+  
 }

@@ -22,14 +22,29 @@
 
 </div>
 
-
-<div *ngIf="!isLoaderVisible" class="spinner-position">
+<div  style="height: 5%;
+padding-top: 8%;
+text-align: center;">
+	<span *ngIf="showMemorizeCard " style="font-size: 24px;
+	font-weight: bold;
 	
-	<span  class="spinner-text">{{displayTimer}}</span>
-<mat-progress-spinner  mode="determinate" value={{progress}} color="warn" diameter="70" >
+	font-style: italic;
+	
+	color: #0c0c0c;
+	
+	font-family: none;">
+	Memorize Cards
+	</span>
+	<div *ngIf="!isLoaderVisible " class="spinner-position">
 
-</mat-progress-spinner>
+		<span  class="spinner-text">{{displayTimer}}</span>
+	<mat-progress-spinner  mode="determinate" strokeWidth="4" value={{progress}}  diameter="60" >
+	
+	</mat-progress-spinner>
+	</div>
 </div>
+
+
 
 <div class='timeup' *ngIf="timeUp" >
 <span>TIME UP</span>	

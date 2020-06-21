@@ -10,13 +10,7 @@
 </head>
 <div style="height:100%" *ngIf="!levelCleared && !isanimatedGifVaisible">
 <div class="wrap-login100" *ngIf="quizes.length>0; else loading">
-	<div *ngIf="!isLoaderVisible && !isemojiBoxVisible" class="spinner-position">
 	
-		<span  class="spinner-text">{{timeLeft}}</span>
-	<mat-progress-spinner  mode="determinate" value={{progress}} color="warn" diameter="70" >
-	
-	</mat-progress-spinner>
-	</div>
 	<embed *ngIf="undefined != quizes[index] && quizes[index]?.type=='image' && false" src="/assets/audio/background.mp3" loop="true" autostart="true" width="0" height="0" >
 	<div id="upper-part"  [ngClass]="{'upper-part':!isemojiBoxVisible , 'upper-part-emoji':isemojiBoxVisible }">
 		
@@ -25,15 +19,31 @@
 			</div>
 		</div>
 		<div id='currentStatus' class="currentStatus"> {{index+1}}/{{totalQuestion}}</div>	
-		<div id="timer" class="timer-div" *ngIf="isLiveQuiz">
-				{{timeLeft}}
+		
+		<div *ngIf="!isLoaderVisible && !isemojiBoxVisible" class="timer-div">
+	
+			<span  class="spinner-text" style="top: 12%;
+			right: 9%;">{{timeLeft}}</span>
+		<mat-progress-spinner  mode="determinate" value={{progress}} color="warn" diameter="40" >
+		
+		</mat-progress-spinner>
 		</div>
+			
+		
+			<img  *ngIf="isemojiBoxVisible" src="../../../assets/images/hint.png" (click)="isHintVisible=true" 
+			style="width: 13%;
+			position: absolute;
+			left: 86%;
+			top: 11%;">
+		
 		<div id="middle-section"  
 			[ngClass]="{'middle-section':!isemojiBoxVisible,'upper-part-audio': isAudio,'upper-part-text': !isAudio }">
 			<button *ngIf="false"(click)="openQuestionReportedDialogue()" style="color:white"> question report </button>
+		
 			<div *ngIf="undefined != quizes[index] && quizes[index]?.type=='image'"  [ngClass]="{'ques-img':!isemojiBoxVisible , 'ques-emoji':isemojiBoxVisible }">
 				<img  alt="HTML5 Icon"  #imagesTemp style="width: 100%;border-radius: 16px;			height: 100%;">
 			</div>
+	
 			<div *ngIf="quizes[index]?.type=='audio' " style="text-align: center; margin-top:48%">
 
 				<audio  loop  id="audioSelector">
@@ -47,11 +57,11 @@
 
 			<div *ngIf="quizes[index]?.type=='video'" style="text-align: center;"class="ques-img"  >
 
-				<video loop #videoPlayer  [ngClass]="{'hide' : !flag,'show' : flag}" style="object-fit: cover;border-radius: 16px;			">
+				<video loop #videoPlayer  [ngClass]="{'hide' : !flag,'show' : flag}" style="border-radius: 14px;    object-fit: fill;			">
 					<source src={{videoSource}} type="video/mp4">
 					Your browser does not support HTML5 video.
 				</video>
-				<video loop #videoPlayer1  [ngClass]="{'hide' : flag,'show' : !flag}" style="object-fit: cover;border-radius: 16px;"	>
+				<video loop #videoPlayer1  [ngClass]="{'hide' : flag,'show' : !flag}" style="    object-fit: fill;;border-radius: 14px;"	>
 
 			
 					<source src={{videoSource1}} type="video/mp4">
@@ -72,25 +82,25 @@
 			<button appButtonControl class=" {{buttonAnimationCss1}} button-size button.horizTranslate "
 				[disabled]="buttonCss[0]=='2'"
 				[ngClass]="{'  button-color ': buttonCss[0]=='0','btn-success-correct': buttonCss[0]=='1','btn-danger-wrong': buttonCss[0]=='2' }"
-				(click)="onSelectAnswer(1)"> {{quizes[index].option1}}</button>
+				(click)="onSelectAnswer(1)" [disabled]="isDisabled" > {{quizes[index].option1}}</button>
 
 
 			<button class="{{buttonAnimationCss2}} button-size  button.horizTranslate" [disabled]="buttonCss[1]=='2'"
 				[ngClass]="{'button-color ': buttonCss[1]=='0','btn-success-correct': buttonCss[1]=='1','btn-danger-wrong': buttonCss[1]=='2' }"
-				(click)="onSelectAnswer(2)"> {{quizes[index].option2}}</button>
+				(click)="onSelectAnswer(2)" [disabled]="isDisabled" > {{quizes[index].option2}}</button>
 
 
 			<button class="{{buttonAnimationCss1}}  button-size  button.horizTranslate" [disabled]="buttonCss[2]=='2'"
 				[ngClass]="{'button-color ' : buttonCss[2]=='0',' btn-success-correct': buttonCss[2]=='1',' btn-danger-wrong': buttonCss[2]=='2' }"
-				(click)="onSelectAnswer(3)"> {{quizes[index].option3}}</button>
+				(click)="onSelectAnswer(3)" [disabled]="isDisabled" > {{quizes[index].option3}}</button>
 
 
 
 			<button class="{{buttonAnimationCss2}}  button-size button.horizTranslate " [disabled]="buttonCss[3]=='2'"
 				[ngClass]="{'button-color ': buttonCss[3]=='0',' btn-success-correct': buttonCss[3]=='1',' btn-danger-wrong': buttonCss[3]=='2' }"
-				(click)="onSelectAnswer(4)"> {{quizes[index].option4}}</button>
+				(click)="onSelectAnswer(4)" [disabled]="isDisabled" > {{quizes[index].option4}}</button>
 		</div>
-		<div *ngIf="isemojiBoxVisible" style="height:100%; width:100%;text-align:center;">
+		<div *ngIf="isemojiBoxVisible" style="height:24%; width:100%;text-align:center;">
 			<div id='inputtext' class="emojiTextBoxDiv  {{emojiDivCss}}" style="height:100%; width:100%;text-align:center;">
 				<form id="myForm">
 				
@@ -101,24 +111,33 @@
 				</div>
 				<input id='reset' type="reset" value="Reset" style="display:none;">
 				</form>
+				
+			</div>
+			<div id="hint" class="emoji-hint" *ngIf="isHintVisible  || true">
+				<div >
+			{{quizes[index].description.split(";")[0]}}
+				</div>
+			<div>
+				{{quizes[index].description.split(";")[1]}}
+			</div>
 			</div>
 		</div>
 		
 			<div *ngIf="isMovingPictureDivVisible" style="height:100%; width:100%;text-align:center;">
 			<div class="catchCelebImg {{buttonAnimationCss1}}" id="imageDiv1">
-			<img (click)="checkAnswer(1)"  #option1 style="    width: 100%; height:100%; border-radius: 10px;">
+			<img (click)="isDisabled || checkAnswer(1)"   #option1 style="    width: 100%; height:100%; border-radius: 10px;">
 			</div>
 			<div class="catchCelebImg {{buttonAnimationCss2}}" id="imageDiv2">
-			<img  (click)="checkAnswer(2)" #option2 style="    width: 100%;height:100%;   border-radius: 10px;">
+			<img  (click)="isDisabled || checkAnswer(2)" #option2 style="    width: 100%;height:100%;   border-radius: 10px;">
 			</div>
 			<div class="catchCelebImg {{buttonAnimationCss1}}"  id="imageDiv3">
-			<img  (click)="checkAnswer(3)" #option3 style="    width: 100%; height:100%;  border-radius: 10px;">
+			<img  (click)="isDisabled ||  checkAnswer(3)"  #option3 style="    width: 100%; height:100%;  border-radius: 10px;">
 			</div>
 			<div class="catchCelebImg {{buttonAnimationCss2}}" id="imageDiv4">
-			<img  (click)="checkAnswer(4)" #option4 style="    width: 100%;height:100%;   border-radius: 10px;">
+			<img  (click)="isDisabled || checkAnswer(4)"  #option4 style="    width: 100%;height:100%;   border-radius: 10px;">
 			</div>
 		
-
+			
 		</div>
 
 	</div>
