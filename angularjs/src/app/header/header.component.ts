@@ -23,8 +23,8 @@ export class HeaderComponent  {
     @Inject(DOCUMENT) private document: Document,
      public  activatedrouter: ActivatedRoute ,
      public httpClientService:HttpClientService,
-   private userData:UserData,
-   private authService: AuthService
+   public userData:UserData,
+   public authService: AuthService
   ) { }
   ngOnInit() {
    console.log(this.userData);
@@ -33,7 +33,8 @@ export class HeaderComponent  {
 	//console.log( this.userData.userId);
     if(this.userData.userId==null || this.userData.userId===''){
      
-	this.isloggedIn=false;
+  this.isloggedIn=false;
+  this.userData.first_name="GUEST"
      }
 	 else {
 		 this.isloggedIn=true;

@@ -1,6 +1,6 @@
 import { Component, OnInit,AfterViewInit,Input } from '@angular/core';
 import { HttpClientService, Category,UserData} from '../../service/httpclient.service';
-
+import { howto } from './howto.component';
 import { Router, ActivatedRoute } from '@angular/router';
 import {
 
@@ -35,17 +35,24 @@ isLoaderVisible=true;
   ) { }
 
   ngOnInit() {
-   
+    this.httpClientService.level =0;
     this.httpClientService.loadCategory(this.type).subscribe(
      response => this.handleSuccessfulResponse(response),
     );
-
+  //this.openSaveMeDialog();
 
   }
 ngAfterViewInit() {
 	
     
   }
+  openSaveMeDialog() {
+    
+     this.dialog.open(howto,{ height: '80%',
+    
+     width: '95%',});
+     
+   }
  
      
   private selectCategory(category: Category) {

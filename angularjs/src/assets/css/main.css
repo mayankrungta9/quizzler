@@ -182,6 +182,7 @@ iframe {
 .hide{
   width: 0px;
   height:0px;
+  display: none;
 }
 
 .show{
@@ -340,12 +341,17 @@ iframe {
     background-size: cover;
 	    margin-left: 2px;
 }
+.bg-border-none{
+  background-color: rgb(216, 179, 66);
+  border: none;
+}
 .upper-part-audio{
   
-  background-image:  url('/assets/images/bg.gif') ;
-  background-repeat:repeat-x;
-  margin-left: 8%;
-		
+  
+  
+  height: 80%;
+  width: 100%;
+  margin-top: 6%;
 }
 .play-image{
   height: 50%;

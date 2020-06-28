@@ -161,7 +161,7 @@ public class QuizController {
 
 		List<Quiz> quizList = quizDao.findAllByCategoryId(categoryId);
 		Collections.shuffle(quizList);
-		return quizList.stream().limit(10).collect(Collectors.toList());
+		return quizList.stream().limit(50).collect(Collectors.toList());
 	}
 
 	@GetMapping(path = "/getCelebGameImage/{level}", produces = "application/json")
@@ -206,11 +206,18 @@ public class QuizController {
 		return Service.getRankDistribution(100, 40, quizObj.getWinningAmt(), loggedInUserCount);
 	}
 
-	@GetMapping(path = "/getYourRank", produces = "application/json")
+	@GetMapping(path = "/getCurrentRank/{quizId}/{points}", produces = "application/json")
 
-	public int getYourRank() {
+	public LiveQuizPoints getCurrentRank(@PathVariable int quizId,@PathVariable int points) {
 
-		return liveQuizPointsDao.getRank();
+		return liveQuizPointsDao.getCurrentRank( quizId, points);
+	}
+	
+	@GetMapping(path = "/getHighestRank/{quizId}/{userId}", produces = "application/json")
+
+	public LiveQuizPoints getHighestRank(@PathVariable int quizId,@PathVariable String userId) {
+
+		return liveQuizPointsDao.getHighestRank( quizId, userId);
 	}
 
 	@PostMapping(path = "/getCategoryLevel/{userId}/{categoryId}", produces = "application/json", consumes = "application/json")

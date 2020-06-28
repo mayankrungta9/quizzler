@@ -41,11 +41,9 @@
 					<img *ngIf="category.type==5"class ="liveQuiz-categoryImg" src="../../../assets/images/songs.png">
 					</div>
 					<div class="liveQuiz-userPlayed"> 
-						<span style="font-size:59">.</span><span style="font-size:18">Users Played:</span>
+						<span style="font-size:59">Users Played:</span>
+						<span style="font-size:18">{{category.totalUsersPlayed }}</span>
 						
-						<span>{{category.totalUsersPlayed }}</span>
-						
-					
 						</div>
 					</div>
 											

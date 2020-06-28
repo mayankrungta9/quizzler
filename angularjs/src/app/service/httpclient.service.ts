@@ -159,6 +159,7 @@ export class SelectedAnswer {
 export class HttpClientService {
   onHomePage=true;
   type="quiz";
+  liveQuizCoins=0;
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',

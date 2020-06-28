@@ -7,7 +7,7 @@ const routes: Routes = [
 
  
   { path:'showLiveQuizes/showCategory', component: ShowLiveQuizes},
-  { path:'showLiveQuizes/showRanking/:quizId/:categoryId', component: Ranking}
+  { path:'showLiveQuizes/showRanking/:quizId/:categoryId/:liveQuizPoints', component: Ranking}
  
 ];
 

@@ -1,4 +1,4 @@
-import { Component, OnInit,ViewChild,AfterViewInit } from '@angular/core';
+import { Component, OnInit,ViewChild,AfterViewInit, HostListener } from '@angular/core';
 
 import { Router, ActivatedRoute } from '@angular/router';
 
@@ -18,15 +18,23 @@ export class Ranking implements OnInit, AfterViewInit {
 isPrizeMatrix:boolean=false;
 userName="";
 isLoaderVisible=false;
+liveQuizPoints:number;
 constructor(       
 public activatedrouter: ActivatedRoute,
 private httpClientService: HttpClientService,
 	public  router: Router ,
 	private userData:UserData,
   ) { }
+  @HostListener('window:popstate', ['$event'])
+  onPopState(event) {
+  
+  window.location.href="home";
+ console.log("in ranking component press back");
+  }
 ngOnInit() {
  this.quizId=+this.activatedrouter.snapshot.paramMap.get('quizId');
  this.categoryId=+this.activatedrouter.snapshot.paramMap.get('categoryId');
+ this.liveQuizPoints=+this.activatedrouter.snapshot.paramMap.get('liveQuizPoints');
  this.httpClientService.onHomePage=false;
 	}
 	

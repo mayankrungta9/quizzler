@@ -18,12 +18,13 @@
 			<div *ngFor="let liveclass of liveClassesArray " class={{liveclass}} style="display:inline-block">
 			</div>
 		</div>
-		<div id='currentStatus' class="currentStatus"> {{index+1}}/{{totalQuestion}}</div>	
-		
+		<div class="currentStatus">
+		<div  *ngIf="!isLiveQuiz"  id='currentStatus' > {{index+1}}/{{totalQuestion}}</div>	
+	</div>
 		<div *ngIf="!isLoaderVisible && !isemojiBoxVisible" class="timer-div">
 	
 			<span  class="spinner-text" style="top: 12%;
-			right: 9%;">{{timeLeft}}</span>
+			right: 6%;">{{timeLeft}}</span>
 		<mat-progress-spinner  mode="determinate" value={{progress}} color="warn" diameter="40" >
 		
 		</mat-progress-spinner>
@@ -35,9 +36,11 @@
 			position: absolute;
 			left: 86%;
 			top: 11%;">
-		
+		<img  *ngIf="emojiResult=='fail'" src="../../../assets/images/cross.png" class="game_result_img">
+		<img  *ngIf="emojiResult=='pass'"  src="../../../assets/images/right.png" class="game_result_img">
 		<div id="middle-section"  
-			[ngClass]="{'middle-section':!isemojiBoxVisible,'upper-part-audio': isAudio,'upper-part-text': !isAudio }">
+			[ngClass]="{'middle-section':!isemojiBoxVisible,'bg-border-none': isAudio,'upper-part-text': !isAudio }">
+			<img *ngIf="isAudio" src="/assets/images/bg.gif" class="upper-part-audio" >
 			<button *ngIf="false"(click)="openQuestionReportedDialogue()" style="color:white"> question report </button>
 		
 			<div *ngIf="undefined != quizes[index] && quizes[index]?.type=='image'"  [ngClass]="{'ques-img':!isemojiBoxVisible , 'ques-emoji':isemojiBoxVisible }">
@@ -50,8 +53,8 @@
 					<source src={{quizes[0].url}}>
 					Your browser does not support HTML5 video.
 				</audio>
-				<button id='audioPlay' (click)='playAudio()' [ngClass]="{'hideButton':ifAudioAutoPlay}"> play </button>
-				<button id='audioPlay' (click)='pauseAudio()' [ngClass]="{'hideButton':!ifAudioAutoPlay}"> pause </button>
+				<!-- <button id='audioPlay' (click)='playAudio()' [ngClass]="{'hideButton':ifAudioAutoPlay}"> play </button>
+				<button id='audioPlay' (click)='pauseAudio()' [ngClass]="{'hideButton':!ifAudioAutoPlay}"> pause </button> -->
 
 			</div>
 
@@ -113,7 +116,7 @@
 				</form>
 				
 			</div>
-			<div id="hint" class="emoji-hint" *ngIf="isHintVisible  || true">
+			<div id="hint" class="emoji-hint" *ngIf="isHintVisible  ">
 				<div >
 			{{quizes[index].description.split(";")[0]}}
 				</div>

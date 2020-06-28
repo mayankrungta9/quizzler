@@ -1,0 +1,30 @@
+
+
+
+<div class="howToWrapper" >
+	<video  #videoPlayer loop autoplay  style="border-radius: 14px;     height: 50%;
+    width: 90%;
+    margin: 5%;   object-fit: fill;	">
+		<source  type="video/mp4">
+		Your browser does not support HTML5 video.
+	</video>
+	<div *ngIf="category==12" class="howToDiv" >
+<p class="howToPoints">Memorize and match the pair of cards</p>
+<p class="howToPoints">Get extra 3 seconds for every match</p>
+<p class="howToPoints">To clear the level,win 2 out of 3 game</p>
+	</div>
+	<div *ngIf="category==11" class="howToDiv" >
+		<p class="howToPoints">Memorize the obstacles and find the correct path</p>
+		<p class="howToPoints">To clear the level,win 2 out of 3 game</p>
+		
+			</div>
+			<img (click)="back()"style="
+			height: 70px;
+			width: 70px;
+			margin-top:5%;
+			/* text-align: center; */
+			/* margin: auto; */
+			margin-left: 40%;"src="../../../assets/images/close.png">
+</div>
+	
+

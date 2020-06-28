@@ -1,0 +1,17 @@
+
+.howToWrapper{
+  height:100%;
+  width:100%;
+  background-color: rgb(249, 201, 56);
+}
+.howToDiv{
+margin-left: 5%;
+}
+.howToPoints{
+  color: black;
+  font-weight: bold;
+  font-size: 18px;
+}
+p:before {
+  content:"• ";
+}

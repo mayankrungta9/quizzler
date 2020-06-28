@@ -21,6 +21,11 @@ input:focus {
 	animation: beat .5s infinite alternate;
 	transform-origin: center;
   }
+  .game_result_img{    height: 30%;
+    position: absolute;
+    left: 25%;
+	top: 25%;
+}
   .heart {
 	
 	animation: beat .25s infinite alternate;
@@ -77,3 +82,4 @@ input:focus {
   
   animation-duration: 5s; /* don't forget to set a duration! */
 }
+

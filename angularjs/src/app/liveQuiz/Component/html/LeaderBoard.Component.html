@@ -6,14 +6,24 @@
 	</div>
 
 </div>
-<span style="float: left;font-weight: bold;    margin-left: 8%;">Player</span>
-<span style="font-size:17px;font-weight: bold;">Points</span>
-		<span style="font-size:17px;position: relative;    top: -6px;">{{liveQuizPoints.points}}</span>
+<div class="prizeMatrix-row" style="background-color:  #657bf7; font-weight: bold;font-size:large;">
+<span class="leaderboard-span width50" >Name</span>
+<span class="leaderboard-span width20" >Rank</span>
+<span class="leaderboard-span width20" >Points</span>
+</div>		
+<div  class="prizeMatrix-row higherstRankDivCss" *ngIf="yourRank!=null">
+	<span class="leaderboard-span width50"  >Current Rank </span>
+	<span class="leaderboard-span width20" >{{yourRank.quizId}}</span>
+	<span class="leaderboard-span width20" >{{yourRank.points}}</span>
+	</div>
+		<div  class="prizeMatrix-row higherstRankDivCss" *ngIf="highestRank!=null">
+			<span class="leaderboard-span width50" >Highest Rank </span>
+			<span class="leaderboard-span width20" >{{highestRank.quizId}}</span>
+			<span class="leaderboard-span width20" >{{highestRank.points}}</span>
+			</div>
 		<div *ngFor="let liveQuizPoint of liveQuizPoints " class="prizeMatrix-row">
-		<span style="float: left;font-weight: bold;    margin-left: 8%;">{{liveQuizPoint.userId}}</span>
-		<span style="font-size:17px;font-weight: bold;">{{liveQuizPoint.points}}</span>
-		
-		
-	
+		<span class="leaderboard-span width50" >{{liveQuizPoint.userId}}</span>
+		<span class="leaderboard-span width20" >{{liveQuizPoint.quizId}}</span>
+		<span class="leaderboard-span width20"  >{{liveQuizPoint.points}}</span>
 		</div>
 </div>

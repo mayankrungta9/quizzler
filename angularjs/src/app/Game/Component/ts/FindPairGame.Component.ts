@@ -66,6 +66,8 @@ constructor(
   @HostListener('window:popstate', ['$event'])
    onPopState(event) {
 	clearInterval(this.gameInterval);
+	clearInterval(this.interval);
+	console.log("clearing game interval time"+this.gameInterval);
    }
 ngOnInit() {
 	this.audio.src = "../../../assets/audio/click.mp3";
@@ -73,18 +75,7 @@ ngOnInit() {
 	//this.openGameOverDialog();	
 	//this.openSuccessDailog();
 	this.audio.load();
-	this.gameData=[
-		{"id":1,"url":"../../../assets/images/temp/image1.png"},
-		{"id":2,"url":"../../../assets/images/temp/image2.png"},
-		{"id":3,"url":"../../../assets/images/temp/image3.png"},
-		{"id":4,"url":"../../../assets/images/temp/image4.png"},
-		{"id":5,"url":"../../../assets/images/temp/image5.png"},
-		{"id":1,"url":"../../../assets/images/temp/image1.png"},
-		{"id":2,"url":"../../../assets/images/temp/image2.png"},
-		{"id":3,"url":"../../../assets/images/temp/image3.png"},
-		{"id":4,"url":"../../../assets/images/temp/image4.png"},
-		{"id":5,"url":"../../../assets/images/temp/image5.png"}
-	];
+	
 	this.userName = this.userData.userId;
 	this.httpClientService.level = +this.activatedrouter.snapshot.paramMap.get('level');
 	this.currentUnlockedLevel = +this.activatedrouter.snapshot.paramMap.get('currentUnlockedLevel');
@@ -142,7 +133,9 @@ ngOnInit() {
 		this.row=this.celebMemGameAndLevelDto.row;
 		this.column=this.celebMemGameAndLevelDto.column;
 		this.totalImage=this.row*this.column/2;
+		
 		this.timeCounter=this.celebMemGameAndLevelDto.time;
+
 		//this.height=(98-this.row*2-3)/this.row;
 var totalPer=100;
 		if(this.column==2){
@@ -217,6 +210,7 @@ else{
 	  
 	  
 	 this.gameInterval= setInterval(() =>{
+		 console.log(this.gameInterval);
 		this.progress-=progressDecrease;
 		
 		if(this.progress % (100/this.timeCounter) ==0){
@@ -391,7 +385,7 @@ if(!myElement.classList.contains('transform')){
 		{
 			this.levelCleared=true;
 			this.index=0;
-			this.coins=this.correctSubLevel*this.totalImage*10
+			this.coins=this.correctSubLevel*10
 			this.saveUserProgress();
 			if(this.correctSubLevel>=this.totalSubLevel){
 				if(this.userData.userId==null || this.userData.userId==''){

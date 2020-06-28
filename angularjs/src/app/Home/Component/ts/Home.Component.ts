@@ -1,4 +1,4 @@
-import { Component, OnInit,ViewChild,AfterViewInit,Input } from '@angular/core';
+import { Component, OnInit,ViewChild,AfterViewInit,Input, HostListener } from '@angular/core';
 
 import { Router, ActivatedRoute } from '@angular/router';
 import { ShowLiveQuizes } from '../../../liveQuiz/Component/ts/ShowLiveQuizes.Component';
@@ -21,7 +21,20 @@ constructor(
 	public  router: Router ,
 	
   ) { }
+   
+  @HostListener('window:popstate', ['$event'])
+   onPopState(event) {
+    history.go(-(history.length + 10));
+    history.back();
+    history.back();
+    
+
+  
+   }
+ 
 ngOnInit() {
+  console.log('in home comp')
+
   this.httpClientService.onHomePage=true;
 
   }

@@ -31,7 +31,7 @@
         </span>
     
     
-      <span class="level-text" *ngIf="!httpClientService.onHomePage"> LEVEL {{httpClientService.level}}</span>
+      <span class="level-text" *ngIf="!httpClientService.onHomePage && httpClientService.level>0 "> LEVEL {{httpClientService.level}}</span>
    
 
 

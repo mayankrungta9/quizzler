@@ -49,6 +49,9 @@ ngAfterViewInit() {
 	
     
   }
+  redirectToHowTo(){
+    this.router.navigate(['howto/'+this.categoryId]);
+  }
    loadQuiz(level) {
      
 if(this.userData.userId==null || this.userData.userId===''){

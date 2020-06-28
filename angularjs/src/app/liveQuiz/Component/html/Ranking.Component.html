@@ -21,20 +21,25 @@
 				<embed *ngIf="false"src="/assets/audio/background.mp3" loop="true" autostart="true" width="0" height="0" >
 				<div class='leaderboard-wrapper'>
 				<div style="height:7%">
-				<div  class ='leaderboard-button' style = ";float:left" (click)="onswitchBoard(1)"
-				[ngStyle]="{'background':!isPrizeMatrix?'#bdbdbd':'#fafafa'}">
-				PRIZES
-				</div>	
-				<div  class ='leaderboard-button' style = "float:right;" (click)="onswitchBoard(2)" 
+					<div  class ='leaderboard-button' style = "float:left;" (click)="onswitchBoard(2)" 
 					[ngStyle]="{'background':isPrizeMatrix?'#bdbdbd':'#fafafa'}">
 				LEADERBOARD	
 				</div>	
-				</div>
+					<div  class ='leaderboard-button' style = "float:right" (click)="onswitchBoard(1)"
+				[ngStyle]="{'background':!isPrizeMatrix?'#bdbdbd':'#fafafa'}">
+				PRIZES
+				</div>	
+				
+				
+				
+			</div>
+
 				<div class='leaderboard-content'> 
-					<PrizeMatrix *ngIf="isPrizeMatrix" [quizId]="quizId">
-					</PrizeMatrix>
-					<LeaderBoard *ngIf="!isPrizeMatrix" [quizId]="quizId">
+					<LeaderBoard *ngIf="!isPrizeMatrix" [quizId]="quizId" [liveQuizPoints]="liveQuizPoints">
 					</LeaderBoard>
+					<PrizeMatrix *ngIf="isPrizeMatrix" [quizId]="quizId" >
+					</PrizeMatrix>
+					
 				</div>
 				<div class="liveQuizPlayButton" (click)="loadLiveQuiz()" >
 				play

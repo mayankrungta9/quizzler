@@ -86,6 +86,20 @@ export class LiveQuizService {
       catchError(this.handleError)
     );
   }
+  getCurrentRank(quid: number,points:number) {
+
+    return this.httpClient.get<LiveQuizPoints>(this.baseServicePath + 'getCurrentRank/'+quid+"/"+points).pipe(
+
+      catchError(this.handleError)
+    );
+  }
+  getHighestRank(quid: number,userId:String) {
+
+    return this.httpClient.get<LiveQuizPoints>(this.baseServicePath + 'getHighestRank/'+quid+"/"+userId).pipe(
+
+      catchError(this.handleError)
+    );
+  }
   private handleError(error: Response) {
 
     if (error.status == 400) {

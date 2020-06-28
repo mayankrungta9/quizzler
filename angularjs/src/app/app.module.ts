@@ -23,7 +23,7 @@ import { success,  } from './quizzler/ts/success-component';
 
 import { GameOver } from './quizzler/ts/gameOver-component';
 import {saveMe} from './quizzler/ts/saveMe.component';
-
+import {howto} from './quizzler/ts/howto.component';
 import { reportQues } from './quizzler/ts/reportQues.component';
 import { CrosswordComponent } from './crossword/crossword.component';
 import { CatchHeroComponent } from './catch-hero/catch-hero.component';
@@ -86,10 +86,10 @@ function load(http: HttpClient, config: ConfigService): (() => Promise<boolean>)
     AppComponent,reportQues,profilePage,ShowLevel,CategoryCompleted,
     
         HeaderComponent,HomeComponent,
-    FooterComponent,LoginComponent,saveMe,success,ShowCategory,GameOver,CatchHeroComponent,CrosswordComponent,QuizComponent, ButtonClickDirectiveDirective
+    FooterComponent,LoginComponent,saveMe,howto,success,ShowCategory,GameOver,CatchHeroComponent,CrosswordComponent,QuizComponent, ButtonClickDirectiveDirective
   ],
   entryComponents:[
-    reportQues,saveMe,CategoryCompleted
+    reportQues,saveMe,CategoryCompleted,howto
     
   ],
   imports: [

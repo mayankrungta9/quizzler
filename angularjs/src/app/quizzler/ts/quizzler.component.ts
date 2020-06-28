@@ -33,6 +33,7 @@ export class QuizComponent implements OnInit,OnDestroy  {
   ) {  }
   subscriptions: Subscription[] = [];
   ifAudioAutoPlay=true;
+  emojiResult='';
   audio = new Audio();
   correctAnswerAudio=new Audio();
   @ViewChild('videoPlayer') videoplayer: ElementRef;
@@ -71,8 +72,9 @@ export class QuizComponent implements OnInit,OnDestroy  {
   emojiLengthArray=[];
 totalQuestion:number=AppSettings.totalQuestion
   correctAnswer = 0;
-  coins = 0;
+ 
   testing = false;
+  liveQuizCoins=0;
   result: String;
   levelCleared=false;
   buttonCss: Number[] = [0, 0, 0, 0];
@@ -95,7 +97,7 @@ isMovingPictureDivVisible = false;
    quizId=0;
    imageOption=false;
    remainingLives=AppSettings.remainingLives;
-   isDisabled=true; 
+   isDisabled=false; 
    description="Actor - Varun Dhawan, Actress - Anushka Sharma";
    actor="Actor - Varun Dhawan";
    actress="Actress - Anushka Sharma";
@@ -106,6 +108,11 @@ isMovingPictureDivVisible = false;
   @HostListener('window:popstate', ['$event'])
    onPopState(event) {
    this.pauseTimer();
+
+    
+       
+   this.httpClientService.updateUser(this.userData, 'updateUser').subscribe(	response=>this.userData=response);
+
    }
  
    @HostListener('window:visibilitychange', ['$event'])
@@ -149,7 +156,10 @@ isMovingPictureDivVisible = false;
 		 this.timeLeft = AppSettings.totalTimeLeftForLiveQuiz;
 		var temp = this.activatedrouter.snapshot.paramMap.get('categoryId').split(",");
 		this.quizId=+temp[0];
-		this.categoryId=+temp[1];
+    this.categoryId=+temp[1];
+    this.userData.coins-=this.httpClientService.liveQuizCoins;
+    this.httpClientService.updateUser(this.userData, 'updateUser').subscribe(	response=>this.userData=response
+      );
 	}
 	else {
   
@@ -229,7 +239,7 @@ openLeaderBoardDialog(){
 openOfflineQuizDialog(){
 	this.levelCleared=true;
     this.dialog.open(success, {
-      data: this.coins,
+      data: this.userData.coins,
 	  height: '50%',
   width: '95%',
   disableClose: true,
@@ -267,7 +277,7 @@ this.openCategoryCompleteddialog();
   openCategoryCompleteddialog() {
     this.levelCleared=true;
     this.dialog.open(CategoryCompleted, {
-      data: this.coins,
+      data: this.userData.coins,
 	  height: '50%',
   width: '95%',
   disableClose: true, 
@@ -275,9 +285,10 @@ this.openCategoryCompleteddialog();
   }
   openGameOverDialog() {
     this.dialog.open(GameOver, {
-      data: this.coins,
+      data: this.userData.coins,
 	  height: '50%',
   width: '95%',
+  disableClose: true,
     }).afterClosed().subscribe(response => {
 		//this.saveUserProgress();
       if (response === 're-play') {
@@ -293,14 +304,15 @@ this.openCategoryCompleteddialog();
   openSaveMeDialog() {
    this.pauseTimer();
     this.dialog.open(saveMe,{ height: '50%',
+    disableClose: true,
     width: '95%',}).afterClosed().subscribe(response => {
       if (response == 'yes') {
-        this.coins -= 20;
+        this.userData.coins -= 20;
         setTimeout(() => {
           this.next();
         }, 1000);
       } else {
-        this.userData.coins=this.coins;
+        
         this.httpClientService.updateUser(this.userData, 'updateUser').subscribe();
         this.openGameOverDialog();
       }
@@ -351,6 +363,7 @@ this.openCategoryCompleteddialog();
   
   
   handleSuccessfulResponse(response) {
+    this.isDisabled=false;
     this.quizes = response;
 	console.log(this.quizes[this.index].type);
     if (this.quizes[this.index].categoryId === AppSettings.catchHeroCategoryId) {  }
@@ -399,7 +412,7 @@ this.openCategoryCompleteddialog();
       
     }
 	console.log("end handleSuccessfulResponse");
-  this.isDisabled=false;
+  
   }
   checkIfMediaPlay(promise){
 	   setTimeout(()=>{
@@ -430,7 +443,8 @@ this.openCategoryCompleteddialog();
 	 
   
   private setEmojiButtonOption() {
-	  	  
+    this.isHintVisible=false;
+    this.emojiResult='';
 	var form =document.getElementById("reset");
 	this.emojiLengthArray = Array(this.quizes[this.index].answer.split("").length).fill('0%');
 	if(null!=form){
@@ -517,7 +531,11 @@ this.openCategoryCompleteddialog();
 this.correctAnswerAudio.play();
   
     this.buttonCss[selectedAnswer - 1] = 1;
-    this.coins += 10;
+if(!this.isLiveQuiz)
+    this.userData.coins += 10;
+else
+this.liveQuizCoins+=10;
+
     setTimeout(() => {
       this.next();
         
@@ -528,7 +546,10 @@ wrongAnswer(selectedAnswer) {
     
     this.liveClassesArray[this.remainingLives] = 'heart-img-blank';
     this.audio.play();
-    this.coins -= 5;
+    if(!this.isLiveQuiz)
+    this.userData.coins -= 5;
+    else
+    this.liveQuizCoins-=5;
     if (this.remainingLives < 0) {
       this.openSaveMeDialog();
     } else {
@@ -588,11 +609,13 @@ wrongAnswer(selectedAnswer) {
         if (userAnswer === correctAnswer) {
           this.pauseTimer();
           this.emojiIndex = 0;
+          this.emojiResult='pass';
           this.whenAnswerIsCorrect(null);
         } else {
           this.applyAnimationOnWrongEmojiAnswer();
           this.pauseTimer();
           this.emojiIndex = 0;
+          this.emojiResult='fail';
           this.wrongAnswer(null);
 
         }
@@ -603,8 +626,7 @@ wrongAnswer(selectedAnswer) {
     console.log(this.userName);
     this.httpClientService.level += 1;
     this.userCategoryData.level = this.httpClientService.level;
-this.userData.coins+=this.coins;
-this.coins=0;
+
     this.httpClientService.saveUserCategoryLevel(this.userCategoryData).subscribe();
     
        
@@ -614,12 +636,12 @@ this.coins=0;
   
   saveLiveUserProgress() {
     console.log(this.userName);
-   var liveQuizPoints=new LiveQuizPoints (this.userData.userId,this.quizId,this.coins);
+   var liveQuizPoints=new LiveQuizPoints (this.userData.userId,this.quizId,this.liveQuizCoins);
 
 
    
     this.httpClientService.saveLiveQuizPoints(liveQuizPoints).subscribe(	response=>{
-      this.router.navigate(['showLiveQuizes/showRanking',this.quizId,this.categoryId ]);
+      this.router.navigate(['showLiveQuizes/showRanking',this.quizId,this.categoryId,this.liveQuizCoins ]);
     }
 	);
   }
@@ -627,7 +649,7 @@ this.coins=0;
 	   this.index++;
 	   this.isDisabled=false;
 	   this.isAudio = false;
-	  if (this.index>= this.totalQuestion || (this.isLiveQuiz && this.timeLeft<=0)) {
+	  if ((!this.isLiveQuiz && this.index>= this.totalQuestion) || (this.isLiveQuiz && this.timeLeft<=0)) {
 		  var type = this.quizes[this.index-1].type;
       
         if(type=='video'){
@@ -690,7 +712,7 @@ if(   !this.isemojiBoxVisible)
       this.option3Temp.src = this.quizes[this.index + 1].option3;
       this.option4Temp.src = this.quizes[this.index + 1].option4;
     }
-	  if (this.index+1< this.totalQuestion){
+	  if (this.index+1< this.totalQuestion || this.isLiveQuiz){
     const type = this.quizes[this.index + 1].type; 
     if (type === 'audio') {
       this.tempAudio = new Audio();
@@ -775,7 +797,14 @@ if(   !this.isemojiBoxVisible)
       this.isDisabled=true;
        this.pauseTimeAndAudio();
        if(this.isLiveQuiz){
-this.openSuccessDialog();
+        if(this.userData.userId==null || this.userData.userId==''){
+          this.openLoginDialog();
+        }
+        else {
+          this.openSuccessDialog();
+          
+        } 
+
        }
        else {this.wrongAnswer(0);}
         

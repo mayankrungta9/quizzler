@@ -14,9 +14,6 @@
 	
 
 			<div class='profileWrapper'>
-				
-				<div class="back" (click)="login()" *ngIf="!isloggedIn">Login</div>
-				<div class="back" (click)="logout()" *ngIf="isloggedIn">Logout</div>
 				<div class="profile-top">
 					<div class="profile-initial-circle"> 
 					M
@@ -27,23 +24,25 @@
 					<div class="field_label">UserId:</div> <input type = 'text' disabled class="inputClass input-text"  [(ngModel)]='user.userId'>
 		</div>
 		<div class='fieldDiv'>
-			<div class="field_label">	Password:</div> <input type = 'text' class="inputClass input-text"   [(ngModel)]='user.password'>
+			<div class="field_label">	Password:</div> <input [disabled]="!isLoggedIn" type = 'text' class="inputClass input-text"   [(ngModel)]='user.password'>
 		</div>
 		<div class='fieldDiv'>
-			<div  class="field_label">	Name:</div> <input type = 'text' class="inputClass input-text"  [(ngModel)]='user.first_name' >
+			<div  class="field_label">	Name:</div> <input [disabled]="!isLoggedIn" type = 'text' class="inputClass input-text"  [(ngModel)]='user.first_name' >
 		</div>
 		<div class='fieldDiv'>
-			<div class="field_label">	Email: </div><input type = 'text' class="inputClass input-text"  [(ngModel)]='user.email'>
+			<div class="field_label">	Email: </div><input [disabled]="!isLoggedIn" type = 'text' class="inputClass input-text"  [(ngModel)]='user.email'>
 		</div>
 		<div class='fieldDiv'>
-			<div class="field_label">	Phone Number:</div> <input type = 'text' class="inputClass input-text"  [(ngModel)]='user.phone'>
+			<div class="field_label">	Mobile No:</div> <input [disabled]="!isLoggedIn" type = 'text' class="inputClass input-text"  [(ngModel)]='user.phone'>
 		</div>
 		
-			
-<button  class="profile-button" style="float:left;background:RED ;" (click)="cancelUpdate()"> Cancel</button>
-			
-			
-			<button  class="profile-button" (click) ="updateUser()"style="background: green;">Update</button>
+<button  class="profile-button" (click) ="openLoginDialog()"style="background: #09670D;">
+	
+	<span *ngIf="!isLoggedIn">Login</span>
+	<span *ngIf="isLoggedIn">Logout</span>
+</button>		
+<button  class="profile-button "  style="background:#da2525 ;" (click)="cancelUpdate()"> Cancel</button>
+<button  class="profile-button" [disabled]="!isLoggedIn" (click) ="updateUser()"style="background:#3c3c75;">Update</button>
 						
 			</div>
 		

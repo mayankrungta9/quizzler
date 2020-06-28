@@ -4,8 +4,8 @@ import { HttpClientService, Category,UserData} from '../../service/httpclient.se
 import { Router, ActivatedRoute } from '@angular/router';
 
 import {Location} from '@angular/common';
-import { LoginComponent } from './login.component';
 import { MatDialog } from '@angular/material/dialog';
+import { LoginComponent } from './login.component';
 
 @Component({
   selector: 'profilePage',
@@ -16,7 +16,6 @@ import { MatDialog } from '@angular/material/dialog';
 export class profilePage implements OnInit, AfterViewInit{
 
   user=new UserData();
-  isloggedIn=false;
   constructor(
     public  router: Router ,
     public  activatedrouter: ActivatedRoute ,
@@ -26,22 +25,20 @@ export class profilePage implements OnInit, AfterViewInit{
 	private userData:UserData,
 
   ) { }
-
+isLoggedIn:boolean=true;
   ngOnInit() {
-    
+    console.log(this.userData)
+    if(this.userData.userId==null || this.userData.userId==''){
+      this.isLoggedIn=false;
+    }
 
   }
 ngAfterViewInit() {
 	setTimeout(()=>{
     
     this.user.cloneUserData(this.userData) 
-    if(null != this.user.userId && "" != this.user.userId)
-    {
-      this.isloggedIn=true;
-    }
-    else {
-      this.isloggedIn=false;
-    }
+    
+    
   },2000);
   }
   cancelUpdate(){
@@ -61,34 +58,36 @@ else{
   }
  back(){
   this._location.back();
-} logout(){
-  
-  this.isloggedIn=false;
-  this.userData.createUserData( '','','','','','',0);
-     localStorage.removeItem("userId");
-   
-   this.userData.coins=0;
-     this.router.navigate(['']);
-   }
-   login(){
-     this.openLoginDialog();
-    
-   }
-   openLoginDialog() {
+}
+openLoginDialog() {
+  if(!this.isLoggedIn){
+  this.dialog.open(LoginComponent,{
+  height: '75%',
+  width: '95%',
+  disableClose: true,
+	  }).afterClosed().subscribe(response => {
+    if (response != null) {
+      this.userData.cloneUserData(response);
+      this.user.cloneUserData(this.userData);
+   this.isLoggedIn=true;
+   this.back();
+    } else {
+      console.log("sorry wrong credential");
+    }
+  });
 
-    this.dialog.open(LoginComponent,{
-    height: '75%',
-    width: '95%',
-      }).afterClosed().subscribe(response => {
-      if (response != null) {
-      console.log(response);
-         this.userData.cloneUserData(response);
-  this.isloggedIn=true; 
-      } else {
-        console.log("sorry wrong credential");
-      }
-    });
-  }
+}
+else{
+  localStorage.removeItem("userId");
+  this.userData.userId=null;
+  this.isLoggedIn=false;
+  this.user=new UserData();
+  this.userData.cloneUserData(this.user);
+  this.back();
+  console.log(this.userData+"after logout")
+
+}
+}
   }
 
 

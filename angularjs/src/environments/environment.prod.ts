@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  baseUrl:'https://www.bollywoodkings.in:8443/quiz/'
+  baseUrl:'https://192.168.0.103:8443/quiz/'
 };
