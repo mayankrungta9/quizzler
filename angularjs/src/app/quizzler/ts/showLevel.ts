@@ -63,10 +63,10 @@ if(this.userData.userId==null || this.userData.userId===''){
   console.log(this.userCurrentLevel);
    //this.router.navigate(['quiz', this.userName, this.categoryId, level]);
   // this.router.navigate(['games', this.userName, this.categoryId, level, this.userCurrentLevel, this.totalLevel]);
-   if(level <= this.userCurrentLevel || true){
+   if(level <= this.userCurrentLevel ){
       console.log(this.type);
        if(this.type=='quiz'){ 
-        console.log('quiz');
+        console.log('quiz'); 
         this.router.navigate(['quiz', this.userName, this.categoryId, level, this.userCurrentLevel, this.totalLevel]);}
     
        else if(this.type=='games'){
@@ -75,7 +75,7 @@ if(this.userData.userId==null || this.userData.userId===''){
        }
       }
     else {
-    alert('level is locked ');
+    alert('level is locked '); 
     }
       }
      

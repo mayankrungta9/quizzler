@@ -1,5 +1,6 @@
 package com.synechron;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
@@ -13,7 +14,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.EnableCaching;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -51,12 +52,10 @@ import com.synechron.entity.livequizdetail;
 import com.synechron.exception.QuestionAlreadyReported;
 import com.synechron.service.Service;
 
-import sun.net.www.content.audio.x_aiff;
-
 @CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/quiz")
-@EnableCaching
+
 public class QuizController {
 
 	@Autowired
@@ -99,7 +98,7 @@ public class QuizController {
 		int level = categoryLevel.getLevel();
 		int categoryId = categoryLevel.getCategoryId();
 		// List<Quiz> quizList = quizDao.findAll();
-
+		File source= new File("343381 Non Labeled.pdf");
 		List<Quiz> quizList = quizDao.findAllByCategoryIdAndLevel(categoryId, level);
 		Collections.shuffle(quizList);
 		return quizList;
@@ -291,9 +290,12 @@ public class QuizController {
 	@GetMapping(path = "/getLiveQuizLeaderBoard/{quizId}", produces = "application/json")
 
 	public List<LiveQuizPoints> getLiveQuizLeaderBoard(@PathVariable int quizId) {
-
-		List<LiveQuizPoints> top10Records = liveQuizPointsDao.findFirst10ByQuizIdOrderByPointsAsc(quizId);
-		Collections.reverse(top10Records);
+System.out.println(quizId);
+		List<LiveQuizPoints> top10Records = liveQuizPointsDao.getLiveQuizLeaderBoard(quizId);
+		top10Records.stream().forEach(obj->{
+			System.out.println(obj);
+		});
+		//Collections.reverse(top10Records);
 
 		return top10Records;
 	}

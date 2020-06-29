@@ -11,7 +11,13 @@ import com.synechron.entity.LiveQuizPoints;
 
 public interface LiveQuizPointsDao extends JpaRepository<LiveQuizPoints, Integer>{
 
-	List<LiveQuizPoints> findFirst10ByQuizIdOrderByPointsAsc(int quizId);   
+	@Query(value ="select RAND()*100000 as id,points, username as user_id ,current_rank as quiz_id from (\r\n" + 
+			"select rank() over (order by points desc) current_rank ,a.user_id,points, IF(first_name = '',b.user_id,first_name) username from live_quiz_points a, user b\r\n" + 
+			"where a.user_id = b.user_id\r\n" + 
+			"and quiz_id = :quizId)main \r\n" + 
+			"order by points desc "
+			,nativeQuery= true)
+	List<LiveQuizPoints> getLiveQuizLeaderBoard(int quizId);   
 	
 
 	int countByQuizId(int quizId);

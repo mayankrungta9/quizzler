@@ -61,5 +61,11 @@ public void setPoints(int points) {
 }
 
 
+@Override
+public String toString() {
+	return "LiveQuizPoints [id=" + id + ", userId=" + userId + ", quizId=" + quizId + ", points=" + points + "]";
+}
+
+
 
 }

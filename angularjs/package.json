@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve --port 443 --prod --host bollywoodkings.in --disableHostCheck --ssl --ssl-key ssl/private.key --ssl-cert ssl/certificate.crt ",
+    "start": "ng serve --port 443 --source-map=false --aot --prod --live-reload=false  --watch=false --host bollywoodkings.in  --disableHostCheck --ssl --ssl-key ssl/private.key --ssl-cert ssl/certificate.crt ",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
