@@ -40,6 +40,7 @@ import {  DIALOG_DATA } from './quizzler/ts/success-component';
 import { SocialLoginModule, AuthServiceConfig } from "angularx-social-login";
 import { GoogleLoginProvider, FacebookLoginProvider } from "angularx-social-login";
 import { CategoryCompleted } from './quizzler/ts/categoryCompleted';
+import { privacy } from './quizzler/ts/privacy';
  
 let config = new AuthServiceConfig([
  
@@ -83,7 +84,7 @@ function load(http: HttpClient, config: ConfigService): (() => Promise<boolean>)
 }
 @NgModule({
   declarations: [ 
-    AppComponent,reportQues,profilePage,ShowLevel,CategoryCompleted,
+    AppComponent,reportQues,profilePage,ShowLevel,CategoryCompleted,privacy,
     
         HeaderComponent,HomeComponent,
     FooterComponent,LoginComponent,saveMe,howto,success,ShowCategory,GameOver,CatchHeroComponent,CrosswordComponent,QuizComponent, ButtonClickDirectiveDirective

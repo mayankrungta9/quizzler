@@ -16,6 +16,7 @@ import { QuizComponent } from './quizzler/ts/quizzler.component';
 import { profilePage } from './quizzler/ts/profilePage';
 import { ShowLevel } from './quizzler/ts/showLevel';
 import { howto } from './quizzler/ts/howto.component';
+import { privacy } from './quizzler/ts/privacy';
 
 const routes: Routes = [
 
@@ -32,7 +33,8 @@ const routes: Routes = [
   { path:'catchHero', component: CatchHeroComponent},
   { path:'profile', component: profilePage},
   { path:'howto/:categoryId', component: howto},
-  {path:'showLevel/:categoryId/:totalLevel/:type/:categoryName',component:ShowLevel}
+  {path:'showLevel/:categoryId/:totalLevel/:type/:categoryName',component:ShowLevel},
+  {path:'privacy',component:privacy}
  // { path:'games/:userName/:categoryId/:level', loadChildren: () => import('./Game/Game.module').then(m => m.GameModule) },
   //{ path:'games/:userName/:categoryId/:level', loadChildren:  './Game/Game.module#GameModule' },
 ];
