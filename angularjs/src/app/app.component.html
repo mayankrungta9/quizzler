@@ -1,5 +1,5 @@
 <body style={overflow:hidden;height:100%}>
-<app-header class="header"  ></app-header>
+<app-header class="header" *ngIf="!router.url.includes('privacy')" ></app-header>
 
 
     <router-outlet class="router-outlet" ></router-outlet>
