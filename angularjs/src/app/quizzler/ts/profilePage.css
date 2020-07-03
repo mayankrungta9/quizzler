@@ -55,10 +55,12 @@
 }
 
 .profile-top{
-  height: 10%;
+  height: 100px;
   padding-left: 37%;
   margin-bottom: 4%;
   padding-top: 5%;
+  width: 100px;
+
 }
 .profile-initial-circle{
   background: linear-gradient(90deg, rgb(192, 66, 214), rgb(103, 58, 183));
