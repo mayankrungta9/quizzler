@@ -39,7 +39,7 @@ ngOnInit() {
 	}
 	
   ngAfterViewInit(){
-	  
+	this.httpClientService.loadAds("loadAd1").subscribe();
   }
   loadLiveQuiz(){
 	  if(this.userData.userId==null || this.userData.userId===''){

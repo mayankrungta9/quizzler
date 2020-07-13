@@ -102,6 +102,7 @@ isMovingPictureDivVisible = false;
    actor="Actor - Varun Dhawan";
    actress="Actress - Anushka Sharma";
     pausetoggle=true;
+    currentUnlockedLevel:number;
    @ViewChild("myInput0") private _inputElement: ElementRef;
   totalLevel=0;
    
@@ -149,6 +150,7 @@ isMovingPictureDivVisible = false;
     this.userName = this.userData.userId;
 	
     this.httpClientService.level = +this.activatedrouter.snapshot.paramMap.get('level');
+    this.currentUnlockedLevel=+this.activatedrouter.snapshot.paramMap.get('currentUnlockedLevel');
     this.httpClientService.onHomePage=false;
    
 	if(this.httpClientService.level == -1){
@@ -211,19 +213,22 @@ setUserData(){
   }
 
 openLoginDialog() {
-
+var self=this;
+var coins=self.userData.coins;
   this.dialog.open(LoginComponent,{
   height: '75%',
   width: '95%',
   disableClose: true,
 	  }).afterClosed().subscribe(response => {
     if (response != null) {
-      this.userData.cloneUserData(response);
-	 
+     
+      console.log(coins+"coins before login");
+      self.userData.cloneUserData(response);
+      self.userData.coins=coins;
 	  
-    this.userCategoryData.userId=response.userId;
+      self.userCategoryData.userId=response.userId;
 	
-	this.openSuccessDialog();
+      self.openSuccessDialog();
 	
     } else {
       console.log("sorry wrong credential");
@@ -258,6 +263,7 @@ openOfflineQuizDialog(){
     });
 }
   openSuccessDialog() {
+    this.httpClientService.loadAds("loadAd2").subscribe();
    if(!this.isLiveQuiz)
    {
     if(this.totalLevel<=this.httpClientService.level){
@@ -284,6 +290,7 @@ this.openCategoryCompleteddialog();
     });
   }
   openGameOverDialog() {
+    this.httpClientService.loadAds("loadAd2").subscribe();
     this.dialog.open(GameOver, {
       data: this.userData.coins,
 	  height: '50%',
@@ -320,6 +327,7 @@ this.openCategoryCompleteddialog();
     
   }
   private loadQuiz() {
+    console.log(this.userData);
     this.liveClassesArray=['heart-img-filled', 'heart-img-filled', 'heart-img-filled'];
     this.index=0;
     this.remainingLives=AppSettings.remainingLives;
@@ -532,7 +540,10 @@ this.correctAnswerAudio.play();
   
     this.buttonCss[selectedAnswer - 1] = 1;
 if(!this.isLiveQuiz)
-    this.userData.coins += 10;
+    {
+      this.userData.coins += 10;
+     
+    }
 else
 this.liveQuizCoins+=10;
 
@@ -625,12 +636,17 @@ wrongAnswer(selectedAnswer) {
    saveUserProgress() {
     console.log(this.userName);
     this.httpClientService.level += 1;
+    console.log("current user level"+this.userCategoryData.level)
     this.userCategoryData.level = this.httpClientService.level;
 
+    if(this.currentUnlockedLevel<this.userCategoryData.level){
     this.httpClientService.saveUserCategoryLevel(this.userCategoryData).subscribe();
-    
+    }   
        
-       this.httpClientService.updateUser(this.userData, 'updateUser').subscribe(	response=>this.userData=response
+       this.httpClientService.updateUser(this.userData, 'updateUser').subscribe(	response=>{
+         this.userData.cloneUserData(response);
+         
+        }
 	);
   }
   

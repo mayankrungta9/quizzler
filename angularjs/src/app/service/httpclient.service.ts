@@ -198,13 +198,24 @@ export class HttpClientService {
     );
   }
   loadCategoryLevel(userName: string, categoryId: number) {
-
+this.loadAds("loadAd1").subscribe();
     return this.httpClient.post<UserCategoryData>(this.baseServicePath + 'getCategoryLevel/' + userName + '/' + categoryId, null, this.httpOptions).pipe(
 
       catchError(this.handleError)
     );
 
   }
+
+  loadAds(url:string) {
+
+    return this.httpClient.get<PathFinderDto[]>(this.baseServicePath +url).pipe(
+
+      catchError(this.handleError)
+    );
+
+  }
+
+
   private handleError(error: Response) {
 
     if (error.status == 400) {
