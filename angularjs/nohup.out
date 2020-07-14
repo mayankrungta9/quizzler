@@ -1,0 +1,327 @@
+
+> employee-management@0.0.0 start /root/quizzler/angularjs
+> ng serve --port 443 --source-map=false --aot --prod --live-reload=false  --watch=false --host 172.31.44.158  --disableHostCheck --ssl --ssl-key ssl/private.key --ssl-cert ssl/certificate.crt 
+
+WARNING: This is a simple server for use in testing or debugging Angular applications
+locally. It hasn't been reviewed for security issues.
+
+Binding this server to an open connection can result in compromising your application or
+computer. Using a different host than the one passed to the "--host" flag might result in
+websocket connection issues. You might need to use "--disableHostCheck" if that's the
+case.
+WARNING: Running a server with --disable-host-check is a security risk. See https://medium.com/webpack/webpack-dev-server-middleware-security-issues-1489d950874a for more information.
+****************************************************************************************
+This is a simple server for use in testing or debugging Angular applications locally.
+It hasn't been reviewed for security issues.
+
+DON'T USE IT FOR PRODUCTION!
+****************************************************************************************
+** Angular Live Development Server is listening on 172.31.44.158:443, open your browser on https://172.31.44.158:443/ **
+[34mℹ[39m [90m｢wdm｣[39m: wait until bundle finished: /
+
+Date: 2020-06-29T06:43:35.892Z
+Hash: 3900c325474cf23ab4d5
+Time: 45717ms
+chunk {0} runtime.5959ec9531e22bc6ae82.js (runtime) 1.41 kB [entry] [rendered]
+chunk {1} es2015-polyfills.48ede67a8bf29f686422.js (es2015-polyfills) 56.7 kB [initial] [rendered]
+chunk {2} main.2f91d8dbd291f8153860.js (main) 672 kB [initial] [rendered]
+chunk {3} polyfills.36c7b29a73f876cc8337.js (polyfills) 40.9 kB [initial] [rendered]
+chunk {4} styles.7117525d353e7002402e.css (styles) 60.5 kB [initial] [rendered]
+[34mℹ[39m [90m｢wdm｣[39m: Compiled successfully.
+
+> employee-management@0.0.0 start /root/quizzler/angularjs
+> ng serve --port 443 --source-map=false --aot --prod --live-reload=false  --watch=false --host 172.31.44.158  --disableHostCheck --ssl --ssl-key ssl/private.key --ssl-cert ssl/certificate.crt 
+
+WARNING: This is a simple server for use in testing or debugging Angular applications
+locally. It hasn't been reviewed for security issues.
+
+Binding this server to an open connection can result in compromising your application or
+computer. Using a different host than the one passed to the "--host" flag might result in
+websocket connection issues. You might need to use "--disableHostCheck" if that's the
+case.
+WARNING: Running a server with --disable-host-check is a security risk. See https://medium.com/webpack/webpack-dev-server-middleware-security-issues-1489d950874a for more information.
+****************************************************************************************
+This is a simple server for use in testing or debugging Angular applications locally.
+It hasn't been reviewed for security issues.
+
+DON'T USE IT FOR PRODUCTION!
+****************************************************************************************
+** Angular Live Development Server is listening on 172.31.44.158:443, open your browser on https://172.31.44.158:443/ **
+
+Date: 2020-06-30T09:57:34.716Z
+Hash: c28d7c0b0c4c7d96b6a6
+Time: 47651ms
+chunk {0} runtime.5959ec9531e22bc6ae82.js (runtime) 1.41 kB [entry] [rendered]
+chunk {1} es2015-polyfills.48ede67a8bf29f686422.js (es2015-polyfills) 56.7 kB [initial] [rendered]
+chunk {2} main.690ecd6653ebb6e6fda0.js (main) 682 kB [initial] [rendered]
+chunk {3} polyfills.36c7b29a73f876cc8337.js (polyfills) 40.9 kB [initial] [rendered]
+chunk {4} styles.7117525d353e7002402e.css (styles) 60.5 kB [initial] [rendered]
+[34mℹ[39m [90m｢wdm｣[39m: Compiled successfully.
+
+> employee-management@0.0.0 start /root/quizzler/angularjs
+> ng serve --port 443 --source-map=false --aot --prod --live-reload=false  --watch=false --host bollywoodkings.in  --disableHostCheck --ssl --ssl-key ssl/private.key --ssl-cert ssl/certificate.crt 
+
+listen EADDRNOTAVAIL: address not available 54.221.139.8:443
+Error: listen EADDRNOTAVAIL: address not available 54.221.139.8:443
+    at Server.setupListenHandle [as _listen2] (net.js:1263:19)
+    at listenInCluster (net.js:1328:12)
+    at GetAddrInfoReqWrap.doListen [as callback] (net.js:1461:7)
+    at GetAddrInfoReqWrap.onlookup [as oncomplete] (dns.js:61:10)
+npm ERR! code ELIFECYCLE
+npm ERR! errno 1
+npm ERR! employee-management@0.0.0 start: `ng serve --port 443 --source-map=false --aot --prod --live-reload=false  --watch=false --host bollywoodkings.in  --disableHostCheck --ssl --ssl-key ssl/private.key --ssl-cert ssl/certificate.crt `
+npm ERR! Exit status 1
+npm ERR! 
+npm ERR! Failed at the employee-management@0.0.0 start script.
+npm ERR! This is probably not a problem with npm. There is likely additional logging output above.
+
+npm ERR! A complete log of this run can be found in:
+npm ERR!     /root/.npm/_logs/2020-07-01T09_16_47_020Z-debug.log
+
+> employee-management@0.0.0 start /root/quizzler/angularjs
+> ng serve --port 443 --source-map=false --aot --prod --live-reload=false  --watch=false --host 172.31.44.158  --disableHostCheck --ssl --ssl-key ssl/private.key --ssl-cert ssl/certificate.crt 
+
+WARNING: This is a simple server for use in testing or debugging Angular applications
+locally. It hasn't been reviewed for security issues.
+
+Binding this server to an open connection can result in compromising your application or
+computer. Using a different host than the one passed to the "--host" flag might result in
+websocket connection issues. You might need to use "--disableHostCheck" if that's the
+case.
+WARNING: Running a server with --disable-host-check is a security risk. See https://medium.com/webpack/webpack-dev-server-middleware-security-issues-1489d950874a for more information.
+****************************************************************************************
+This is a simple server for use in testing or debugging Angular applications locally.
+It hasn't been reviewed for security issues.
+
+DON'T USE IT FOR PRODUCTION!
+****************************************************************************************
+** Angular Live Development Server is listening on 172.31.44.158:443, open your browser on https://172.31.44.158:443/ **
+[34mℹ[39m [90m｢wdm｣[39m: wait until bundle finished: /privacy
+
+Date: 2020-07-01T09:32:24.784Z
+Hash: 550ebb17b920fe6b5695
+Time: 47101ms
+chunk {0} runtime.5959ec9531e22bc6ae82.js (runtime) 1.41 kB [entry] [rendered]
+chunk {1} es2015-polyfills.48ede67a8bf29f686422.js (es2015-polyfills) 56.7 kB [initial] [rendered]
+chunk {2} main.787e00e97ccf4cca3e38.js (main) 682 kB [initial] [rendered]
+chunk {3} polyfills.36c7b29a73f876cc8337.js (polyfills) 40.9 kB [initial] [rendered]
+chunk {4} styles.7117525d353e7002402e.css (styles) 60.5 kB [initial] [rendered]
+[34mℹ[39m [90m｢wdm｣[39m: Compiled successfully.
+
+> employee-management@0.0.0 start /root/quizzler/angularjs
+> ng serve --port 443 --source-map=false --aot --prod --live-reload=false  --watch=false --host 172.31.44.158  --disableHostCheck --ssl --ssl-key ssl/private.key --ssl-cert ssl/certificate.crt 
+
+WARNING: This is a simple server for use in testing or debugging Angular applications
+locally. It hasn't been reviewed for security issues.
+
+Binding this server to an open connection can result in compromising your application or
+computer. Using a different host than the one passed to the "--host" flag might result in
+websocket connection issues. You might need to use "--disableHostCheck" if that's the
+case.
+WARNING: Running a server with --disable-host-check is a security risk. See https://medium.com/webpack/webpack-dev-server-middleware-security-issues-1489d950874a for more information.
+****************************************************************************************
+This is a simple server for use in testing or debugging Angular applications locally.
+It hasn't been reviewed for security issues.
+
+DON'T USE IT FOR PRODUCTION!
+****************************************************************************************
+** Angular Live Development Server is listening on 172.31.44.158:443, open your browser on https://172.31.44.158:443/ **
+
+Date: 2020-07-01T10:53:23.075Z
+Hash: 3226ce6d905af75e2e19
+Time: 46659ms
+chunk {0} runtime.5959ec9531e22bc6ae82.js (runtime) 1.41 kB [entry] [rendered]
+chunk {1} es2015-polyfills.48ede67a8bf29f686422.js (es2015-polyfills) 56.7 kB [initial] [rendered]
+chunk {2} main.1881cf83ce63e9401149.js (main) 682 kB [initial] [rendered]
+chunk {3} polyfills.36c7b29a73f876cc8337.js (polyfills) 40.9 kB [initial] [rendered]
+chunk {4} styles.7117525d353e7002402e.css (styles) 60.5 kB [initial] [rendered]
+[34mℹ[39m [90m｢wdm｣[39m: Compiled successfully.
+
+> employee-management@0.0.0 start /root/quizzler/angularjs
+> ng serve --port 443  --host 172.31.44.158 --disableHostCheck --ssl --ssl-key ssl/private.key --ssl-cert ssl/certificate.crt 
+
+WARNING: This is a simple server for use in testing or debugging Angular applications
+locally. It hasn't been reviewed for security issues.
+
+Binding this server to an open connection can result in compromising your application or
+computer. Using a different host than the one passed to the "--host" flag might result in
+websocket connection issues. You might need to use "--disableHostCheck" if that's the
+case.
+WARNING: Running a server with --disable-host-check is a security risk. See https://medium.com/webpack/webpack-dev-server-middleware-security-issues-1489d950874a for more information.
+** Angular Live Development Server is listening on 172.31.44.158:443, open your browser on https://172.31.44.158:443/ **
+
+Date: 2020-07-06T09:51:20.614Z
+Hash: 611eb530a1a2bc460f74
+Time: 20395ms
+chunk {es2015-polyfills} es2015-polyfills.js, es2015-polyfills.js.map (es2015-polyfills) 285 kB [initial] [rendered]
+chunk {main} main.js, main.js.map (main) 312 kB [initial] [rendered]
+chunk {polyfills} polyfills.js, polyfills.js.map (polyfills) 236 kB [initial] [rendered]
+chunk {runtime} runtime.js, runtime.js.map (runtime) 6.08 kB [entry] [rendered]
+chunk {styles} styles.js, styles.js.map (styles) 181 kB [initial] [rendered]
+chunk {vendor} vendor.js, vendor.js.map (vendor) 5.54 MB [initial] [rendered]
+[34mℹ[39m [90m｢wdm｣[39m: Compiled successfully.
+
+> employee-management@0.0.0 start /root/quizzler/angularjs
+> ng serve --port 443  --host 172.31.44.158 --disableHostCheck --ssl --ssl-key ssl/private.key --ssl-cert ssl/certificate.crt 
+
+WARNING: This is a simple server for use in testing or debugging Angular applications
+locally. It hasn't been reviewed for security issues.
+
+Binding this server to an open connection can result in compromising your application or
+computer. Using a different host than the one passed to the "--host" flag might result in
+websocket connection issues. You might need to use "--disableHostCheck" if that's the
+case.
+WARNING: Running a server with --disable-host-check is a security risk. See https://medium.com/webpack/webpack-dev-server-middleware-security-issues-1489d950874a for more information.
+** Angular Live Development Server is listening on 172.31.44.158:443, open your browser on https://172.31.44.158:443/ **
+
+Date: 2020-07-08T05:10:12.943Z
+Hash: 611eb530a1a2bc460f74
+Time: 20321ms
+chunk {es2015-polyfills} es2015-polyfills.js, es2015-polyfills.js.map (es2015-polyfills) 285 kB [initial] [rendered]
+chunk {main} main.js, main.js.map (main) 312 kB [initial] [rendered]
+chunk {polyfills} polyfills.js, polyfills.js.map (polyfills) 236 kB [initial] [rendered]
+chunk {runtime} runtime.js, runtime.js.map (runtime) 6.08 kB [entry] [rendered]
+chunk {styles} styles.js, styles.js.map (styles) 181 kB [initial] [rendered]
+chunk {vendor} vendor.js, vendor.js.map (vendor) 5.54 MB [initial] [rendered]
+[34mℹ[39m [90m｢wdm｣[39m: Compiled successfully.
+
+> employee-management@0.0.0 start /root/quizzler/angularjs
+> ng serve --port 443  --host 172.31.44.158 --disableHostCheck --ssl true  --ssl-key /etc/ssl/private.key --ssl-cert /etc/ssl/certificatemerge.pem 
+
+WARNING: This is a simple server for use in testing or debugging Angular applications
+locally. It hasn't been reviewed for security issues.
+
+Binding this server to an open connection can result in compromising your application or
+computer. Using a different host than the one passed to the "--host" flag might result in
+websocket connection issues. You might need to use "--disableHostCheck" if that's the
+case.
+WARNING: Running a server with --disable-host-check is a security risk. See https://medium.com/webpack/webpack-dev-server-middleware-security-issues-1489d950874a for more information.
+** Angular Live Development Server is listening on 172.31.44.158:443, open your browser on https://172.31.44.158:443/ **
+
+Date: 2020-07-08T08:28:06.044Z
+Hash: 611eb530a1a2bc460f74
+Time: 20271ms
+chunk {es2015-polyfills} es2015-polyfills.js, es2015-polyfills.js.map (es2015-polyfills) 285 kB [initial] [rendered]
+chunk {main} main.js, main.js.map (main) 312 kB [initial] [rendered]
+chunk {polyfills} polyfills.js, polyfills.js.map (polyfills) 236 kB [initial] [rendered]
+chunk {runtime} runtime.js, runtime.js.map (runtime) 6.08 kB [entry] [rendered]
+chunk {styles} styles.js, styles.js.map (styles) 181 kB [initial] [rendered]
+chunk {vendor} vendor.js, vendor.js.map (vendor) 5.54 MB [initial] [rendered]
+[34mℹ[39m [90m｢wdm｣[39m: Compiled successfully.
+
+> employee-management@0.0.0 start /root/quizzler/angularjs
+> ng serve --port 443 --host 172.31.44.158 --prod --source-map=false --aot --prod --live-reload=false  --watch=false --disableHostCheck --ssl true --ssl-key /etc/ssl/private.key --ssl-cert /etc/ssl/certificatemerge.pem
+
+WARNING: This is a simple server for use in testing or debugging Angular applications
+locally. It hasn't been reviewed for security issues.
+
+Binding this server to an open connection can result in compromising your application or
+computer. Using a different host than the one passed to the "--host" flag might result in
+websocket connection issues. You might need to use "--disableHostCheck" if that's the
+case.
+WARNING: Running a server with --disable-host-check is a security risk. See https://medium.com/webpack/webpack-dev-server-middleware-security-issues-1489d950874a for more information.
+****************************************************************************************
+This is a simple server for use in testing or debugging Angular applications locally.
+It hasn't been reviewed for security issues.
+
+DON'T USE IT FOR PRODUCTION!
+****************************************************************************************
+** Angular Live Development Server is listening on 172.31.44.158:443, open your browser on https://172.31.44.158:443/ **
+[34mℹ[39m [90m｢wdm｣[39m: wait until bundle finished: /
+
+Date: 2020-07-13T08:38:53.692Z
+Hash: ae53d8630713278cd835
+Time: 47295ms
+chunk {0} runtime.5959ec9531e22bc6ae82.js (runtime) 1.41 kB [entry] [rendered]
+chunk {1} es2015-polyfills.48ede67a8bf29f686422.js (es2015-polyfills) 56.7 kB [initial] [rendered]
+chunk {2} main.939a046d39da923c0547.js (main) 682 kB [initial] [rendered]
+chunk {3} polyfills.36c7b29a73f876cc8337.js (polyfills) 40.9 kB [initial] [rendered]
+chunk {4} styles.7117525d353e7002402e.css (styles) 60.5 kB [initial] [rendered]
+[34mℹ[39m [90m｢wdm｣[39m: Compiled successfully.
+
+> employee-management@0.0.0 start /root/quizzler/angularjs
+> ng serve --port 443 --host 172.31.44.158 --prod --source-map=false --aot --prod --live-reload=false  --watch=false --disableHostCheck --ssl true --ssl-key /etc/ssl/private.key --ssl-cert /etc/ssl/certificatemerge.pem
+
+WARNING: This is a simple server for use in testing or debugging Angular applications
+locally. It hasn't been reviewed for security issues.
+
+Binding this server to an open connection can result in compromising your application or
+computer. Using a different host than the one passed to the "--host" flag might result in
+websocket connection issues. You might need to use "--disableHostCheck" if that's the
+case.
+WARNING: Running a server with --disable-host-check is a security risk. See https://medium.com/webpack/webpack-dev-server-middleware-security-issues-1489d950874a for more information.
+****************************************************************************************
+This is a simple server for use in testing or debugging Angular applications locally.
+It hasn't been reviewed for security issues.
+
+DON'T USE IT FOR PRODUCTION!
+****************************************************************************************
+** Angular Live Development Server is listening on 172.31.44.158:443, open your browser on https://172.31.44.158:443/ **
+[34mℹ[39m [90m｢wdm｣[39m: wait until bundle finished: /
+[34mℹ[39m [90m｢wdm｣[39m: wait until bundle finished: /
+
+Date: 2020-07-13T09:25:12.030Z
+Hash: 3fb7962611036df0ce66
+Time: 47130ms
+chunk {0} runtime.5959ec9531e22bc6ae82.js (runtime) 1.41 kB [entry] [rendered]
+chunk {1} es2015-polyfills.48ede67a8bf29f686422.js (es2015-polyfills) 56.7 kB [initial] [rendered]
+chunk {2} main.a7f815bce8930ef05110.js (main) 682 kB [initial] [rendered]
+chunk {3} polyfills.36c7b29a73f876cc8337.js (polyfills) 40.9 kB [initial] [rendered]
+chunk {4} styles.7117525d353e7002402e.css (styles) 60.5 kB [initial] [rendered]
+[34mℹ[39m [90m｢wdm｣[39m: Compiled successfully.
+
+> employee-management@0.0.0 start /root/quizzler/angularjs
+> ng serve --port 443 --host 172.31.44.158 --prod --source-map=false --aot --prod --live-reload=false  --watch=false --disableHostCheck --ssl true --ssl-key /etc/ssl/private.key --ssl-cert /etc/ssl/certificatemerge.pem
+
+Port 443 is already in use. Use '--port' to specify a different port.
+Error: Port 443 is already in use. Use '--port' to specify a different port.
+    at Server.server.once (/root/quizzler/angularjs/node_modules/@angular-devkit/build-angular/src/angular-cli-files/utilities/check-port.js:27:28)
+    at Object.onceWrapper (events.js:286:20)
+    at Server.emit (events.js:198:13)
+    at emitErrorNT (net.js:1307:8)
+    at process._tickCallback (internal/process/next_tick.js:63:19)
+    at Function.Module.runMain (internal/modules/cjs/loader.js:834:11)
+    at startup (internal/bootstrap/node.js:283:19)
+    at bootstrapNodeJSCore (internal/bootstrap/node.js:623:3)
+npm ERR! code ELIFECYCLE
+npm ERR! errno 1
+npm ERR! employee-management@0.0.0 start: `ng serve --port 443 --host 172.31.44.158 --prod --source-map=false --aot --prod --live-reload=false  --watch=false --disableHostCheck --ssl true --ssl-key /etc/ssl/private.key --ssl-cert /etc/ssl/certificatemerge.pem`
+npm ERR! Exit status 1
+npm ERR! 
+npm ERR! Failed at the employee-management@0.0.0 start script.
+npm ERR! This is probably not a problem with npm. There is likely additional logging output above.
+
+npm ERR! A complete log of this run can be found in:
+npm ERR!     /root/.npm/_logs/2020-07-13T09_45_32_173Z-debug.log
+
+> employee-management@0.0.0 start /root/quizzler/angularjs
+> ng serve --port 443 --host 172.31.44.158 --prod --source-map=false --aot --prod --live-reload=false  --watch=false --disableHostCheck --ssl true --ssl-key /etc/ssl/private.key --ssl-cert /etc/ssl/certificatemerge.pem
+
+WARNING: This is a simple server for use in testing or debugging Angular applications
+locally. It hasn't been reviewed for security issues.
+
+Binding this server to an open connection can result in compromising your application or
+computer. Using a different host than the one passed to the "--host" flag might result in
+websocket connection issues. You might need to use "--disableHostCheck" if that's the
+case.
+WARNING: Running a server with --disable-host-check is a security risk. See https://medium.com/webpack/webpack-dev-server-middleware-security-issues-1489d950874a for more information.
+****************************************************************************************
+This is a simple server for use in testing or debugging Angular applications locally.
+It hasn't been reviewed for security issues.
+
+DON'T USE IT FOR PRODUCTION!
+****************************************************************************************
+** Angular Live Development Server is listening on 172.31.44.158:443, open your browser on https://172.31.44.158:443/ **
+[34mℹ[39m [90m｢wdm｣[39m: wait until bundle finished: /quiz/Guest/1/1/1/10
+[34mℹ[39m [90m｢wdm｣[39m: wait until bundle finished: /quiz/Guest/1/1/1/10
+[34mℹ[39m [90m｢wdm｣[39m: wait until bundle finished: /quiz/Guest/1/1/1/10
+
+Date: 2020-07-13T09:59:01.456Z
+Hash: 41b5a6f99c34243564ef
+Time: 66583ms
+chunk {0} runtime.5959ec9531e22bc6ae82.js (runtime) 1.41 kB [entry] [rendered]
+chunk {1} es2015-polyfills.48ede67a8bf29f686422.js (es2015-polyfills) 56.7 kB [initial] [rendered]
+chunk {2} main.5a619c130c518aa50b3f.js (main) 682 kB [initial] [rendered]
+chunk {3} polyfills.36c7b29a73f876cc8337.js (polyfills) 40.9 kB [initial] [rendered]
+chunk {4} styles.7117525d353e7002402e.css (styles) 60.5 kB [initial] [rendered]
+[34mℹ[39m [90m｢wdm｣[39m: Compiled successfully.

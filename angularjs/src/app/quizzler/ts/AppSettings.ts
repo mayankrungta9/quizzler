@@ -1,7 +1,7 @@
 
 
 export class AppSettings {
-  public static totalQuestion = 5;
+  public static totalQuestion = 10;
 
   public static totalTimeLeft = 20;
    public static totalTimeLeftForLiveQuiz = 60;
