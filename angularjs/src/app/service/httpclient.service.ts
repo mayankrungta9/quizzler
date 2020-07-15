@@ -198,7 +198,7 @@ export class HttpClientService {
     );
   }
   loadCategoryLevel(userName: string, categoryId: number) {
-this.loadAds("loadAd1").subscribe();
+//this.loadAds("loadAd1").subscribe();
     return this.httpClient.post<UserCategoryData>(this.baseServicePath + 'getCategoryLevel/' + userName + '/' + categoryId, null, this.httpOptions).pipe(
 
       catchError(this.handleError)
