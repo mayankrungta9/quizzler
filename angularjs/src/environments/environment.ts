@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
 
-baseUrl:'https://192.168.0.103:8443/quiz/'
+baseUrl:'http://192.168.0.103:8080/quiz/'
 
 };
 

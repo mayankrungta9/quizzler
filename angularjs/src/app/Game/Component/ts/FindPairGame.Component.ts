@@ -117,7 +117,11 @@ ngOnInit() {
 		this.httpClientService.saveUserCategoryLevel(this.userCategoryData).subscribe();
 	}
 		
-		this.httpClientService.updateUser(this.userData, 'updateUser').subscribe(	response=>this.userData=response
+		this.httpClientService.updateUser(this.userData, 'updateUser').subscribe(	
+			response=>{
+				this.userData.cloneUserData(response);
+				
+			   }
 		);
 	  }
 	ngAfterViewInit(){
@@ -240,6 +244,7 @@ else{
 
  
 openGameOverDialog() {
+	this.httpClientService.loadAds("loadAd2").subscribe();
 	var self=this;
     this.dialog.open(GameOver, {
       data: self.coins,
@@ -278,6 +283,7 @@ openGameOverDialog() {
 	});
   }
   openSuccessDailog(){
+	this.httpClientService.loadAds("loadAd2").subscribe();
 	if(this.totalLevel<=this.httpClientService.level){
 		this.openCategoryCompleteddialog();
 			}

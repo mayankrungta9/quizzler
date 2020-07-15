@@ -107,7 +107,10 @@ return this.obstacle.filter(x=>x==index).length >0 ?true :false;
 	if(this.level+1 >this.currentUnlockedLevel){
 		this.httpClientService.saveUserCategoryLevel(this.userCategoryData).subscribe();
 	}
-		this.httpClientService.updateUser(this.userData, 'updateUser').subscribe(	response=>this.userData=response
+		this.httpClientService.updateUser(this.userData, 'updateUser').subscribe(		response=>{
+			this.userData.cloneUserData(response);
+			
+		   }
 		);
 	  }
 	  
@@ -327,6 +330,7 @@ this.openGameOverDialog();
 	});
   }
    openGameOverDialog() {
+	   this.httpClientService.loadAds("loadAd2").subscribe();
     this.dialog.open(GameOver, {
       data: this.coins,
 	  height: '50%',
@@ -345,6 +349,7 @@ this.openGameOverDialog();
   }
 
 openSuccessDailog(){
+	this.httpClientService.loadAds("loadAd2").subscribe();
 	if(this.totalLevel<=this.httpClientService.level){
 		this.openCategoryCompleteddialog();
 			}
