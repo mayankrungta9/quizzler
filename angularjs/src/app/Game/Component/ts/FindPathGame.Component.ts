@@ -104,7 +104,7 @@ return this.obstacle.filter(x=>x==index).length >0 ?true :false;
 		
 	this.userData.coins+=this.coins;
 	this.coins=0;
-	if(this.level+1 >this.currentUnlockedLevel){
+	if(this.currentUnlockedLevel<this.userCategoryData.level){
 		this.httpClientService.saveUserCategoryLevel(this.userCategoryData).subscribe();
 	}
 		this.httpClientService.updateUser(this.userData, 'updateUser').subscribe(		response=>{
