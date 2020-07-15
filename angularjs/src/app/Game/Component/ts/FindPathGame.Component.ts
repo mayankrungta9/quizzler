@@ -86,8 +86,9 @@ ngOnInit() {
 	this.totalLevel = +this.activatedrouter.snapshot.paramMap.get('totalLevel');
 	this.level=this.httpClientService.level;
 	this.currentUnlockedLevel = +this.activatedrouter.snapshot.paramMap.get('currentUnlockedLevel');
-	
+	console.log("currentUnlockedLevel"+this.currentUnlockedLevel);
 	this.userName = this.userData.userId;
+	this.userCategoryData = new UserCategoryData(this.userName, 11, this.httpClientService.level);
 	 this.loadLevel();
   
 	}
@@ -100,11 +101,13 @@ return this.obstacle.filter(x=>x==index).length >0 ?true :false;
 	}
 
 	saveUserProgress() {
-		this.userCategoryData = new UserCategoryData(this.userName, this.categoryId, this.level+1);
+		this.userCategoryData.level = this.httpClientService.level;
 		
 	this.userData.coins+=this.coins;
 	this.coins=0;
-	if(this.currentUnlockedLevel<this.userCategoryData.level){
+	console.log("this.currentUnlockedLevel"+this.currentUnlockedLevel);
+	console.log("this.currentUnlockedLevel"+this.currentUnlockedLevel);
+	if(this.currentUnlockedLevel<this.httpClientService.level ){
 		this.httpClientService.saveUserCategoryLevel(this.userCategoryData).subscribe();
 	}
 		this.httpClientService.updateUser(this.userData, 'updateUser').subscribe(		response=>{
@@ -286,7 +289,7 @@ this.isObstacleVisible=true;
 		else {
 			
 			
-			this.saveUserProgress();
+			//this.saveUserProgress();
 			if(this.rightAnswer>=this.totalQuestion/2)
 			{
 				if(this.userData.userId==null || this.userData.userId==''){
@@ -336,7 +339,7 @@ this.openGameOverDialog();
 	  height: '50%',
   width: '95%',
     }).afterClosed().subscribe(response => {
-		this.saveUserProgress();
+		//this.saveUserProgress();
       if (response === 're-play') {
         setTimeout(() => {
 			this.loadLevel();
@@ -376,14 +379,17 @@ openCategoryCompleteddialog() {
 			width: '95%',
 			disableClose: true,
 		}).afterClosed().subscribe(response => {
+			this.httpClientService.level += 1;
+			this.level = this.httpClientService.level;
+			this.saveUserProgress();
 			if (response == 'continue') {
 				setTimeout(() => {
-					this.httpClientService.level += 1;
-					this.level = this.httpClientService.level;
+					
 					this.loadLevel();
 				}, 1000);
 			}
 			else {
+				this.httpClientService.level+=1;
 				this.router.navigate(['']);
 			}
 		});

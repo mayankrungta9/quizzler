@@ -81,6 +81,8 @@ ngOnInit() {
 	this.currentUnlockedLevel = +this.activatedrouter.snapshot.paramMap.get('currentUnlockedLevel');
 	this.level=this.httpClientService.level;
 	this.totalLevel = +this.activatedrouter.snapshot.paramMap.get('totalLevel');
+	this.userCategoryData = new UserCategoryData(this.userName, 12, this.httpClientService.level);
+	
 	 this.loadGameData();
   
 	}
@@ -109,11 +111,12 @@ ngOnInit() {
 		this.startGameTimer();
 	}
 	saveUserProgress() {
-		this.userCategoryData = new UserCategoryData(this.userName, 12, this.level+1);
-		
+
+		this.userCategoryData.level = this.httpClientService.level;
 	this.userData.coins+=this.coins;
 	this.coins=0;
-	if(this.currentUnlockedLevel<this.userCategoryData.level){
+	
+	if(this.currentUnlockedLevel<this.httpClientService.level ){
 		this.httpClientService.saveUserCategoryLevel(this.userCategoryData).subscribe();
 	}
 		
@@ -251,7 +254,7 @@ openGameOverDialog() {
 	  height: '50%',
   width: '95%',
     }).afterClosed().subscribe(response => {
-		
+		//this.saveUserProgress();
       if (response === 're-play') {
         setTimeout(() => {
 			this.loadNextLevel();
@@ -311,15 +314,17 @@ openSuccessNextLevelDialog(){
   width: '95%',
   disableClose: true,
     }).afterClosed().subscribe(response => {
-		
+		this.httpClientService.level +=1;
+			this.level=this.httpClientService.level;
+		this.saveUserProgress();
       if (response == 'continue') {
         setTimeout(() => {
 			self.isLoaderVisible=true;
-			this.httpClientService.level +=1;
-			this.level=this.httpClientService.level;
+			
           this.loadGameData();
         }, 1000);
       } else {
+		
        this.router.navigate(['' ]);
       }
     });
@@ -392,7 +397,7 @@ if(!myElement.classList.contains('transform')){
 			this.levelCleared=true;
 			this.index=0;
 			this.coins=this.correctSubLevel*10
-			this.saveUserProgress();
+			
 			if(this.correctSubLevel>=this.totalSubLevel){
 				if(this.userData.userId==null || this.userData.userId==''){
 					this.openLoginDialog();

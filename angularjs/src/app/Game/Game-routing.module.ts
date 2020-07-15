@@ -6,7 +6,7 @@ import { GameComponent } from './Game.Component';
 const routes: Routes = [
 
  
-  { path:'games/:userName/:categoryId/:level/:currentUnlockedLevel:/:totalLevel', component: GameComponent},
+  { path:'games/:userName/:categoryId/:level/:currentUnlockedLevel/:totalLevel', component: GameComponent},
   //{ path:'showLiveQuizes/showRanking/:quizId/:categoryId', component: Ranking}
  
 ];
