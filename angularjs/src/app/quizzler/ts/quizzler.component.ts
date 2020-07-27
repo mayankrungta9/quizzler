@@ -160,7 +160,7 @@ isMovingPictureDivVisible = false;
 		this.quizId=+temp[0];
     this.categoryId=+temp[1];
     this.userData.coins-=this.httpClientService.liveQuizCoins;
-    this.httpClientService.updateUser(this.userData, 'updateUser').subscribe(	response=>this.userData=response
+    this.httpClientService.updateUser(this.userData, 'updateUser').subscribe(	response=>this.userData.cloneUserData(response)
       );
 	}
 	else {
@@ -213,8 +213,8 @@ setUserData(){
   }
 
 openLoginDialog() {
-var self=this;
-var coins=self.userData.coins;
+//var self=this;
+var coins=this.userData.coins;
   this.dialog.open(LoginComponent,{
   height: '75%',
   width: '95%',
@@ -223,12 +223,13 @@ var coins=self.userData.coins;
     if (response != null) {
      
       console.log(coins+"coins before login");
-      self.userData.cloneUserData(response);
-      self.userData.coins=coins;
+      console.log(this.userData);
+      this.userData.cloneUserData(response);
+      this.userData.coins=coins;
 	  
-      self.userCategoryData.userId=response.userId;
+      this.userCategoryData.userId=response.userId;
 	
-      self.openSuccessDialog();
+      this.openSuccessDialog();
 	
     } else {
       console.log("sorry wrong credential");
@@ -263,7 +264,7 @@ openOfflineQuizDialog(){
     });
 }
   openSuccessDialog() {
-    this.httpClientService.loadAds("loadAd2").subscribe();
+    
    if(!this.isLiveQuiz)
    {
     if(this.totalLevel<=this.httpClientService.level){
@@ -290,14 +291,15 @@ this.openCategoryCompleteddialog();
     });
   }
   openGameOverDialog() {
-    this.httpClientService.loadAds("loadAd2").subscribe();
+    
     this.dialog.open(GameOver, {
       data: this.userData.coins,
 	  height: '50%',
   width: '95%',
   disableClose: true,
     }).afterClosed().subscribe(response => {
-		//this.saveUserProgress();
+    //this.saveUserProgress();
+    this.httpClientService.loadAds("loadAd2").subscribe();
       if (response === 're-play') {
         setTimeout(() => {
           this.loadQuiz();
@@ -315,6 +317,7 @@ this.openCategoryCompleteddialog();
     width: '95%',}).afterClosed().subscribe(response => {
       if (response == 'yes') {
         this.userData.coins -= 20;
+        this.httpClientService.loadAds("loadAd1").subscribe();
         setTimeout(() => {
           this.next();
         }, 1000);
@@ -448,7 +451,10 @@ this.openCategoryCompleteddialog();
 	  this.ifAudioAutoPlay=false;
   }
   
-	 
+	 showHint(){
+    this.httpClientService.loadAds("loadAd1").subscribe();
+     this.isHintVisible=true;
+   }
   
   private setEmojiButtonOption() {
     this.isHintVisible=false;
@@ -677,6 +683,7 @@ wrongAnswer(selectedAnswer) {
         this.openLoginDialog();
       }
       else {
+        this.httpClientService.loadAds("loadAd2").subscribe();
         this.openSuccessDialog();
         
       } 
@@ -817,6 +824,7 @@ if(   !this.isemojiBoxVisible)
           this.openLoginDialog();
         }
         else {
+          this.httpClientService.loadAds("loadAd2").subscribe();
           this.openSuccessDialog();
           
         } 

@@ -41,6 +41,7 @@ import { SocialLoginModule, AuthServiceConfig } from "angularx-social-login";
 import { GoogleLoginProvider, FacebookLoginProvider } from "angularx-social-login";
 import { CategoryCompleted } from './quizzler/ts/categoryCompleted';
 import { privacy } from './quizzler/ts/privacy';
+import { rateMe } from './quizzler/ts/rateMe.component';
  
 let config = new AuthServiceConfig([
  
@@ -87,10 +88,10 @@ function load(http: HttpClient, config: ConfigService): (() => Promise<boolean>)
     AppComponent,reportQues,profilePage,ShowLevel,CategoryCompleted,privacy,
     
         HeaderComponent,HomeComponent,
-    FooterComponent,LoginComponent,saveMe,howto,success,ShowCategory,GameOver,CatchHeroComponent,CrosswordComponent,QuizComponent, ButtonClickDirectiveDirective
+    FooterComponent,LoginComponent,saveMe,rateMe,howto,success,ShowCategory,GameOver,CatchHeroComponent,CrosswordComponent,QuizComponent, ButtonClickDirectiveDirective
   ],
   entryComponents:[
-    reportQues,saveMe,CategoryCompleted,howto
+    reportQues,saveMe,CategoryCompleted,howto,rateMe
     
   ],
   imports: [

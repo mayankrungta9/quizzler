@@ -7,6 +7,8 @@ import { LoginComponent } from '../quizzler/ts/login.component';
 import { CategoryCompleted } from '../quizzler/ts/categoryCompleted';
 import { saveMe } from '../quizzler/ts/saveMe.component';
 import { DOCUMENT } from '@angular/common';
+import { DialogPosition, MatDialog } from '@angular/material/dialog';
+import { rateMe } from '../quizzler/ts/rateMe.component';
 
 @Component({
   selector: 'app-header',
@@ -24,7 +26,8 @@ export class HeaderComponent  {
      public  activatedrouter: ActivatedRoute ,
      public httpClientService:HttpClientService,
    public userData:UserData,
-   public authService: AuthService
+   public authService: AuthService,
+   private dialog: MatDialog,
   ) { }
   ngOnInit() {
    console.log(this.userData);
@@ -41,11 +44,27 @@ export class HeaderComponent  {
 		this.setUserData()
 	 }
     
-	//this.categoryCompleted();
+	//this.openRateMeDialog();
 	
    
   }
-  
+  openRateMeDialog() {
+    
+     this.dialog.open(rateMe,{ height: '30%',
+     
+     disableClose: true,
+     width: '95%',
+    
+    }).afterClosed().subscribe(response => {
+       if (response == 'yes') {
+        window.location.href ="market://details?id=com.quizzler";
+       } else {
+         
+        
+       }
+     });
+     
+   }
 
   setUserData(){
 	   this.httpClientService.loadUserData(this.userData.userId).subscribe(response=>{

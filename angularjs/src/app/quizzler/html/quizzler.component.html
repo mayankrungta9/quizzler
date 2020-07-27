@@ -31,7 +31,7 @@
 		</div>
 			
 		
-			<img  *ngIf="isemojiBoxVisible" src="../../../assets/images/hint.png" (click)="isHintVisible=true" 
+			<img  *ngIf="isemojiBoxVisible" src="../../../assets/images/hint.png" (click)="showHint()" 
 			style="width: 13%;
 			position: absolute;
 			left: 86%;
@@ -70,8 +70,8 @@
 					<source src={{videoSource1}} type="video/mp4">
 					Your browser does not support HTML5 video.
 				</video>
-				<button id='audioPlay' style="position: relative;    top: -18%;"(click)='playVideoMedia()' [ngClass]="{'hideButton':ifAudioAutoPlay}"> play </button>
-				<button id='audioPlay' style="position: relative;    top: -18%;" (click)='pauseVideoMedia()' [ngClass]="{'hideButton':!ifAudioAutoPlay}"> pause </button>
+				<button id='audioPlay' style="position: relative;    top: -18%;"(click)='playVideoMedia()' [ngClass]="{'hideButton':ifAudioAutoPlay}" *ngIf="false"> play </button>
+				<button id='audioPlay' style="position: relative;    top: -18%;" (click)='pauseVideoMedia()' [ngClass]="{'hideButton':!ifAudioAutoPlay}"  *ngIf="false">  pause </button>
 
 			</div>
 

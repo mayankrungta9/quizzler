@@ -17,6 +17,7 @@ import { profilePage } from './quizzler/ts/profilePage';
 import { ShowLevel } from './quizzler/ts/showLevel';
 import { howto } from './quizzler/ts/howto.component';
 import { privacy } from './quizzler/ts/privacy';
+import { OddOneOut } from './Game/Component/ts/OddOneOut.Component';
 
 const routes: Routes = [
 
@@ -34,7 +35,8 @@ const routes: Routes = [
   { path:'profile', component: profilePage},
   { path:'howto/:categoryId', component: howto},
   {path:'showLevel/:categoryId/:totalLevel/:type/:categoryName',component:ShowLevel},
-  {path:'privacy',component:privacy}
+  {path:'privacy',component:privacy},
+  { path:'games/OddOneOut', component: OddOneOut},
  // { path:'games/:userName/:categoryId/:level', loadChildren: () => import('./Game/Game.module').then(m => m.GameModule) },
   //{ path:'games/:userName/:categoryId/:level', loadChildren:  './Game/Game.module#GameModule' },
 ];

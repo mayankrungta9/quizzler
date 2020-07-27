@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+	<title>Login V3</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="icon" type="image/png" href="/assets/images/icons/favicon.ico"/>
+
+	<link rel="stylesheet" type="text/css" href="/assets/css/util.css">
+	<link rel="stylesheet" type="text/css" href="/assets/css/main.css">
+
+</head>
+
+<!--226e71-->
+<body [ngStyle]="{'background':bgArray[index]}"> 
+
+<div class="overlay" *ngIf="isLoaderVisible">
+<div class="center">
+	<mat-progress-spinner  mode="determinate" color="accent" ></mat-progress-spinner>
+	</div>
+
+</div>
+<img (click)="router.navigate(['howto/12']);"src="../../../assets/images/information.png" style="    width: 10%;
+height: 7%;
+position: absolute;
+top: 12%;
+left: 5%;">
+<div  style="height: 5%;
+padding-top: 8%;
+text-align: center;">
+	<span *ngIf="showMemorizeCard " style="font-size: 24px;
+	font-weight: bold;
+	
+	font-style: italic;
+	
+	color: #0c0c0c;
+	
+	font-family: none;">
+	Memorize Cards
+	</span>
+	<div *ngIf="!isLoaderVisible " class="spinner-position">
+
+		<span  class="spinner-text">{{displayTimer}}</span>
+	<mat-progress-spinner  mode="determinate" strokeWidth="4" value={{progress}}  diameter="60" >
+	
+	</mat-progress-spinner>
+	</div>
+</div>
+
+
+
+<div class='timeup' *ngIf="timeUp" >
+<span>TIME UP</span>	
+</div>
+<div class='game-wrapper' id="game-wrapper"  *ngIf="!levelCleared"  [ngClass]="{'padding-left10':column==2,'padding-left2':column!=2}">
+			<div *ngFor="let data of celebGameDataObj let i = index"  [ngClass]="{'margin-left10':column==2,'margin-leftpx':column!=2}" class="game-dataDiv " [ngStyle]="{'height':height+'px', 'width':width+'px'}" >
+			
+			
+		<div [ngClass]="{'flip-card':!isLoaderVisible}" id="flip-card">
+		  <div class="flip-card-inner transform" id={{i}}  (click)="flipCard($event,i,data.id)">
+			<div class="flip-card-front">
+				<img src="../../../../assets/images/{{cardImgArray[index]}}" class="game-image">
+			</div>
+			<div class=" flip-card-back " id="flip-card-back">
+			  <!--<img src={{data.url}} alt="Avatar" style="width:100%;height:100%;" class="game-image white-border"id='game-img{{i}}'>
+			  -->
+			<img src={{data.url}} alt="Avatar" style="width:100%;height:100%;" class="game-image " [ngClass]="{'white-border':!isLoaderVisible}" id='game-img{{i}}'>
+			
+			</div>
+			
+			
+		  </div>
+		</div>		
+	</div>
+	</div>	
+
+</body>
+</html>

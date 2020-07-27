@@ -32,3 +32,15 @@
     float: left;
 }
 
+.mat-dialog-container {
+    overflow: scroll;
+    background: #f08205;
+    border-color: #e3b711;
+    border-style: solid;
+    border-radius: 20px;
+    border-width: 12px;
+    padding: 14px;
+    min-height: 10px;
+    max-height: 20%;
+    overflow: hidden;
+}

@@ -9,7 +9,7 @@ import { GameComponent } from './Game.Component';
 import { GameRoutingModule } from './Game-routing.module';
 import {FindPathGameComponent} from './Component/ts/FindPathGame.Component';
 import {FindPairGameComponent} from './Component/ts/FindPairGame.Component';
-
+import {OddOneOut} from './Component/ts/OddOneOut.Component';
 @Injectable({
   providedIn: 'root'
 })
@@ -18,13 +18,13 @@ import {FindPairGameComponent} from './Component/ts/FindPairGame.Component';
 @NgModule({
   declarations: [ 
     FindPathGameComponent,FindPairGameComponent,
-    GameComponent
+    GameComponent,OddOneOut
   ],
   
   imports: [
     GameRoutingModule,MatProgressSpinnerModule,CommonModule,
   ],
   
-  exports:[FindPathGameComponent,FindPairGameComponent]
+  exports:[FindPathGameComponent,FindPairGameComponent,OddOneOut]
 })
 export class GameModule {}
