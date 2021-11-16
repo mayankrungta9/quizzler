@@ -24,7 +24,7 @@
     "amazon-cognito-identity-js": "^3.2.2",
     "angularx-social-login": "^1.2.7",
     "animate.css": "^3.7.2",
-    "aws-sdk": "~2.610.0",
+    "aws-sdk": "~2.814.0",
     "core-js": "^2.5.4",
     "md-dialog": "0.0.1-alpha.1",
     "ng-image-slider": "^2.4.1",
